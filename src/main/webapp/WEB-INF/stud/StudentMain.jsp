@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=windows-1256"
 	pageEncoding="windows-1256"%>
 
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html">
 <html>
-<head>
 
-<script>
-	
-</script>
+<head>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
 <title>Course Selection</title>
@@ -66,15 +63,16 @@ body {
 </head>
 
 <body>
-	<c:if test="${err == '1'}">
-		<h4 align="center">error : ${errMessage}</h4>
-	</c:if>
-	<h3 style="text-align: center">Student Name : ${name}</h3>
-	<br>
 
-	<h4 style="text-align: center">Selected Offerings</h4>
-	<table align="center" class="success">
-		<tr>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h3 align="center">Welcome !<%=request.getSession().getAttribute("name")%></h3>
+	<br>
+	<h4 align="center">Term In Progress Offerings :</h4>
+	<table align="center">
+		<tr class="success">
 			<th style="width: 10px">ID</th>
 			<th style="width: 240px">Course</th>
 			<th style="width: 30px">Units</th>
@@ -83,29 +81,30 @@ body {
 			<th style="width: 140px">Exam Date</th>
 			<th style="width: 140px">Remain Capacity</th>
 			<th style="width: 100px">Capacity</th>
-			<th style="width: 150px">Action</th>
 		</tr>
 		<c:forEach var="offer" items="${inProgressOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
 				</c:forEach>
-				<td>
-					<form style="text-align: center" action="Withdraw.action"
-						method="POST">
-						<input type="hidden" name="sid" value="${sid}"> <input
-							class="btn-custom" type="submit" value="Withdraw" /> <input
-							type="hidden" name="withdraw" value="${offer}">
-					</form>
-				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br>
-	<form style="text-align: center" action="Withdraw.action" method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			class="btn-custom" type="submit" value="home" /><input type="hidden"
-			name="choice" value="home">
+	<br>
+	<br>
+	<form style="text-align: center" action="/bagh/stud/CourseSelect.jsp" method="POST"> 
+		<input type="hidden" name="choice" value="CourseSelect">
+		<input class="btn-custom" type="submit" value="Course select">
 	</form>
+	<br>
+	<form style="text-align: center" action="/bagh/stud/Withdraw.jsp" method="POST">
+		<input type="hidden" name="choice" value="Withdraw">
+		<input class="btn-custom" type="submit" value="Withdraw">
+	</form>
+
+	<c:if test="${err == '1'}">
+		<h4 align="center">${errMessage}</h4>
+	</c:if>
 </body>
 </html>

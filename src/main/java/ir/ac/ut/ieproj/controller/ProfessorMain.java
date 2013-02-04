@@ -16,16 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ProfessorMain {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("ProfessorMain.java : ");
+		System.out.println("ProfessorMain.java start .");
 		Professor p = null;
 		Term t = null;
 		try {
-			String sid = request.getParameter("sid");
-			System.out.println("sid in ProfessorMain : "+sid);
-			p = Department.getProfessor(Integer.parseInt(sid));
+			p = Department.getProfessor(Integer.parseInt(request.getUserPrincipal().getName()));
 			t = DBConnector.getCurrentTerm();
-			String choice = request.getParameter("choice");
-			request.setAttribute("sid", p.getId());
+			/*String choice = request.getParameter("choice");
 			request.setAttribute("name", p.getFirstName()+" "+p.getLastName());
 			if(choice != null && choice.equals("submitGrade")) {
 				System.out.println("choice for submitGrade .");
@@ -58,7 +55,8 @@ public class ProfessorMain {
 					request.setAttribute("err", 0);
 					return "withdraw-response-list.jsp";
 				}
-			}
+				
+			}*/
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,6 +71,7 @@ public class ProfessorMain {
 		request.setAttribute("teachingOffers", t.teachingOfferings(p));
 		request.setAttribute("err", "1");
 		request.setAttribute("errMessage", "Unknown Error ... ");
-		return "professor-main.jsp";
+		
+		return "/WEB-INF/prof/ProfessorMain.jsp";
 	}
 }

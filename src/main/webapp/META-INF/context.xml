@@ -20,6 +20,6 @@
          userNameCol="id" 
          userCredCol="password"
          userRoleTable="person" 
-         roleNameCol="role_name"
+         roleNameCol="roleName"
          localDataSource="true"/>
 </Context>

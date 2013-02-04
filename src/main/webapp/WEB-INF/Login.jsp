@@ -30,7 +30,7 @@
 }
 
 body {
-	background-image: url('asb.gif');
+
 }
 </style>
 <meta http-equiv="Content-Type"

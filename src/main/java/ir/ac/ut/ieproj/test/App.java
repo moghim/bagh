@@ -15,7 +15,7 @@ public class App {
 		// Logger.getLogger("").setLevel(org.apache.log4j.Level.WARN);
 		System.out.println("Hello World !");
 		
-		initialize();
+		//initialize();
 
 		// SubSytem Tests :
 

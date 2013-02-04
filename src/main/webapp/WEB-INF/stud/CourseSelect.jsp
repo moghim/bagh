@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
-<title>Professor Home</title>
+<title>Course Selection</title>
 <style>
 .btn-custom {
 	width: 150px;
@@ -62,13 +62,44 @@ body {
 </head>
 
 <body>
+	<c:if test="${err == '1'}">
+		<h4 align="center">error : ${errMessage}</h4>
+	</c:if>
+	<h3 align="center">
+		Student Name :<%=request.getSession().getAttribute("name")%></h3>
 	<br>
+
+	<h4 align="center">Selected Offerings</h4>
+	<table align="center" class="success">
+		<tr>
+			<th style="width: 10px">ID</th>
+			<th style="width: 240px">Course</th>
+			<th style="width: 30px">Units</th>
+			<th style="width: 30px">Time</th>
+			<th style="width: 200px">Teacher Name</th>
+			<th style="width: 140px">Exam Date</th>
+			<th style="width: 140px">Remain Capacity</th>
+			<th style="width: 100px">Capacity</th>
+			<th style="width: 150px">Action</th>
+		</tr>
+		<c:forEach var="offer" items="${inProgressOffers}">
+			<tr>
+				<c:forEach var="off" items="${offer}">
+					<td>${off}</td>
+				</c:forEach>
+				<td>
+					<form style="text-align: center"
+						action="/bagh/stud/CourseSelect.jsp" method="POST">
+						<input class="btn-custom" type="submit" value="drop" /> <input
+							type="hidden" name="drop" value="${offer}">
+					</form>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
 	<br>
-	<br>
-	<br>
-	<h3 align="center">Welcome ${name} !</h3>
-	<br>
-	<h4 align="center">Term In Progress Offerings :</h4>
+
+	<h4 align="center">Term Offerings</h4>
 	<table align="center">
 		<tr class="success">
 			<th style="width: 10px">ID</th>
@@ -79,34 +110,25 @@ body {
 			<th style="width: 140px">Exam Date</th>
 			<th style="width: 140px">Remain Capacity</th>
 			<th style="width: 100px">Capacity</th>
+			<th style="width: 20px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${teachingOffers}">
+		<c:forEach var="offer" items="${otherOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
 				</c:forEach>
+				<td>
+					<form style="text-align: center" action="/bagh/stud/CourseSelect.jsp" method="POST">
+						<input class="btn-custom" type="submit" value="take" />
+						<input type="hidden" name="take" value="${offer}">
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br>
-	<br>
-	<br>
-	<form style="text-align: center" action="ProfessorMain.action"
-		method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			type="hidden" name="choice" value="submitGrade"> <input
-			class="btn-custom" type="submit" value="Submit Garde">
+	<form style="text-align: center" action="/bagh/stud/StudentMain.jsp" method="POST">
+		<input class="btn-custom" type="submit" value="home" />
 	</form>
-	<br>
-	<form style="text-align: center" action="ProfessorMain.action"
-		method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			type="hidden" name="choice" value="withdraw"> <input
-			class="btn-custom" type="submit" value="Withdraw Response">
-	</form>
-
-	<c:if test="${hasError == '1'}">
-		<h4 align="center">${errMessage}</h4>
-	</c:if>
 </body>
 </html>

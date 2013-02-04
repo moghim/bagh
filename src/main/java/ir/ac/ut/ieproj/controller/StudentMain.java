@@ -1,15 +1,5 @@
 package ir.ac.ut.ieproj.controller;
-/*
-import java.util.Date;
 
-import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
-import ir.ac.ut.iecommon.time.Clock;
-import ir.ac.ut.ieproj.database.DBConnector;
-import ir.ac.ut.ieproj.domain.Department;
-import ir.ac.ut.ieproj.domain.Student;
-import ir.ac.ut.ieproj.domain.Term;
-import ir.ac.ut.ieproj.exception.termNotFoundException;
- */
 import ir.ac.ut.ieproj.domain.Department;
 import ir.ac.ut.ieproj.domain.Student;
 import ir.ac.ut.ieproj.domain.Term;
@@ -22,24 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 public class StudentMain {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		
-			request.setAttribute("hasError", 0);
-			try {
-				Term t = Department.getCurrentTerm();
-				Student s = (Student) Department.getPerson(Integer.parseInt(request.getUserPrincipal().getName()));
-				request.setAttribute("inProgressOffers", t.inProgressOfferings(s));
-			} catch (termNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (PersonNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
-		return "Login.jsp";
+
+		System.out.println("StudentMain controller : ");
+		request.setAttribute("hasError", 0);
+		if(request.getUserPrincipal()==null) {
+			System.out.println("principle was null .");
+			return "StudentMain.jsp";
+		}
+		try {
+			Term t = Department.getCurrentTerm();
+			Student s = (Student) Department.getPerson(Integer.parseInt(request.getUserPrincipal().getName()));
+			//System.out.println("num:"+t.inProgressOfferings(s).size());
+			request.setAttribute("inProgressOffers", t.inProgressOfferings(s));
+		} catch (termNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PersonNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "/WEB-INF/stud/StudentMain.jsp";
 
 		/*
 		System.out.println("StudentMain.java : ");

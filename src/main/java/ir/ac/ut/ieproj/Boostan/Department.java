@@ -20,19 +20,7 @@ import ir.ac.ut.ieproj.DeptRepo;
 import java.util.Date;
 import java.util.Vector;
 
-//import javax.swing.plaf.metal.MetalIconFactory.FolderIcon16;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-//import javax.xml.bind.annotation.XmlType;
 
-//import org.omg.CORBA.Current;
-//import org.omg.CORBA.SystemException;
-// Payam is gav
-
-@XmlRootElement(name = "dept")
-//@XmlType(propOrder = {"name", "courses", "programs", "professors"})
 public class Department implements DepartmentI{
 
 	private Department() throws DeptLoadException {
@@ -369,7 +357,6 @@ public class Department implements DepartmentI{
 	public String getName() {
 		return name;
 	}
-	@XmlAttribute
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -382,24 +369,18 @@ public class Department implements DepartmentI{
 	public Vector<Course> getCourses() {
 		return courses;
 	}
-	@XmlElementWrapper(name = "courses")
-	@XmlElement(name = "course")
 	public void setCourses(Vector<Course> courses) {
 		this.courses = courses;
 	}
 	public Vector<Program> getPrograms() {
 		return programs;
 	}
-	@XmlElementWrapper(name = "programs")
-	@XmlElement(name = "program")
 	public void setPrograms(Vector<Program> programs) {
 		this.programs = programs;
 	}
 	public Vector<Professor> getProfessors() {
 		return professors;
 	}
-	@XmlElementWrapper(name = "profs")
-	@XmlElement(name = "prof")
 	public void setProfessors(Vector<Professor> professors) {
 		this.professors = professors;
 	}

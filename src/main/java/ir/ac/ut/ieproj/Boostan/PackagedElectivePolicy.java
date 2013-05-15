@@ -1,11 +1,6 @@
 package ir.ac.ut.ieproj.Boostan;
 import java.util.Vector;
 
-import javax.xml.bind.annotation.XmlElement;
-//import javax.xml.bind.annotation.XmlRootElement;
-
-
-//@XmlRootElement(name="electivePolicy")
 public class PackagedElectivePolicy extends ElectivePolicy {
 
 	private Vector<Package> packages = new Vector<Package>();
@@ -13,7 +8,6 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 	public Vector<Package> getPackages() {
 		return packages;
 	}
-	@XmlElement
 	public void setPackages(Vector<Package> packages) {
 		this.packages = packages;
 	}

@@ -39,6 +39,7 @@ public class Department implements DepartmentI{
 		// Exists only to defeat instantiation.	
 	}
 	private static Department OneDept = null;
+	@SuppressWarnings("unused")
 	private static SQLConnector sql = null;
 	public static Department getInstance() throws DeptLoadException {
 		//System.out.println("getInstance Department without argument .");

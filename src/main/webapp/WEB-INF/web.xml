@@ -1,0 +1,30 @@
+<web-app version="2.4"
+ xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" >
+	<servlet>
+		<servlet-name>FrontController</servlet-name>
+		<servlet-class>ir.ac.ut.ieproj.controller.FrontController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>FrontController</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+	
+	<context-param>
+    	<param-name>samplePath</param-name>
+    	<param-value>sample.xml</param-value>
+	</context-param>
+	
+	<context-param>
+    	<param-name>user</param-name>
+    	<param-value>payam</param-value>
+	</context-param>
+	
+	<context-param>
+    	<param-name>password</param-name>
+    	<param-value>123</param-value>
+	</context-param>
+	
+</web-app>

@@ -5,7 +5,7 @@ import ir.ac.ut.ieproj.Boostan.Department;
 //import ir.ac.ut.iecommon.exceptions.DeptSaveException;
 
 /**
- * Hello world!
+ *salam!
  *
  */
 public class App 

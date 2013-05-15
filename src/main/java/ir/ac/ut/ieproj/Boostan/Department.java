@@ -38,7 +38,6 @@ public class Department implements DepartmentI{
 	private Department() throws DeptLoadException {
 		// Exists only to defeat instantiation.	
 	}
-	// sample comment for merging and payam is khar
 	private static Department OneDept = null;
 	@SuppressWarnings("unused")
 	private static SQLConnector sql = null;

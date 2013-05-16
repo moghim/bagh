@@ -14,9 +14,8 @@ import ir.ac.ut.iecommon.exceptions.TakeException;
 import ir.ac.ut.iecommon.exceptions.WithdrawException;
 import ir.ac.ut.iecommon.interfaces.DepartmentI;
 import ir.ac.ut.iecommon.time.Clock;
-import ir.ac.ut.ieproj.DeptRepo;
+import ir.ac.ut.ieproj.database.DBConnector;
 
-//import java.sql.Time;
 import java.util.Date;
 import java.util.Vector;
 
@@ -27,8 +26,6 @@ public class Department implements DepartmentI{
 		// Exists only to defeat instantiation.	
 	}
 	private static Department OneDept = null;
-	@SuppressWarnings("unused")
-	private static SQLConnector sql = null;
 	public static Department getInstance() throws DeptLoadException {
 		//System.out.println("getInstance Department without argument .");
 		/*if(OneDept == null) {
@@ -41,14 +38,10 @@ public class Department implements DepartmentI{
 	public static Department getInstance(String path, String user, String password) throws DeptLoadException {
 		//System.out.println("getInstance Department with argument : "+path);
 		if(OneDept == null) {
-			DeptRepo d = new DeptRepo();
-			//System.out.println("Department was null and was created .");
-			sql = new SQLConnector(user, password);
-			OneDept = (Department)d.load(path);
+			OneDept = new Department();
 		}
 		return OneDept;
 	}
-	//my comment
 	private String name;
 	private Vector<Student> students = new Vector<Student>();
 	private Vector<Course> courses = new Vector<Course>();
@@ -125,8 +118,8 @@ public class Department implements DepartmentI{
 				e.printStackTrace();
 			}
 			findSt.deleteRecord(offeringID);
-			SQLConnector.studentDeleteRecord(StudentID, offeringID);
-			SQLConnector.increaseRemainCapacity(offeringID);
+			DBConnector.studentDeleteRecord(StudentID, offeringID);
+			DBConnector.increaseRemainCapacity(offeringID);
 		}
 		else {
 			throw new DropException("Error from drop function: drop in wrong time. ");
@@ -249,8 +242,8 @@ public class Department implements DepartmentI{
 				e.printStackTrace();
 			}
 			findSt.addRecord(offeringID);
-			SQLConnector.studentAddRecord(StudentID, offeringID);
-			SQLConnector.decreaseRemainCapacity(offeringID);
+			DBConnector.studentAddRecord(StudentID, offeringID);
+			DBConnector.decreaseRemainCapacity(offeringID);
 			//System.out.println("take : success : StudentID="+StudentID+",offeringID="+offeringID+"#");
 			//System.out.println("take : success : has offering 4="+findSt.hasOffering("4"));
 			return;
@@ -292,7 +285,7 @@ public class Department implements DepartmentI{
 				return t;
 		}*/
 		try {
-			return SQLConnector.getOfferingTerm(offeringID);
+			return DBConnector.getOfferingTerm(offeringID);
 		} catch (Exception e) {
 			System.out.println("term not found Exception .!.!.");
 			e.printStackTrace();
@@ -314,7 +307,7 @@ public class Department implements DepartmentI{
 		}
 		return null;*/
 		try {
-			return SQLConnector.getOffering(OfferingID);
+			return DBConnector.getOffering(OfferingID);
 		} catch (OfferingNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -329,7 +322,7 @@ public class Department implements DepartmentI{
 		*/
 		try {
 			//System.out.println("findStudent come .");
-			return SQLConnector.getStudent(studentID);
+			return DBConnector.getStudent(studentID);
 		} catch (StudentNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -351,7 +344,7 @@ public class Department implements DepartmentI{
 			if (in.getStartDate().before(now) && in.getEndDate().after(now))
 				return in;
 		}*/
-		return SQLConnector.getCurrentTerm();
+		return DBConnector.getCurrentTerm();
 	}
 
 	public String getName() {

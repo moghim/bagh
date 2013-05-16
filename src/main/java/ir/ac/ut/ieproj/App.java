@@ -1,20 +1,10 @@
 package ir.ac.ut.ieproj;
 
-import ir.ac.ut.ieproj.Boostan.Department;
-
-//import ir.ac.ut.iecommon.exceptions.DeptSaveException;
-
-/**
- *salam!
- *
- */
 public class App 
 {
     public static void main( String[] args ) throws Exception
     {
-		DeptRepo dr = new DeptRepo();
-		Department d = (Department) dr.load("sample.xml");
-		
+    	
 		//System.out.println("department name : "+d.getName());
 		
 		// date = "04-02-2013"
@@ -35,7 +25,5 @@ public class App
 		//d.checkDegreeReq("810190420");
 		
 		//System.out.println("\n");
-		
-		dr.save(d,"output.xml");
     }
 }

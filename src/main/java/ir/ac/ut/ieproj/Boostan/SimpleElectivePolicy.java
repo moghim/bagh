@@ -1,13 +1,13 @@
 package ir.ac.ut.ieproj.Boostan;
 
 import java.util.Vector;
-//import javax.xml.bind.annotation.XmlRootElement;
 
-//@XmlRootElement(name="electivePolicy")
 public class SimpleElectivePolicy extends ElectivePolicy {
 
 	@Override
 	public boolean ispass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s) {
+		// TODO
+		/*
 		for (String man : mandatories){
 			boolean find = false;
 			
@@ -48,10 +48,13 @@ public class SimpleElectivePolicy extends ElectivePolicy {
 			if (gr < 2)
 				return true;
 		} 
+		*/
 		return false;
 	}
 	@Override
 	public boolean canPass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s,Course co) {
+		// TODO
+		/*
 		for (String man :mandatories){
 			if (man.equals(co.getId())){
 				return true;
@@ -81,7 +84,6 @@ public class SimpleElectivePolicy extends ElectivePolicy {
 			}
 			if (find==true)
 				numofel++;
-			
 		}
 		float avg=s.getLastTermAverage(dep);
 		if (isFindInEl&&numofel<5){
@@ -90,8 +92,7 @@ public class SimpleElectivePolicy extends ElectivePolicy {
 			if (gr<2)
 				return true;
 		} 
-		return false;
-		
+		*/
+		return false;	
 	}
-
 }

@@ -42,7 +42,7 @@ public class StudentLogin {
 			Offering o = d.findCurrentTerm().getOfferings().get(i);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
-			temp.add(o.getId());
+			temp.add(Integer.toString(o.getId()));
 			temp.add(d.findCourse(o.getCourse()).getName());		
 			temp.add(Integer.toString(d.findCourse(o.getCourse()).getUnits()));
 			temp.add(Integer.toString(o.getTime()));
@@ -51,7 +51,7 @@ public class StudentLogin {
 			temp.add(Integer.toString(o.findRemainCapacity()));
 			temp.add(Integer.toString(o.getCapacity()));
 			//System.out.println("in for in student login : offering id="+o.getId()+" status: "+((s.inProgressOffering(o.getId()))?"INPROGRESS":"ELSE"));
-			if (s.inProgressOffering(o.getId()))
+			if (s.inProgressOffering(Integer.toString(o.getId())))
 				dataInprogress.add(temp);
 			else
 				data.add(temp);

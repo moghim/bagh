@@ -1,11 +1,15 @@
 package ir.ac.ut.ieproj;
 
+import ir.ac.ut.ieproj.Boostan.*;
+import ir.ac.ut.ieproj.database.HibernateUtil;
+
+import org.hibernate.Session;
+
 public class App 
 {
     public static void main( String[] args ) throws Exception
     {
-    	
-		//System.out.println("department name : "+d.getName());
+    	initialize();
 		
 		// date = "04-02-2013"
 		//d.take("810190421", "8");
@@ -26,4 +30,12 @@ public class App
 		
 		//System.out.println("\n");
     }
+
+	private static void initialize() {
+		Student s1 = new Student();
+		
+		Session session = (Session) HibernateUtil.getSessionFactory();
+		session.beginTransaction();
+		session.save(s1);
+	}
 }

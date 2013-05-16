@@ -22,26 +22,9 @@ import java.util.Vector;
 
 public class Department implements DepartmentI{
 
-	private Department() throws DeptLoadException {
-		// Exists only to defeat instantiation.	
-	}
+	
 	private static Department OneDept = null;
-	public static Department getInstance() throws DeptLoadException {
-		//System.out.println("getInstance Department without argument .");
-		/*if(OneDept == null) {
-			DeptRepo d = new DeptRepo();
-			//System.out.println("Department was null and was created .");
-			OneDept = (Department)d.load("sample.xml");
-		}*/
-		return OneDept;
-	}
-	public static Department getInstance(String path, String user, String password) throws DeptLoadException {
-		//System.out.println("getInstance Department with argument : "+path);
-		if(OneDept == null) {
-			OneDept = new Department();
-		}
-		return OneDept;
-	}
+	
 	private String name;
 	private Vector<Student> students = new Vector<Student>();
 	private Vector<Course> courses = new Vector<Course>();
@@ -49,6 +32,15 @@ public class Department implements DepartmentI{
 	private Vector<Term> terms = new Vector<Term>();
 	private Vector<Professor> professors = new Vector<Professor>();
 
+	public static Department getInstance() throws DeptLoadException {
+		if (OneDept == null)
+			OneDept = new Department();
+		return OneDept;
+	}
+	private Department() throws DeptLoadException {
+		// Exists only to defeat instantiation.	
+	}
+	
 	@Override
 	public void acceptWithdraw(String studentID, String offeringID, String professorID)
 			throws AcceptWithdrawException, StudentNotFoundException,
@@ -67,7 +59,7 @@ public class Department implements DepartmentI{
 			throw new ProfNotFoundException("Professor with id "+professorID+" not found .");
 		if(t==null)
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to any term .");
-		if(!t.getId().equals(findCurrentTerm().getId()))
+		if(t.getId() != findCurrentTerm().getId())
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to this term .");
 		if(!s.hasOffering(offeringID))
 			throw new OfferingNotFoundException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
@@ -100,7 +92,7 @@ public class Department implements DepartmentI{
 			throw new OfferingNotFoundException("Error from drop function: Offering with id "+offeringID+" not found .");
 		Date now = new Date(Clock.getCurrentTimeMillis());
 		Term CurrentTerm = findCurrentTerm();
-		if (!(CurrentTerm.getId().equals(findOfTerm.getId())))
+		if (CurrentTerm.getId() != findOfTerm.getId())
 			throw new DropException("Error from drop function: offering with id "+ offeringID +" has not taken in current term .");
 		if(!findSt.hasOffering(offeringID)) {
 			//System.out.println("drop : has Offering Exception : offeringID="+offeringID+",studentID="+StudentID+",hasOffering 4="+findSt.hasOffering("4")+"#");
@@ -142,7 +134,7 @@ public class Department implements DepartmentI{
 			throw new ProfNotFoundException("Professor with id "+professorID+" not found .");
 		if(t==null)
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to any term .");
-		if(!t.getId().equals( findCurrentTerm().getId()))
+		if(t.getId() != findCurrentTerm().getId())
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to this term .");
 		if(!s.hasOffering(offeringID))
 			throw new OfferingNotFoundException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
@@ -171,7 +163,7 @@ public class Department implements DepartmentI{
 		if (!findOf.getProfessor().equals(ProfID))
 			throw new SubmitGradeException("Error from submitGrade function: not same professor to submit this grade .");
 		Term findOfTerm=findOfferingTerm(OfferingID);
-		if (!findOfTerm.getId().equals(CurrentTerm.getId()))
+		if (findOfTerm.getId() != CurrentTerm.getId())
 			throw new SubmitGradeException("Error from submitGrade function: this offering is not belong to currnet term .");
 		if (!findSt.hasOffering(OfferingID))
 			throw new SubmitGradeException("Error from submitGrade function: this student has not taken this offering .");
@@ -202,9 +194,9 @@ public class Department implements DepartmentI{
 		if(CurrentTerm == null)
 			throw new TakeException("Error from take function: Term not found .");
 		//System.out.println("currentTerm: #"+CurrentTerm.getId()+"# offering term : #"+findOfferingTerm(offeringID).getId()+"#");
-		if(!CurrentTerm.getId().equals(findOfferingTerm(offeringID).getId()))
+		if(CurrentTerm.getId() != findOfferingTerm(offeringID).getId())
 			throw new TakeException("Error from take function: you can't take an offering which is not in this term .");
-		if (findSt.isPassedCourse(findCo.getId(), this))
+		if (findSt.isPassedCourse(Integer.toString(findCo.getId()), this))
 			throw new TakeException("Error from take function: you can't take a course which you have passed before .");
 		if (findSt.inProgressOffering(offeringID)){
 			throw new TakeException("Error from take function: you can't take a course which is in progress before .");
@@ -264,7 +256,7 @@ public class Department implements DepartmentI{
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" not found .");
 		if(t==null)
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to any term .");
-		if(!t.getId().equals(findCurrentTerm().getId()))
+		if(t.getId() != findCurrentTerm().getId())
 			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to this term .");
 		if(!s.hasOffering(offeringID))
 			throw new OfferingNotFoundException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
@@ -294,7 +286,7 @@ public class Department implements DepartmentI{
 	}
 	public Professor findProf(String profID){
 		for (Professor pr :professors){
-			if (pr.getId().equals(profID))
+			if (pr.getId() == Integer.parseInt(profID))
 				return pr;
 		}
 		return null;
@@ -330,12 +322,11 @@ public class Department implements DepartmentI{
 	}
 	public Course findCourse(String CourseID){
 		for (Course c :courses ){
-			if (c.getId().equals(CourseID))
+			if (c.getId() == Integer.parseInt(CourseID))
 				return c;
 		}
 		return null;
 	}
-
 	public Term findCurrentTerm() {
 		/*Date now = new Date (Clock.getCurrentTimeMillis());
 		System.out.println("current time : "+now);

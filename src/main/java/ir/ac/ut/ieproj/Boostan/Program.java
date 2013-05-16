@@ -4,16 +4,32 @@ import java.util.Vector;
 
 public class Program {
 	
-	private String id;
+	private int id;
 	private String name;
 	private Vector<String> mandatories = new Vector<String>();
 	private Vector<String> electives = new Vector<String>();
 	private ElectivePolicy electivePolicy;
 	
-	public String getId() {
+	public Program() {
+	}
+	public Program(String name, Vector<String> mandatories,
+			Vector<String> electives, ElectivePolicy electivePolicy) {
+		super();
+		this.name = name;
+		this.mandatories = mandatories;
+		this.electives = electives;
+		this.electivePolicy = electivePolicy;
+	}
+	public boolean canPass(Department dep,Student s,Course co) {
+		return electivePolicy.canPass(dep, mandatories, electives, s, co);
+	}
+	public boolean isPass(Department dep,Student s) {
+		return electivePolicy.ispass(dep, mandatories, electives, s);
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -39,12 +55,5 @@ public class Program {
 	}
 	public void setElectivePolicy(ElectivePolicy electivePolicy) {
 		this.electivePolicy = electivePolicy;
-	} 
-	public boolean canPass(Department dep,Student s,Course co) {
-		return electivePolicy.canPass(dep, mandatories, electives, s, co);
-	}
-	public boolean isPass(Department dep,Student s) {
-		return electivePolicy.ispass(dep, mandatories, electives, s);
-	}
-	
+	} 	
 }

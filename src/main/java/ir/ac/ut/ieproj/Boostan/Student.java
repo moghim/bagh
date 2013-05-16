@@ -5,32 +5,30 @@ import java.util.Vector;
 
 public class Student {
 	
-	private String id;
+	private int id;
 	private String firstName;
 	private String lastName;
-	private String program;
+	private Program program;
 	private Vector<StudyRecord> studyRecord = new Vector<StudyRecord>();
+	
 	public Student(){
 	}
-	public Student(String id, String firstName, String lastName,
-			String program, Vector<StudyRecord> studyRecord) {
-		super();
-		this.id = id;
+	public Student(String firstName, String lastName,
+			Vector<StudyRecord> studyRecord) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.program = program;
 		this.studyRecord = studyRecord;
 	}
-	public String getProgram() {
+	public Program getProgram() {
 		return program;
 	}
-	public void setProgram(String program) {
+	public void setProgram(Program program) {
 		this.program = program;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -53,42 +51,57 @@ public class Student {
 	}
 	
 	public void addRecord(String offeringID){
-		StudyRecord sr = new StudyRecord();
+		// TODO
+		/*
+		 
 		sr.setOffering(offeringID);
 		sr.setStatus(StudyStatus.INPROGRESS);
 		studyRecord.add(sr);
+		*/
 	}
 	public void deleteRecord(String offeringID){
+		// TODO
+		/*
 		for (int i=0;i<studyRecord.size();i++){
 			if (studyRecord.get(i).getOffering().equals(offeringID)){
 				studyRecord.remove(i);
 				break;
 			}
 		}
+		*/
 	}
 	public void changeRecordToWithrawn(String offeringID) {
+		// TODO
+		/*
 		for (int i=0;i<studyRecord.size();i++){
 			if (studyRecord.get(i).getOffering().equals(offeringID)){
 				studyRecord.get(i).setStatus(StudyStatus.WITHRAW);
 				break;
 			}
 		}
+		*/
 	}
 	public void changeRecordToWaitingForWithraws(String offeringID) {
+		// TODO
+		/*
 		for (int i=0;i<studyRecord.size();i++){
 			if (studyRecord.get(i).getOffering().equals(offeringID)){
 				studyRecord.get(i).setStatus(StudyStatus.WAITINGFORWITHRAWACCEPT);
 				break;
 			}
 		}
+		*/
 	}
 	public void changeRecordToInProgress(String offeringID) {
+		// TODO
+		/*
 		for (int i=0;i<studyRecord.size();i++){
 			if (studyRecord.get(i).getOffering().equals(offeringID)){
 				studyRecord.get(i).setStatus(StudyStatus.INPROGRESS);
 				break;
 			}
 		}
+		*/
 	}
  	public boolean hasOffering(String offeringID){
 		for (StudyRecord sr :studyRecord){
@@ -110,6 +123,8 @@ public class Student {
 		}
 	}
 	public boolean isPassedCourse(String courseID, Department dep){
+		// TODO
+		/*
 		for(StudyRecord sr : studyRecord){
 			if(sr.getStatus() == StudyStatus.PASSED){
 				Offering of = dep.findOffering(sr.getOffering());
@@ -117,6 +132,7 @@ public class Student {
 					return true;
 			}
 		}
+		*/
 		return false;
 	}
 	public int FindNumberOfPassedCourse(){
@@ -136,6 +152,8 @@ public class Student {
 		return num;
 	}
 	public boolean isInprogressOrPassCourse(String courseID,Department dep){
+		// TODO
+		/*
 		for(StudyRecord sr :studyRecord){
 			if(sr.getStatus()==StudyStatus.PASSED||sr.getStatus()==StudyStatus.INPROGRESS){
 				Offering of=dep.findOffering(sr.getOffering());	
@@ -143,6 +161,7 @@ public class Student {
 					return true;
 			}
 		}
+		*/
 		return false;
 	}
 	public boolean isPassedOffering(String offeringID) throws TakeException{
@@ -162,6 +181,8 @@ public class Student {
 		return false;
 	}
 	public float getLastTermAverage(Department dep){
+		// TODO
+		/*
 		//System.out.println("getLastTermAverage come .");
 		int lastTermID = -1;
 		for(StudyRecord sr : studyRecord) {
@@ -192,8 +213,12 @@ public class Student {
 			avg = avg/numOfCourse;
 		//System.out.println("moadel : "+avg);
 		return avg;
+		*/
+		return 0;
 	}
 	public int getCurrentTermUnit(Department dep) {
+		// TODO
+		/*
 		//System.out.println("getCurrentTerm Unit come .");
 		int unitNum = 0;
 		for(StudyRecord sr :studyRecord) {
@@ -208,8 +233,12 @@ public class Student {
 			}
 		}
 		return unitNum;
+		*/
+		return 0;
 	}
 	public boolean hasWithrownOrWaitingOffering(Department dep) {
+		// TODO
+		/*
 		Term thisTerm = dep.findCurrentTerm();
 		for(StudyRecord sr : studyRecord){
 			//Offering o = dep.findOffering(sr.getOffering());
@@ -221,9 +250,12 @@ public class Student {
 				}
 			}
 		}
+		*/
 		return false;
 	}
 	public boolean isInSameTimeCourses(Offering of,Department dep){
+		// TODO
+		/*
 		for (StudyRecord sr: studyRecord){	
 			Term currentTerm=dep.findCurrentTerm();
 			Term termSR=dep.findOfferingTerm(sr.getOffering());
@@ -233,9 +265,12 @@ public class Student {
 					return true;
 			}	
 		}
+		*/
 		return false;
 	}
 	public boolean isInSameTimeExam(Offering of,Department dep){
+		// TODO
+		/*
 		for (StudyRecord sr: studyRecord){	
 			Term currentTerm=dep.findCurrentTerm();
 			Term termSR=dep.findOfferingTerm(sr.getOffering());
@@ -246,13 +281,17 @@ public class Student {
 			}
 			
 		}
+		*/
 		return false;
 	}
 	public Program findProgram(Vector<Program> Prs){
+		// TODO
+		/*
 		for (Program p:Prs){
 			if(p.getId().equals(program))
 				return p;
 		}
+		*/
 		return null;
 	}
 	public boolean isPreconPass(Course co, Department dep){

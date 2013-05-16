@@ -2,14 +2,20 @@ package ir.ac.ut.ieproj.Boostan;
 
 public class Professor {
 	
-	private String id;
+	private int id;
 	private String firstName;
 	private String lastName;
 	
-	public String getId() {
+	public Professor() {
+	}
+	public Professor(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getFirstName() {

@@ -6,6 +6,14 @@ public class Package {
 	
 	private String name;
 	private Vector<String> courses = new Vector<String>();
+	
+	public Package() {
+	}
+	public Package(String name, Vector<String> courses) {
+		super();
+		this.name = name;
+		this.courses = courses;
+	}
 	public String getName() {
 		return name;
 	}

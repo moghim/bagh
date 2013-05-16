@@ -20,14 +20,14 @@ public class FrontController extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//System.out.println("salam man inja hastam .");
-		String path = getServletContext().getInitParameter("samplePath");
-		String user = getServletContext().getInitParameter("user");
-		String password = getServletContext().getInitParameter("password");
+		//String path = getServletContext().getInitParameter("samplePath");
+		//String user = getServletContext().getInitParameter("user");
+		//String password = getServletContext().getInitParameter("password");
 		//System.out.println("user: "+user+" password: "+password);
 		//System.out.println("path : "+path);
 		try {
 			@SuppressWarnings("unused")
-			Department d = Department.getInstance(path, user, password);
+			Department d = Department.getInstance();
 		} catch (DeptLoadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

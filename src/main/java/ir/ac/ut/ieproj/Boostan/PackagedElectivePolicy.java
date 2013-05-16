@@ -4,15 +4,17 @@ import java.util.Vector;
 public class PackagedElectivePolicy extends ElectivePolicy {
 
 	private Vector<Package> packages = new Vector<Package>();
-
-	public Vector<Package> getPackages() {
-		return packages;
+	
+	public PackagedElectivePolicy() {
 	}
-	public void setPackages(Vector<Package> packages) {
+	public PackagedElectivePolicy(Vector<Package> packages) {
+		super();
 		this.packages = packages;
 	}
 	@Override
 	public boolean ispass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s) {
+		// TODO
+		/*
 		int findCourse=0;
 		for (String man : mandatories){
 			boolean find = false;
@@ -51,10 +53,13 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 		}
 		if(num1==1 && num2==1 && findCourse==s.FindNumberOfPassedCourse()+1)
 			return true;
+		*/
 		return false;
 	}
 	@Override
 	public boolean canPass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s,Course co) {
+		// TODO
+		/*
 		int findCourse=0;
 		for (String man : mandatories){
 			//boolean find = false;
@@ -100,8 +105,13 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 		}
 		if((num1<=1 && num2<=1 &&isInP)||(num1<=1 && num2<=1 &&findCourse-s.findNumberOfCourseTaken()==0))
 			return true;
+		*/
 		return false;
 	}
-	
-
+	public Vector<Package> getPackages() {
+		return packages;
+	}
+	public void setPackages(Vector<Package> packages) {
+		this.packages = packages;
+	}
 }

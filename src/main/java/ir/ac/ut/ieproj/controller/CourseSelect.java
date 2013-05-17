@@ -5,9 +5,9 @@ import ir.ac.ut.iecommon.exceptions.DropException;
 import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
 import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
 import ir.ac.ut.iecommon.exceptions.TakeException;
-import ir.ac.ut.ieproj.Boostan.Department;
-import ir.ac.ut.ieproj.Boostan.Offering;
-import ir.ac.ut.ieproj.Boostan.Student;
+import ir.ac.ut.ieproj.domain.Department;
+import ir.ac.ut.ieproj.domain.Offering;
+import ir.ac.ut.ieproj.domain.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.Vector;

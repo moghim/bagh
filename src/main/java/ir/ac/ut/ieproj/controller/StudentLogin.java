@@ -1,9 +1,9 @@
 package ir.ac.ut.ieproj.controller;
 
 import ir.ac.ut.iecommon.exceptions.DeptLoadException;
-import ir.ac.ut.ieproj.Boostan.Department;
-import ir.ac.ut.ieproj.Boostan.Offering;
-import ir.ac.ut.ieproj.Boostan.Student;
+import ir.ac.ut.ieproj.domain.Department;
+import ir.ac.ut.ieproj.domain.Offering;
+import ir.ac.ut.ieproj.domain.Student;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

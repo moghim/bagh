@@ -4,7 +4,7 @@ import org.hibernate.Session;
 
 import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
 import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
-import ir.ac.ut.ieproj.Boostan.*;
+import ir.ac.ut.ieproj.domain.*;
 
 public class DBConnector {
 

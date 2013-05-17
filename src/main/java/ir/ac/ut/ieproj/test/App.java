@@ -1,6 +1,6 @@
 package ir.ac.ut.ieproj.test;
 
-import ir.ac.ut.ieproj.Boostan.*;
+import ir.ac.ut.ieproj.domain.*;
 import ir.ac.ut.ieproj.database.HibernateUtil;
 
 import org.hibernate.Session;

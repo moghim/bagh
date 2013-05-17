@@ -1,7 +1,7 @@
 package ir.ac.ut.ieproj.controller;
 
 import ir.ac.ut.iecommon.exceptions.DeptLoadException;
-import ir.ac.ut.ieproj.Boostan.Department;
+import ir.ac.ut.ieproj.domain.Department;
 
 import java.io.IOException;
 import java.lang.reflect.Method;

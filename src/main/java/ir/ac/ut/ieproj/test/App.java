@@ -10,7 +10,7 @@ public class App
     public static void main( String[] args ) throws Exception
     {
     	System.out.println("Hello World !");
-    	//initialize();
+    	initialize();
 		
 		// date = "04-02-2013"
 		//d.take("810190421", "8");
@@ -32,7 +32,6 @@ public class App
 		//System.out.println("\n");
     }
 
-	@SuppressWarnings("unused")
 	private static void initialize() {
 		
 		// making needed data

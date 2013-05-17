@@ -9,7 +9,8 @@ public class App
 {
     public static void main( String[] args ) throws Exception
     {
-    	initialize();
+    	System.out.println("Hello World !");
+    	//initialize();
 		
 		// date = "04-02-2013"
 		//d.take("810190421", "8");
@@ -31,11 +32,36 @@ public class App
 		//System.out.println("\n");
     }
 
+	@SuppressWarnings("unused")
 	private static void initialize() {
-		Student s1 = new Student();
 		
+		// making needed data
+		Professor p1 = new Professor("Ramtin", "Khosravi");
+		Professor p2 = new Professor("Ahmad", "Khonsari");
+		Professor p3 = new Professor("Hesham", "Faili");
+		Professor p4 = new Professor("Fatemeh", "Ghasemi");
+		Professor p5 = new Professor("Mahmood", "Kharat");
+		Professor p6 = new Professor("Mahmoudreza", "Hashemi");
+		Professor p7 = new Professor("Fattaneh", "Taghiyareh");
+		Professor p8 = new Professor("Azadeh", "Shakery");
+		Professor p9 = new Professor("Siamak", "Mohammadi");
+		
+		// begin transaction
 		Session session = (Session) HibernateUtil.getSessionFactory();
 		session.beginTransaction();
-		session.save(s1);
+		
+		// make data persistent
+		session.save(p1);
+		session.save(p2);
+		session.save(p3);
+		session.save(p4);
+		session.save(p5);
+		session.save(p6);
+		session.save(p7);
+		session.save(p8);
+		session.save(p9);
+		
+		// closing connection
+		session.close();
 	}
 }

@@ -1,4 +1,4 @@
-package ir.ac.ut.ieproj.Boostan;
+package ir.ac.ut.ieproj.domain;
 import java.util.Vector;
 
 import javax.persistence.Column;

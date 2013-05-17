@@ -1,4 +1,4 @@
-package ir.ac.ut.ieproj.Boostan;
+package ir.ac.ut.ieproj.domain;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

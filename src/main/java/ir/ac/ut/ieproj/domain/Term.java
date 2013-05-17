@@ -1,4 +1,4 @@
-package ir.ac.ut.ieproj.Boostan;
+package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 import ir.ac.ut.iecommon.time.Clock;
 

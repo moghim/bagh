@@ -1,8 +1,21 @@
 package ir.ac.ut.ieproj.Boostan;
 
+import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class StudyRecord {
 	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(unique = true, nullable = false)
+	private int id;
 	private float grade;
 	private Offering offering;
 	private StudyStatus status;
@@ -30,5 +43,11 @@ public class StudyRecord {
 	}
 	public void setStatus(StudyStatus status) {
 		this.status = status;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

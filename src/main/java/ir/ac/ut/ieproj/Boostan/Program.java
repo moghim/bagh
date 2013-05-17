@@ -1,9 +1,21 @@
 package ir.ac.ut.ieproj.Boostan;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Vector;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table
 public class Program {
 	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
 	private Vector<Offering> mandatories;

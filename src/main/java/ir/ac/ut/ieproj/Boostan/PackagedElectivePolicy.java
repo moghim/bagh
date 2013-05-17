@@ -1,8 +1,14 @@
 package ir.ac.ut.ieproj.Boostan;
+
 import java.util.Vector;
 
-public class PackagedElectivePolicy extends ElectivePolicy {
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table
+public class PackagedElectivePolicy extends ElectivePolicy {
+	
 	private Vector<Package> packages = new Vector<Package>();
 	
 	public PackagedElectivePolicy() {

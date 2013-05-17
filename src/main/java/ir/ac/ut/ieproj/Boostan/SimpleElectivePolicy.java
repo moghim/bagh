@@ -2,6 +2,11 @@ package ir.ac.ut.ieproj.Boostan;
 
 import java.util.Vector;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class SimpleElectivePolicy extends ElectivePolicy {
 
 	@Override

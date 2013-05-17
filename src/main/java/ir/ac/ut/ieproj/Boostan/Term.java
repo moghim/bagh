@@ -1,13 +1,24 @@
 package ir.ac.ut.ieproj.Boostan;
+import static javax.persistence.GenerationType.IDENTITY;
 import ir.ac.ut.iecommon.time.Clock;
 
 import java.util.Date;
 
 import java.util.Vector;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table
 public class Term {
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
 	private Date startDate;

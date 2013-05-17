@@ -4,10 +4,13 @@ import ir.ac.ut.iecommon.exceptions.TakeException;
 
 import java.util.Vector;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +23,9 @@ public class Student {
 	private int id;
 	private String firstName;
 	private String lastName;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
 	private Program program;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
 	private Vector<StudyRecord> studyRecord;
 	
 	public Student(){

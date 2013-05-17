@@ -3,10 +3,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Vector;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +22,11 @@ public class Program {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
 	private Vector<Offering> mandatories;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
 	private Vector<Offering> electives;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "program", cascade = CascadeType.ALL)
 	private ElectivePolicy electivePolicy;
 	
 	public Program() {

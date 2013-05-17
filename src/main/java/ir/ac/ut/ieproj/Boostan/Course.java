@@ -3,8 +3,10 @@ import java.util.Vector;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -19,7 +21,9 @@ public class Course {
 	private String name;
 	private int units;
 	private Level level;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
 	private Vector<Course> prerequisite;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
 	private Vector<Course> corequisite;
 	
 	public Course() {

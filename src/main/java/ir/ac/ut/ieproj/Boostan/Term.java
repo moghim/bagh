@@ -8,8 +8,10 @@ import java.util.Vector;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +29,7 @@ public class Term {
 	private Date enrollmentEndDate;
 	private Date addAndDropStartDate;
 	private Date addAndDropEndDate;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "term")
 	private Vector<Offering> offerings = new Vector<Offering>();
 
 	public Term() {	

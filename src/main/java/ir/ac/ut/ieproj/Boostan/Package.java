@@ -5,8 +5,10 @@ import java.util.Vector;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +20,7 @@ public class Package {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "package")
 	private Vector<Course> courses;
 	
 	public Package() {

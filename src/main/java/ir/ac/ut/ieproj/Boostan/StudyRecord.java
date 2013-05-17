@@ -2,10 +2,13 @@ package ir.ac.ut.ieproj.Boostan;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,7 @@ public class StudyRecord {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private float grade;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "studyrecord", cascade = CascadeType.ALL)
 	private Offering offering;
 	private StudyStatus status;
 	

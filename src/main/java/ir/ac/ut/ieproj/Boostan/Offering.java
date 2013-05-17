@@ -6,10 +6,13 @@ import ir.ac.ut.iecommon.exceptions.TakeException;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +23,9 @@ public class Offering {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)
 	private int id;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "offering", cascade = CascadeType.ALL)
 	private Professor professor;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "offering", cascade = CascadeType.ALL)
 	private Course course;
 	private int section;
 	private int time;

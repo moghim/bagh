@@ -3,12 +3,15 @@ package ir.ac.ut.ieproj.Boostan;
 import java.util.Vector;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class PackagedElectivePolicy extends ElectivePolicy {
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "packagedelectivepolicy")
 	private Vector<Package> packages = new Vector<Package>();
 	
 	public PackagedElectivePolicy() {

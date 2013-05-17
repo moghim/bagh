@@ -7,13 +7,13 @@ public class Course {
 	private String name;
 	private int units;
 	private Level level;
-	private Vector<String> prerequisite = new Vector<String>();
-	private Vector<String> corequisite = new Vector<String>();
+	private Vector<Course> prerequisite;
+	private Vector<Course> corequisite;
 	
 	public Course() {
 	}
 	public Course(String name, int units, Level level,
-			Vector<String> prerequisite, Vector<String> corequisite) {
+			Vector<Course> prerequisite, Vector<Course> corequisite) {
 		this.name = name;
 		this.units = units;
 		this.level = level;
@@ -44,16 +44,16 @@ public class Course {
 	public void setLevel(Level level) {
 		this.level = level;
 	}
-	public Vector<String> getPrerequisite() {
+	public Vector<Course> getPrerequisite() {
 		return prerequisite;
 	}
-	public void setPrerequisite(Vector<String> prerequisite) {
+	public void setPrerequisite(Vector<Course> prerequisite) {
 		this.prerequisite = prerequisite;
 	}
-	public Vector<String> getCorequisite() {
+	public Vector<Course> getCorequisite() {
 		return corequisite;
 	}
-	public void setCorequisite(Vector<String> corequisite) {
+	public void setCorequisite(Vector<Course> corequisite) {
 		this.corequisite = corequisite;
 	}
 }

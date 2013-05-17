@@ -6,14 +6,14 @@ public class Program {
 	
 	private int id;
 	private String name;
-	private Vector<String> mandatories = new Vector<String>();
-	private Vector<String> electives = new Vector<String>();
+	private Vector<Offering> mandatories;
+	private Vector<Offering> electives;
 	private ElectivePolicy electivePolicy;
 	
 	public Program() {
 	}
-	public Program(String name, Vector<String> mandatories,
-			Vector<String> electives, ElectivePolicy electivePolicy) {
+	public Program(String name, Vector<Offering> mandatories,
+			Vector<Offering> electives, ElectivePolicy electivePolicy) {
 		super();
 		this.name = name;
 		this.mandatories = mandatories;
@@ -21,10 +21,14 @@ public class Program {
 		this.electivePolicy = electivePolicy;
 	}
 	public boolean canPass(Department dep,Student s,Course co) {
-		return electivePolicy.canPass(dep, mandatories, electives, s, co);
+		// TODO
+		//return electivePolicy.canPass(dep, mandatories, electives, s, co);
+		return false;
 	}
 	public boolean isPass(Department dep,Student s) {
-		return electivePolicy.ispass(dep, mandatories, electives, s);
+		// TODO
+		//return electivePolicy.ispass(dep, mandatories, electives, s);
+		return false;
 	}
 	public int getId() {
 		return id;
@@ -38,16 +42,16 @@ public class Program {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Vector<String> getMandatories() {
+	public Vector<Offering> getMandatories() {
 		return mandatories;
 	}
-	public void setMandatories(Vector<String> mandatories) {
+	public void setMandatories(Vector<Offering> mandatories) {
 		this.mandatories = mandatories;
 	}
-	public Vector<String> getElectives() {
+	public Vector<Offering> getElectives() {
 		return electives;
 	}
-	public void setElectives(Vector<String> electives) {
+	public void setElectives(Vector<Offering> electives) {
 		this.electives = electives;
 	}
 	public ElectivePolicy getElectivePolicy() {

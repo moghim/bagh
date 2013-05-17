@@ -77,10 +77,10 @@ public class CourseSelect {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
 			temp.add(Integer.toString(o.getId()));
-			temp.add(d.findCourse(o.getCourse()).getName());		
-			temp.add(Integer.toString(d.findCourse(o.getCourse()).getUnits()));
+			// TODO temp.add(d.findCourse(o.getCourse()).getName());		
+			// TODO temp.add(Integer.toString(d.findCourse(o.getCourse()).getUnits()));
 			temp.add(Integer.toString(o.getTime()));
-			temp.add(d.findProf(o.getProfessor()).getFirstName()+" "+d.findProf(o.getProfessor()).getLastName());
+			// TODO temp.add(d.findProf(o.getProfessor()).getFirstName()+" "+d.findProf(o.getProfessor()).getLastName());
 			temp.add(sdf.format(o.getExamDate()));
 			temp.add(Integer.toString(o.findRemainCapacity()));
 			temp.add(Integer.toString(o.getCapacity()));

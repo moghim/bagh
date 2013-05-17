@@ -7,20 +7,19 @@ import java.util.Date;
 
 public class Offering {
 	private int id;
-	private String professor;
-	private String course;
+	private Professor professor;
+	private Course course;
 	private int section;
 	private int time;
 	private int capacity;
-	boolean isRemainCapacitySet = false;
+	boolean isRemainCapacitySet;
 	private int remainCapacity ;
 	private Date examDate;
 	
 	public Offering() {
 	}
-	public Offering(int id, String professor, String course, int section,
+	public Offering(Professor professor, Course course, int section,
 			int time, int capacity, int remainCapacity, Date examDate) {
-		this.id = id;
 		this.professor = professor;
 		this.course = course;
 		this.section = section;
@@ -28,6 +27,7 @@ public class Offering {
 		this.capacity = capacity;
 		this.remainCapacity = remainCapacity;
 		this.examDate = examDate;
+		isRemainCapacitySet = false;
 	}
 	public int findNumberOfStudentInOfferring() throws DeptLoadException{
 		int num=0;
@@ -74,16 +74,16 @@ public class Offering {
 	public void setExamDate(Date examDate) {
 		this.examDate =examDate;
 	}
-	public String getProfessor() {
+	public Professor getProfessor() {
 		return professor;
 	}
-	public void setProfessor(String professor) {
+	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-	public String getCourse() {
+	public Course getCourse() {
 		return course;
 	}
-	public void setCourse(String course) {
+	public void setCourse(Course course) {
 		this.course = course;
 	}
 	public int getSection() {

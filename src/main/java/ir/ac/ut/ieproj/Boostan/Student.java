@@ -9,7 +9,7 @@ public class Student {
 	private String firstName;
 	private String lastName;
 	private Program program;
-	private Vector<StudyRecord> studyRecord = new Vector<StudyRecord>();
+	private Vector<StudyRecord> studyRecord;
 	
 	public Student(){
 	}
@@ -298,22 +298,25 @@ public class Student {
 		//System.out.println("isPreconPass come .");
 		//Course toCheck=null;
 		//System.out.println("finded course :"+co.getId());
-		for (String a:co.getPrerequisite()){
+		
+		/*for (Course a:co.getPrerequisite()){
 			//System.out.println("here");
 			if (!isPassedCourse(a, dep))
 				return false;
-		}
+		}*/
 		return true;
 	}
 	public boolean isCoreconPass(Course co,Department dep){
+		// TODO
 		//Course toCheck=null;
 		//if(co.getCorequisite()==null)
 			//System.out.println("babbakht shodim ...");
 		//System.out.println("isCoreconPass come .");
-		for (String a:co.getCorequisite()){
+		/*
+		for (Course a:co.getCorequisite()){
 			if (!isInprogressOrPassCourse(a, dep))
 				return false;
-		}
+		}*/
 		return true;
 	}
 	public StudyStatus offeringStatus(String OfferingID) {

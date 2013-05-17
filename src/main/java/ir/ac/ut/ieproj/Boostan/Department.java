@@ -176,6 +176,8 @@ public class Department implements DepartmentI{
 	@Override
 	public void take(String StudentID, String offeringID) throws TakeException,
 	StudentNotFoundException, OfferingNotFoundException {
+		// TODO
+		/*
 		//System.out.println("here 11");
 		Student findSt = findStudent(StudentID);
 		if (findSt == null)
@@ -240,7 +242,8 @@ public class Department implements DepartmentI{
 			//System.out.println("take : success : has offering 4="+findSt.hasOffering("4"));
 			return;
 		}
-		throw new TakeException("Error from take function: take in wrong time. ");	
+		throw new TakeException("Error from take function: take in wrong time. ");
+		*/	
 	}	
 	@Override
 	public void withdraw(String studentID, String offeringID) throws WithdrawException,

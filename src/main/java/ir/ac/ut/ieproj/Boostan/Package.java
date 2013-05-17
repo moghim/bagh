@@ -5,11 +5,11 @@ import java.util.Vector;
 public class Package {
 	
 	private String name;
-	private Vector<String> courses = new Vector<String>();
+	private Vector<Course> courses;
 	
 	public Package() {
 	}
-	public Package(String name, Vector<String> courses) {
+	public Package(String name, Vector<Course> courses) {
 		super();
 		this.name = name;
 		this.courses = courses;
@@ -20,10 +20,10 @@ public class Package {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Vector<String> getCourses() {
+	public Vector<Course> getCourses() {
 		return courses;
 	}
-	public void setCourses(Vector<String> courses) {
+	public void setCourses(Vector<Course> courses) {
 		this.courses = courses;
 	}
 }

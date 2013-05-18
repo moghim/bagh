@@ -1,12 +1,16 @@
 package ir.ac.ut.ieproj.domain;
-import java.util.Vector;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -21,20 +25,21 @@ public class Course {
 	private String name;
 	private int units;
 	private Level level;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-	private Vector<Course> prerequisite;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-	private Vector<Course> corequisite;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "pre", joinColumns = {@JoinColumn(name = "first")}, inverseJoinColumns = {@JoinColumn(name = "last")})
+	private Set<Course> prerequisite;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "co", joinColumns = {@JoinColumn(name = "first")}, inverseJoinColumns = {@JoinColumn(name = "last")})
+	private Set<Course> corequisite;
 	
 	public Course() {
 	}
-	public Course(String name, int units, Level level,
-			Vector<Course> prerequisite, Vector<Course> corequisite) {
+	public Course(String name, int units, Level level) {
 		this.name = name;
 		this.units = units;
 		this.level = level;
-		this.prerequisite = prerequisite;
-		this.corequisite = corequisite;
+		prerequisite = new HashSet<Course>();
+		corequisite = new HashSet<Course>();
 	}
 	public int getId() {
 		return id;
@@ -60,16 +65,22 @@ public class Course {
 	public void setLevel(Level level) {
 		this.level = level;
 	}
-	public Vector<Course> getPrerequisite() {
+	public Set<Course> getPrerequisite() {
 		return prerequisite;
 	}
-	public void setPrerequisite(Vector<Course> prerequisite) {
+	public void setPrerequisite(Set<Course> prerequisite) {
 		this.prerequisite = prerequisite;
 	}
-	public Vector<Course> getCorequisite() {
+	public Set<Course> getCorequisite() {
 		return corequisite;
 	}
-	public void setCorequisite(Vector<Course> corequisite) {
+	public void setCorequisite(Set<Course> corequisite) {
 		this.corequisite = corequisite;
+	}
+	public void addPrerequisite(Course course) {
+		prerequisite.add(course);
+	}
+	public void addCorequisite(Course course) {
+		corequisite.add(course);
 	}
 }

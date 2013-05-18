@@ -73,7 +73,7 @@ public class CourseSelect {
 		//System.out.println("after catches in course select .");
 		//System.out.println("this term offerings size : "+d.findCurrentTerm().getOfferings().size());
 		for (int i = 0; i < d.findCurrentTerm().getOfferings().size(); i++) {
-			Offering o = d.findCurrentTerm().getOfferings().get(i);
+			Offering o = d.findCurrentTerm().getOfferings().iterator().next(); // TODO
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
 			temp.add(Integer.toString(o.getId()));

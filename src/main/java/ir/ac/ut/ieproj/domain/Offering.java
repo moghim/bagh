@@ -23,9 +23,9 @@ public class Offering {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)
 	private int id;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "offering", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Professor professor;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "offering", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Course course;
 	private int section;
 	private int time;
@@ -37,13 +37,13 @@ public class Offering {
 	public Offering() {
 	}
 	public Offering(Professor professor, Course course, int section,
-			int time, int capacity, int remainCapacity, Date examDate) {
+			int time, int capacity, Date examDate) {
 		this.professor = professor;
 		this.course = course;
 		this.section = section;
 		this.time = time;
 		this.capacity = capacity;
-		this.remainCapacity = remainCapacity;
+		this.remainCapacity = capacity;
 		this.examDate = examDate;
 		isRemainCapacitySet = false;
 	}

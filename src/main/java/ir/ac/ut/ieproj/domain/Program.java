@@ -1,7 +1,8 @@
 package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.Vector;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,22 +23,20 @@ public class Program {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
-	private Vector<Offering> mandatories;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
-	private Vector<Offering> electives;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "program", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Course> mandatories;
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Course> electives;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ElectivePolicy electivePolicy;
 	
 	public Program() {
 	}
-	public Program(String name, Vector<Offering> mandatories,
-			Vector<Offering> electives, ElectivePolicy electivePolicy) {
+	public Program(String name) {
 		super();
 		this.name = name;
-		this.mandatories = mandatories;
-		this.electives = electives;
-		this.electivePolicy = electivePolicy;
+		this.mandatories = new HashSet<Course>();
+		this.electives = new HashSet<Course>();
 	}
 	public boolean canPass(Department dep,Student s,Course co) {
 		// TODO
@@ -61,16 +60,16 @@ public class Program {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Vector<Offering> getMandatories() {
+	public Set<Course> getMandatories() {
 		return mandatories;
 	}
-	public void setMandatories(Vector<Offering> mandatories) {
+	public void setMandatories(Set<Course> mandatories) {
 		this.mandatories = mandatories;
 	}
-	public Vector<Offering> getElectives() {
+	public Set<Course> getElectives() {
 		return electives;
 	}
-	public void setElectives(Vector<Offering> electives) {
+	public void setElectives(Set<Course> electives) {
 		this.electives = electives;
 	}
 	public ElectivePolicy getElectivePolicy() {
@@ -78,5 +77,11 @@ public class Program {
 	}
 	public void setElectivePolicy(ElectivePolicy electivePolicy) {
 		this.electivePolicy = electivePolicy;
-	} 	
+	}
+	public void addMandatory(Course course) {
+		mandatories.add(course);
+	}
+	public void addElective(Course course) {
+		electives.add(course);
+	}
 }

@@ -24,6 +24,7 @@
     <mapping class="ir.ac.ut.ieproj.domain.Offering" />
     <mapping class="ir.ac.ut.ieproj.domain.Package" />
     <mapping class="ir.ac.ut.ieproj.domain.Professor" />
+    <mapping class="ir.ac.ut.ieproj.domain.Program" />
     <mapping class="ir.ac.ut.ieproj.domain.Student" />
     <mapping class="ir.ac.ut.ieproj.domain.Term" />
     <mapping class="ir.ac.ut.ieproj.domain.StudyRecord" />

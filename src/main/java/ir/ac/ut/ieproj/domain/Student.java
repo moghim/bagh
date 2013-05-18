@@ -2,6 +2,8 @@ package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 import ir.ac.ut.iecommon.exceptions.TakeException;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,18 +26,17 @@ public class Student {
 	private int id;
 	private String firstName;
 	private String lastName;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Program program;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
-	private Vector<StudyRecord> studyRecord;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<StudyRecord> studyRecord;
 	
 	public Student(){
 	}
-	public Student(String firstName, String lastName,
-			Vector<StudyRecord> studyRecord) {
+	public Student(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.studyRecord = studyRecord;
+		this.studyRecord = new HashSet<StudyRecord>(); 
 	}
 	public Program getProgram() {
 		return program;
@@ -60,10 +62,10 @@ public class Student {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Vector<StudyRecord> getStudyRecord() {
+	public Set<StudyRecord> getStudyRecord() {
 		return studyRecord;
 	}
-	public void setStudyRecord(Vector<StudyRecord> studyRecord) {
+	public void setStudyRecord(Set<StudyRecord> studyRecord) {
 		this.studyRecord = studyRecord;
 	}
 	
@@ -128,7 +130,7 @@ public class Student {
 		return false;
 	}
 	public void setOfferingGrade(float grade,String offeringID){
-		for (int i=0;i<studyRecord.size();i++){
+	/*	for (int i=0;i<studyRecord.size();i++){
 			if (studyRecord.get(i).getOffering().equals(offeringID)){
 				studyRecord.get(i).setGrade(grade);
 				if(grade<10)
@@ -138,6 +140,8 @@ public class Student {
 				break;
 			}
 		}
+		*/
+		// TODO
 	}
 	public boolean isPassedCourse(String courseID, Department dep){
 		// TODO
@@ -342,5 +346,8 @@ public class Student {
 				return sr.getStatus();
 		}
 		return null;
+	}
+	public void addStudyRecord(StudyRecord studyRecord) {
+		this.studyRecord.add(studyRecord);
 	}
 }

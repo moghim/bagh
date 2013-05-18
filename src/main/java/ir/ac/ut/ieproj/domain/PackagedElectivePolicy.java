@@ -123,4 +123,7 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 	public void setPackages(Vector<Package> packages) {
 		this.packages = packages;
 	}
+	public void addPackage(Package package1) {
+		packages.add(package1);
+	}
 }

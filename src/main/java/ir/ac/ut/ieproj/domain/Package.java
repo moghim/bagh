@@ -1,14 +1,15 @@
 package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.Vector;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,15 +21,15 @@ public class Package {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "package")
-	private Vector<Course> courses;
+	@ManyToMany(fetch = FetchType.LAZY)
+	private Set<Course> courses;
 	
 	public Package() {
 	}
-	public Package(String name, Vector<Course> courses) {
+	public Package(String name) {
 		super();
 		this.name = name;
-		this.courses = courses;
+		this.courses = new HashSet<Course>();
 	}
 	public String getName() {
 		return name;
@@ -36,10 +37,10 @@ public class Package {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Vector<Course> getCourses() {
+	public Set<Course> getCourses() {
 		return courses;
 	}
-	public void setCourses(Vector<Course> courses) {
+	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
 	public int getId() {
@@ -47,5 +48,8 @@ public class Package {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public void addCourse(Course course) {
+		courses.add(course);
 	}
 }

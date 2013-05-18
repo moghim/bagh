@@ -3,8 +3,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 import ir.ac.ut.iecommon.time.Clock;
 
 import java.util.Date;
-
-import java.util.Vector;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,8 +29,8 @@ public class Term {
 	private Date enrollmentEndDate;
 	private Date addAndDropStartDate;
 	private Date addAndDropEndDate;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "term")
-	private Vector<Offering> offerings = new Vector<Offering>();
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Offering> offerings;
 
 	public Term() {	
 	}
@@ -38,8 +38,7 @@ public class Term {
 			Date enrollmentStartDate, Date enrollmentEndDate,
 			Date addAndDropStartDate, Date addAndDropEndDate,
 			Date withdrawStartDate, Date withdrawEndDate,
-			Date submitGradeStartDate, Date submitGradeEndDate,
-			Vector<Offering> offerings) {
+			Date submitGradeStartDate, Date submitGradeEndDate) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -51,7 +50,7 @@ public class Term {
 		this.withdrawEndDate = withdrawEndDate;
 		this.submitGradeStartDate = submitGradeStartDate;
 		this.submitGradeEndDate = submitGradeEndDate;
-		this.offerings = offerings;
+		this.offerings = new HashSet<Offering>();
 	}
 	private Date withdrawStartDate;
 	private Date withdrawEndDate;
@@ -145,10 +144,13 @@ public class Term {
 	public void setSubmitGradeEndDate(Date submitGradeEndDate) {
 		this.submitGradeEndDate = submitGradeEndDate;
 	}
-	public Vector<Offering> getOfferings() {
+	public Set<Offering> getOfferings() {
 		return offerings;
 	}
-	public void setOfferings(Vector<Offering> offerings) {
+	public void setOfferings(Set<Offering> offerings) {
 		this.offerings = offerings;
+	}
+	public void addOffering(Offering offering) {
+		offerings.add(offering);
 	}
 }

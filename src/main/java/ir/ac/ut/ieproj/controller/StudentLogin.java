@@ -39,7 +39,7 @@ public class StudentLogin {
 		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>(); 
 		Vector<Vector<String>> data = new Vector<Vector<String>>(); 
 		for (int i = 0; i < d.findCurrentTerm().getOfferings().size(); i++) {
-			Offering o = d.findCurrentTerm().getOfferings().get(i);
+			Offering o = d.findCurrentTerm().getOfferings().iterator().next(); // TODO
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
 			temp.add(Integer.toString(o.getId()));

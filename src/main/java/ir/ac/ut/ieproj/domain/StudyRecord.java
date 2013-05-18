@@ -20,7 +20,7 @@ public class StudyRecord {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private float grade;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "studyrecord", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Offering offering;
 	private StudyStatus status;
 	
@@ -28,6 +28,11 @@ public class StudyRecord {
 	}
 	public StudyRecord(float grade, StudyStatus status) {
 		this.grade = grade;
+		this.status = status;
+	}
+	public StudyRecord(float grade, Offering offering, StudyStatus status) {
+		this.grade = grade;
+		this.offering = offering;
 		this.status = status;
 	}
 	public float getGrade() {

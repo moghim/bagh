@@ -44,15 +44,16 @@ public class Program {
 		this.mandatories = new HashSet<Course>();
 		this.electives = new HashSet<Course>();
 	}
-	public boolean canPass(Department dep,Student s,Course co) {
-		// TODO
-		//return electivePolicy.canPass(dep, mandatories, electives, s, co);
-		return false;
+	public boolean canPassCourse(Student s,Course c) {
+		return electivePolicy.canPasCourses(s, c, electives, mandatories);
 	}
-	public boolean isPass(Department dep,Student s) {
-		// TODO
-		//return electivePolicy.ispass(dep, mandatories, electives, s);
-		return false;
+	public boolean isPassedReq(Student s) {
+		for(Course c : mandatories) {
+			if(!s.hasPassedCourse(c)) {
+				return false;
+			}
+		}
+		return electivePolicy.isPassedReq(s, electives, mandatories);
 	}
 	public int getId() {
 		return id;

@@ -125,7 +125,7 @@ public class Department {
 			throw new TakeException("Student with id="+studentID+" is not in take time .");
 		if(o.getRemainCapacity() <= 0)
 			throw new TakeException("Offering with id="+offeringID+" has no more capacity .");
-		if(s.hasPassedCourse())
+		if(s.hasPassedCourse(o.getCourse()))
 			throw new TakeException("Student with id="+studentID+" has passed course of offering with id="+offeringID+" .");
 		if(!o.getCourse().isPrequIsPassedByStudent(s))
 			throw new TakeException("Prequisite condition for course of offering with id="+offeringID+" is not observed by student with id="+studentID+" .");

@@ -86,11 +86,17 @@ public class Course {
 		corequisite.add(course);
 	}
 	public boolean isPrequIsPassedByStudent(Student s) {
-		// TODO Auto-generated method stub
-		return false;
+		for(Course c : prerequisite) {
+			if(!s.isPassedCourse(c))
+				return false; 
+		}
+		return true;
 	}
 	public boolean isCorequIsPassedOrInProgressByStudent(Student s) {
-		// TODO Auto-generated method stub
-		return false;
+		for(Course c : corequisite) {
+			if(!(s.isPassedCourse(c)||s.isInProgresCourse(c)))
+				return false; 
+		}
+		return true;
 	}
 }

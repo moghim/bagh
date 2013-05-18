@@ -382,7 +382,7 @@ public class Student {
 		// TODO Auto-generated method stub
 		
 	}
-	public boolean hasPassedCourse() {
+	public boolean hasPassedCourse(Course c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -397,5 +397,21 @@ public class Student {
 	public void changeRecordToWaitingForWithraws(int offeringID) {
 		// TODO Auto-generated method stub
 		
+	}
+	public boolean isPassedCourse(Course c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isInProgresCourse(Course c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public int gradedPassedCourses() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public Set<Course> AllPassedCourses() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -2,7 +2,7 @@ package ir.ac.ut.ieproj.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.Vector;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
@@ -26,13 +26,14 @@ public abstract class ElectivePolicy {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private int id;
-	public abstract boolean ispass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s); 
-	public abstract boolean canPass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s,Course co);
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	public abstract boolean isPassedReq(Student s, Set<Course> electives, Set<Course> mandatories);
+	public abstract boolean canPassCourses(Student s, Course c, Set<Course> electives, Set<Course> mandatories);
+	
 }
 	

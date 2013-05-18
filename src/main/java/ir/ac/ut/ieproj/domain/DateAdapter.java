@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+// TODO : delete this file
 public class DateAdapter extends XmlAdapter<String, Date> {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 

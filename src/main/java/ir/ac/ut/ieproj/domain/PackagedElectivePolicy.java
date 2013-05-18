@@ -14,10 +14,10 @@ import javax.persistence.Table;
 @Table
 @DiscriminatorValue("P")
 public class PackagedElectivePolicy extends ElectivePolicy {
-	
+
 	@OneToMany(fetch = FetchType.LAZY)
 	private Set<Package> packages;
-	
+
 	public PackagedElectivePolicy() {
 		packages = new HashSet<Package>();
 	}
@@ -25,7 +25,6 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 		super();
 		this.packages = packages;
 	}
-	@Override
 	public boolean ispass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s) {
 		// TODO
 		/*
@@ -67,10 +66,9 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 		}
 		if(num1==1 && num2==1 && findCourse==s.FindNumberOfPassedCourse()+1)
 			return true;
-		*/
+		 */
 		return false;
 	}
-	@Override
 	public boolean canPass(Department dep, Vector<String> mandatories,Vector<String> electives,Student s,Course co) {
 		// TODO
 		/*
@@ -119,7 +117,7 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 		}
 		if((num1<=1 && num2<=1 &&isInP)||(num1<=1 && num2<=1 &&findCourse-s.findNumberOfCourseTaken()==0))
 			return true;
-		*/
+		 */
 		return false;
 	}
 	public Set<Package> getPackages() {
@@ -130,5 +128,62 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 	}
 	public void addPackage(Package package1) {
 		packages.add(package1);
+	}
+	@Override
+	public boolean isPassedReq(Student s, Set<Course> electives, Set<Course> mandatories) {
+		int num1 = 0;
+		int num2 = 0;
+		for (Package p : packages) {
+			int passedCourses = 0;
+			for (Course c : p.getCourses()) {
+				if(s.isPassedCourse(c))
+					passedCourses ++;
+			}
+			if(passedCourses == 1)
+				num1 ++;
+			if(passedCourses == 2)
+				num2 ++;
+		}
+		int irrevlent = irrevelentCoursesNum(s, electives, mandatories);
+		if(num2>=1 && num1>=1 && irrevlent>=1)
+			return true;
+		return false;
+	}
+	@Override
+	public boolean canPassCourses(Student s, Course c, Set<Course> electives, Set<Course> mandatories) {
+		if(isIn(c, mandatories)) {
+			return true;
+		}
+		if(!isRevelent(s, c, electives, mandatories) && irrevelentCoursesNum(s, electives, mandatories)>0)
+			return false;
+		
+		return true;
+	}
+	private boolean isIn(Course course, Set<Course> courses) {
+		for(Course c : courses) {
+			if(c.getId() == course.getId())
+				return true;
+		}
+		return false;
+	}
+	private int irrevelentCoursesNum(Student s, Set<Course> electives, Set<Course> mandatories) {
+		int irrevlentNum = 0;
+		for(Course c : s.AllPassedCourses()) {
+			if(!isRevelent(s, c, electives, mandatories));
+				irrevlentNum ++;
+		}
+		return irrevlentNum;
+	}
+	private boolean isRevelent(Student s, Course c, Set<Course> electives, Set<Course> mandatories) {
+		boolean isRevelent = false;
+		for(Course cc : mandatories) {
+			if(c.getId() == cc.getId())
+				isRevelent = true;
+		}
+		for(Course cc : electives) {
+			if(c.getId() == cc.getId())
+				isRevelent = true;
+		}
+		return isRevelent;
 	}
 }

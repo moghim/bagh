@@ -1,8 +1,6 @@
 package ir.ac.ut.ieproj.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import ir.ac.ut.iecommon.exceptions.DeptLoadException;
-import ir.ac.ut.iecommon.exceptions.TakeException;
 
 import java.util.Date;
 
@@ -30,8 +28,7 @@ public class Offering {
 	private int section;
 	private int time;
 	private int capacity;
-	boolean isRemainCapacitySet;
-	private int remainCapacity ;
+	private int remainCapacity;
 	private Date examDate;
 	
 	public Offering() {
@@ -43,45 +40,14 @@ public class Offering {
 		this.section = section;
 		this.time = time;
 		this.capacity = capacity;
-		this.remainCapacity = capacity;
+		this.setRemainCapacity(capacity);
 		this.examDate = examDate;
-		isRemainCapacitySet = false;
 	}
-	public int findNumberOfStudentInOfferring() throws DeptLoadException{
-		/*
-		int num=0;
-		Department dep = Department.getInstance();
-		for (Student s:dep.getStudents()){
-			if (s.hasOffering(Integer.toString(this.id)))
-				num++;
-		}
-		return num;
-		*/
-		return 0;
+	public synchronized void decRemainCapacity() {
+		setRemainCapacity(getRemainCapacity() - 1);
 	}
-	public int findRemainCapacity() throws DeptLoadException {
-	//	System.out.println("capacity"+capacity);
-		
-		if (!isRemainCapacitySet){
-			remainCapacity = capacity - findNumberOfStudentInOfferring();
-			isRemainCapacitySet = true;
-		}
-	//	System.out.println("remain capacity"+remainCapacity);
-		return remainCapacity;
-	}
-	public synchronized void decRemainCapacity() throws TakeException, DeptLoadException{
-		remainCapacity = findRemainCapacity();
-		if (remainCapacity == 0)
-			throw new TakeException("Error from take function: there is no capacity for offering with id "+id);
-		remainCapacity--;
-	}
-	public synchronized void incRemainCapacity() throws TakeException, DeptLoadException{
-		remainCapacity = findRemainCapacity();
-		remainCapacity++;
-	}
-	public void setCapacity(int capacity) {
-		this.remainCapacity = capacity;
-		this.capacity = capacity;
+	public synchronized void incRemainCapacity() {
+		setRemainCapacity(getRemainCapacity() + 1);
 	}
 	public int getId() {
 		return id;
@@ -122,8 +88,14 @@ public class Offering {
 	public int getCapacity() {
 		return capacity;
 	}
+	public void setCapacity(int capacity) {
+		this.setRemainCapacity(capacity);
+		this.capacity = capacity;
+	}
 	public int getRemainCapacity() {
-		// TODO Auto-generated method stub
-		return 0;
+		return remainCapacity;
+	}
+	public void setRemainCapacity(int remainCapacity) {
+		this.remainCapacity = remainCapacity;
 	}
 }

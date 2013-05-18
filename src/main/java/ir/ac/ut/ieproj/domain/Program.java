@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,14 +25,18 @@ public class Program {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "program_mandatory", joinColumns = {@JoinColumn(name = "program")}, inverseJoinColumns = {@JoinColumn(name = "mandatorycourse")})
 	private Set<Course> mandatories;
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "program_elective", joinColumns = {@JoinColumn(name = "program")}, inverseJoinColumns = {@JoinColumn(name = "electivecourse")})
 	private Set<Course> electives;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private ElectivePolicy electivePolicy;
 	
 	public Program() {
+		this.mandatories = new HashSet<Course>();
+		this.electives = new HashSet<Course>();
 	}
 	public Program(String name) {
 		super();

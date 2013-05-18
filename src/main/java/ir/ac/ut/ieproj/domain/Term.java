@@ -153,4 +153,8 @@ public class Term {
 	public void addOffering(Offering offering) {
 		offerings.add(offering);
 	}
+	public boolean hasOffering(Offering o) {
+		// TODO 
+		return false;
+	}
 }

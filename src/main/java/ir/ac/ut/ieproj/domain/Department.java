@@ -1,322 +1,166 @@
 package ir.ac.ut.ieproj.domain;
 
-import ir.ac.ut.iecommon.exceptions.AcceptWithdrawException;
-
-import ir.ac.ut.iecommon.exceptions.CheckDegreeReqException;
-import ir.ac.ut.iecommon.exceptions.DeptLoadException;
-import ir.ac.ut.iecommon.exceptions.DropException;
-import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
-import ir.ac.ut.iecommon.exceptions.ProfNotFoundException;
-import ir.ac.ut.iecommon.exceptions.RejectWithdrawException;
-import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
-import ir.ac.ut.iecommon.exceptions.SubmitGradeException;
-import ir.ac.ut.iecommon.exceptions.TakeException;
-import ir.ac.ut.iecommon.exceptions.WithdrawException;
-import ir.ac.ut.iecommon.time.Clock;
-import ir.ac.ut.ieproj.database.DBConnector;
-
 import java.util.Date;
+
+import ir.ac.ut.iecommon.exceptions.*;
+import ir.ac.ut.iecommon.time.Clock;
+
+import ir.ac.ut.ieproj.database.DBConnector;
 
 public class Department {
 	
-	public static void acceptWithdraw(String studentID, String offeringID, String professorID)
+	public static void acceptWithdraw(int studentID, int offeringID, int professorID)
 			throws AcceptWithdrawException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException {
-
-		Student s = findStudent(studentID);
-		Offering o = findOffering(offeringID);
-		Term t = findOfferingTerm(offeringID);
-		Professor p = findProf(professorID);
-
-		if(s==null)
-			throw new StudentNotFoundException("Student with id "+studentID+" not found .");
-		if(o==null)
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" not found .");
-		if(p==null)
-			throw new ProfNotFoundException("Professor with id "+professorID+" not found .");
-		if(t==null)
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to any term .");
-		if(t.getId() != findCurrentTerm().getId())
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to this term .");
+			OfferingNotFoundException, ProfNotFoundException, Exception {
+		
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		@SuppressWarnings("unused")
+		Professor p = DBConnector.getProfessor(professorID);
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o)) {
+			throw new AcceptWithdrawException("The offering with id= "+offeringID+" does not belongs to this term .");
+		}
 		if(!s.hasOffering(offeringID))
-			throw new OfferingNotFoundException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
-		if(!o.getProfessor().equals(professorID))
+			throw new AcceptWithdrawException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
+		if(o.getProfessor().getId() != professorID)
 			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
-		if(s.offeringStatus(offeringID)!=StudyStatus.WAITINGFORWITHRAWACCEPT)
+		if(s.offeringStatus(offeringID) != StudyStatus.WAITINGFORWITHRAWACCEPT)
 			throw new AcceptWithdrawException("Offering was not waiting for withraw .");
+		
 		s.changeRecordToWithrawn(offeringID);
+		DBConnector.saveStudent(s);
 	}
-	public static void checkDegreeReq(String studentID) throws CheckDegreeReqException,
+	public static void checkDegreeReq(int studentID) throws CheckDegreeReqException,
 	StudentNotFoundException {
-		/*
-		Student findSt = findStudent(studentID);
-		if (findSt == null)
-			throw new StudentNotFoundException("Student with id "+studentID+" not found .");
-		Program findPr = findSt.findProgram(programs);
-		if(!findPr.isPass(this, findSt)){
+		
+		Student s = DBConnector.getStudent(studentID);
+		if(!s.isPassedReq())
 			throw new CheckDegreeReqException("Student with id "+studentID+" doesn't pass enough courses .");
-		}
-		//System.out.println("check degree succsesful .");
-		 */
 	}
-	public static void drop(String StudentID, String offeringID) throws DropException,
-	StudentNotFoundException, OfferingNotFoundException {
-		Student findSt = findStudent(StudentID);
-		if (findSt == null)
-			throw new StudentNotFoundException("Error from drop function: Student with id "+StudentID+" not found .");
-		Term findOfTerm = findOfferingTerm(offeringID);
-		if (findOfTerm == null)
-			throw new OfferingNotFoundException("Error from drop function: Offering with id "+offeringID+" not found .");
+	public static void drop(int studentID, int offeringID) throws DropException,
+	StudentNotFoundException, OfferingNotFoundException, Exception {
+		
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		if(!s.hasOffering(offeringID))
+			throw new DropException("Offering with id="+ offeringID +" has not taken by this student .");
+		if(s.offeringStatus(offeringID) != StudyStatus.INPROGRESS)
+			throw new DropException("Offering with id="+ offeringID +" for student with id="+studentID+"is not in good status="+s.offeringStatus(offeringID)+" .");
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o))
+			throw new DropException("Offering with id="+ offeringID +" is not in current term .");
 		Date now = new Date(Clock.getCurrentTimeMillis());
-		Term CurrentTerm = findCurrentTerm();
-		if (CurrentTerm.getId() != findOfTerm.getId())
-			throw new DropException("Error from drop function: offering with id "+ offeringID +" has not taken in current term .");
-		if(!findSt.hasOffering(offeringID)) {
-			//System.out.println("drop : has Offering Exception : offeringID="+offeringID+",studentID="+StudentID+",hasOffering 4="+findSt.hasOffering("4")+"#");
-			throw new DropException("Error from drop function: offering with id "+ offeringID +" has not taken by this student .");
-		}
-		if ((CurrentTerm.getEnrollmentStartDate().before(now) && CurrentTerm.getEnrollmentEndDate().after(now))||
-				CurrentTerm.getAddAndDropStartDate().before(now) && CurrentTerm.getAddAndDropEndDate().after(now)) {
-			try {
-				findOffering(offeringID).incRemainCapacity();
-			} catch (TakeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (DeptLoadException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			findSt.deleteRecord(offeringID);
-			DBConnector.studentDeleteRecord(StudentID, offeringID);
-			DBConnector.increaseRemainCapacity(offeringID);
-		}
-		else {
-			throw new DropException("Error from drop function: drop in wrong time. ");
-		}
+		if (!(t.getEnrollmentStartDate().before(now) && t.getEnrollmentEndDate().after(now) ||
+				t.getAddAndDropStartDate().before(now) && t.getAddAndDropEndDate().after(now)))
+			throw new DropException("Student with id="+studentID+" is not in drop time .");
+		// TODO : drop when you have less than 12 units .
+		// TODO : drop when you have some course that is corecuesti...
+		o.incRemainCapacity();
+		s.deleteRecord(offeringID);
+		DBConnector.saveStudent(s);
+		DBConnector.saveOffering(o);
 	}
-	public static void rejectWithdraw(String studentID, String offeringID, String professorID)
+	public static void rejectWithdraw(int studentID, int offeringID, int professorID)
 			throws RejectWithdrawException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException {
-		Student s = findStudent(studentID);
-		Offering o = findOffering(offeringID);
-		Term t = findOfferingTerm(offeringID);
-		Professor p = findProf(professorID);
-
-		if(s==null)
-			throw new StudentNotFoundException("Student with id "+studentID+" not found .");
-		if(o==null)
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" not found .");
-		if(p==null)
-			throw new ProfNotFoundException("Professor with id "+professorID+" not found .");
-		if(t==null)
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to any term .");
-		if(t.getId() != findCurrentTerm().getId())
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to this term .");
+			OfferingNotFoundException, ProfNotFoundException, Exception {
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		@SuppressWarnings("unused")
+		Professor p = DBConnector.getProfessor(professorID);
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o)) {
+			throw new RejectWithdrawException("The offering with id= "+offeringID+" does not belongs to this term .");
+		}
 		if(!s.hasOffering(offeringID))
-			throw new OfferingNotFoundException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
-		if(!o.getProfessor().equals(professorID))
+			throw new RejectWithdrawException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
+		if(o.getProfessor().getId() != professorID)
 			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
-		if(s.offeringStatus(offeringID)!=StudyStatus.WAITINGFORWITHRAWACCEPT)
+		if(s.offeringStatus(offeringID) != StudyStatus.WAITINGFORWITHRAWACCEPT)
 			throw new RejectWithdrawException("Offering was not waiting for withraw .");
+		
 		s.changeRecordToInProgress(offeringID);
-
+		DBConnector.saveStudent(s);		
 	}
-	public static void submitGrade(String StudentID, String ProfID, String OfferingID, float Grade)
+	public static void submitGrade(int studentID, int professorID, int offeringID, float grade)
 			throws SubmitGradeException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException {
-		Student findSt=findStudent(StudentID);
-		if (findSt==null)
-			throw new StudentNotFoundException("Error from submitGrade function: Student with id "+StudentID+" not found .");
-		Offering findOf = findOffering(OfferingID);
-		if (findOf==null)
-			throw new OfferingNotFoundException("Error from submitGrade function: Offering with id "+OfferingID+" not found .");
-		Date now=new Date(Clock.getCurrentTimeMillis());
-		Term CurrentTerm = findCurrentTerm();
-		Professor findPr = findProf(ProfID);
-		if (findPr==null)
-			throw new ProfNotFoundException("Error from submitGrade function: Professor with id "+ProfID+" not found .");
-		if (!findOf.getProfessor().equals(ProfID))
-			throw new SubmitGradeException("Error from submitGrade function: not same professor to submit this grade .");
-		Term findOfTerm=findOfferingTerm(OfferingID);
-		if (findOfTerm.getId() != CurrentTerm.getId())
-			throw new SubmitGradeException("Error from submitGrade function: this offering is not belong to currnet term .");
-		if (!findSt.hasOffering(OfferingID))
-			throw new SubmitGradeException("Error from submitGrade function: this student has not taken this offering .");
-		if(Grade>20 || Grade<0)
-			throw new SubmitGradeException("Error from submitGrade function: Grade should be in 0 to 20 range .");
-		if (!(CurrentTerm.getSubmitGradeEndDate().after(now) && CurrentTerm.getSubmitGradeStartDate().before(now)))
-			throw new SubmitGradeException("Error from submitGrade function: this is not an appropriate time for grade submitions .");
-		findSt.setOfferingGrade(Grade, OfferingID);
-	}
-	public static void take(String StudentID, String offeringID) throws TakeException,
-	StudentNotFoundException, OfferingNotFoundException {
-		// TODO
-		/*
-		//System.out.println("here 11");
-		Student findSt = findStudent(StudentID);
-		if (findSt == null)
-			throw new StudentNotFoundException("Error from take function: Student with id "+StudentID+" not found .");
-		Offering findOf = findOffering(offeringID);
-		//System.out.println("here 10");
-		if (findOf == null)
-			throw new OfferingNotFoundException("Error from take function: Offering with id "+offeringID+" not found .");
-		Course findCo = findCourse(findOf.getCourse());
-		Date now = new Date(Clock.getCurrentTimeMillis());
-		Term CurrentTerm = findCurrentTerm();
-		//System.out.println("current term : "+CurrentTerm.getId()+" ");
-		//if(findOfferingTerm(offeringID)==null)
-			//System.out.println("findOfferingTerm(offeringID)==null");
-		//System.out.println("here 9");
-		if(CurrentTerm == null)
-			throw new TakeException("Error from take function: Term not found .");
-		//System.out.println("currentTerm: #"+CurrentTerm.getId()+"# offering term : #"+findOfferingTerm(offeringID).getId()+"#");
-		if(CurrentTerm.getId() != findOfferingTerm(offeringID).getId())
-			throw new TakeException("Error from take function: you can't take an offering which is not in this term .");
-		if (findSt.isPassedCourse(Integer.toString(findCo.getId()), this))
-			throw new TakeException("Error from take function: you can't take a course which you have passed before .");
-		if (findSt.inProgressOffering(offeringID)){
-			throw new TakeException("Error from take function: you can't take a course which is in progress before .");
+			OfferingNotFoundException, ProfNotFoundException, Exception {
+		
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		@SuppressWarnings("unused")
+		Professor p = DBConnector.getProfessor(professorID);
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o)) {
+			throw new SubmitGradeException("The offering with id= "+offeringID+" does not belongs to this term .");
 		}
-		//System.out.println("here 8");
-		if (!findSt.isCoreconPass(findCo, this))
-			throw new TakeException("Error from take function: Corequisite condition for this course is not observe .");
-		if (!findSt.isPreconPass(findCo, this))
-			throw new TakeException("Error from take function: prequisite condition for this course is not observe .");
-		float avgGrade = findSt.getLastTermAverage(this);
-		int passedUnit=findSt.getCurrentTermUnit(this);
-		//System.out.println("here 7");
-		//System.out.println("passed units : "+passedUnit);
-		if (avgGrade<12 && passedUnit+findCo.getUnits()>14)
-			throw new TakeException("Error from take function: your last term avrage grade is less than 14 because of that you cant get more than 14 unit .");
-		if (avgGrade<18 && passedUnit+findCo.getUnits()>20)
-			throw new TakeException("Error from take function: your last term avrage grade is less than 18 because of that you cant get more than 20 unit .");
-		//System.out.println("here 6");
-		if ( passedUnit+findCo.getUnits()>24)
-			throw new TakeException("Error from take function: you cant get more than 24 unit .");
-		if (findSt.isInSameTimeCourses(findOf, this))
-			throw new TakeException("Error from take function: you can't take this course because you take another course in this time .");	
-		if(findSt.isInSameTimeExam(findOf, this))
-			throw new TakeException("Error from take function: you can't take this course because one of your course exam is in this course exam .");	
-		Program findstProgram=findSt.findProgram(programs);
-		if (!findstProgram.canPass(this, findSt, findCo))
-			throw new TakeException("Error from take function: you cant take this course because of your elective policy .");
-
-		if ((CurrentTerm.getEnrollmentStartDate().before(now)&&CurrentTerm.getEnrollmentEndDate().after(now))||
-				CurrentTerm.getAddAndDropStartDate().before(now)&&CurrentTerm.getAddAndDropEndDate().after(now)) {
-			try {
-				findOf.decRemainCapacity();
-			} catch (DeptLoadException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			findSt.addRecord(offeringID);
-			DBConnector.studentAddRecord(StudentID, offeringID);
-			DBConnector.decreaseRemainCapacity(offeringID);
-			//System.out.println("take : success : StudentID="+StudentID+",offeringID="+offeringID+"#");
-			//System.out.println("take : success : has offering 4="+findSt.hasOffering("4"));
-			return;
-		}
-		throw new TakeException("Error from take function: take in wrong time. ");
-		*/	
-	}	
-	public static void withdraw(String studentID, String offeringID) throws WithdrawException,
-	StudentNotFoundException, OfferingNotFoundException {
-
-		/*
-		Student s = findStudent(studentID);
-		Offering o = findOffering(offeringID);
-		Term t = findOfferingTerm(offeringID);
-
-		if(s==null)
-			throw new StudentNotFoundException("Student with id "+studentID+" not found .");
-		if(o==null)
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" not found .");
-		if(t==null)
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to any term .");
-		if(t.getId() != findCurrentTerm().getId())
-			throw new OfferingNotFoundException("Offering with id "+offeringID+" does not belongs to this term .");
 		if(!s.hasOffering(offeringID))
-			throw new OfferingNotFoundException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
+			throw new SubmitGradeException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
+		if(o.getProfessor().getId() != professorID)
+			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
+		if(s.offeringStatus(offeringID) != StudyStatus.INPROGRESS)
+			throw new SubmitGradeException("Offering was not in progress .");
+		if(grade>20 || grade<0)
+			throw new SubmitGradeException("Grade should be in 0 to 20 range .");
 		Date now = new Date(Clock.getCurrentTimeMillis());
-		if(now.before(t.getWithdrawStartDate()) ||
-				now.after(t.getWithdrawEndDate()))
-			throw new WithdrawException("The withrow time is passed or not come yet .");
-		if(s.hasWithrownOrWaitingOffering(this)) {
-			throw new WithdrawException("Only one offering can be withrawn in a term .");
-		}
-		s.changeRecordToWaitingForWithraws(offeringID);
-		*/
+		if (!(t.getSubmitGradeEndDate().after(now) && t.getSubmitGradeStartDate().before(now)))
+			throw new SubmitGradeException("This is not an appropriate time for grade submitions .");
+		
+		s.setOfferingGrade(grade, offeringID);
+		DBConnector.saveStudent(s);
 	}
+	public static void take(int studentID, int offeringID) throws TakeException,
+	StudentNotFoundException, OfferingNotFoundException, Exception {
+	
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o))
+			throw new TakeException("Offering with id="+ offeringID +" is not in current term .");
+		if(s.hasOffering(offeringID))
+			throw new TakeException("Offering with id="+ offeringID +" has taken by this student .");
+		Date now = new Date(Clock.getCurrentTimeMillis());
+		if (!(t.getEnrollmentStartDate().before(now) && t.getEnrollmentEndDate().after(now) ||
+				t.getAddAndDropStartDate().before(now) && t.getAddAndDropEndDate().after(now)))
+			throw new TakeException("Student with id="+studentID+" is not in take time .");
+		if(o.getRemainCapacity() <= 0)
+			throw new TakeException("Offering with id="+offeringID+" has no more capacity .");
+		if(s.hasPassedCourse())
+			throw new TakeException("Student with id="+studentID+" has passed course of offering with id="+offeringID+" .");
+		if(!o.getCourse().isPrequIsPassedByStudent(s))
+			throw new TakeException("Prequisite condition for course of offering with id="+offeringID+" is not observed by student with id="+studentID+" .");
+		if(!o.getCourse().isCorequIsPassedOrInProgressByStudent(s))
+			throw new TakeException("Corequisite condition for course of offering with id="+offeringID+" is not observed by student with id="+studentID+" .");
+		if(s.lastTermAverage()<10 && s.inProgressUnits()+o.getCourse().getUnits()>14)
+			throw new TakeException("Student with id= has below 10 average and can't take more than 14 units .");
+		if(s.lastTermAverage()<17 && s.inProgressUnits()+o.getCourse().getUnits()>20)
+			throw new TakeException("Student with id= has below 17 average and can't take more than 20 units .");
+		if(s.inProgressUnits()+o.getCourse().getUnits()>24)
+			throw new TakeException("Student with id= has good average but can't take more than 24 units .");
+		
+		o.decRemainCapacity();
+		s.addRecord(offeringID);
+		DBConnector.saveStudent(s);
+		DBConnector.saveOffering(o);	
+	}	
+	public static void withdraw(int studentID, int offeringID) throws WithdrawException,
+	StudentNotFoundException, OfferingNotFoundException, Exception {
 
-	public static Term findOfferingTerm(String offeringID){
-		/*for (Term t : terms ){
-			Offering findOff=t.findoOffering(offeringID);
-			if (findOff!=null)
-				return t;
-		}*/
-		try {
-			return DBConnector.getOfferingTerm(offeringID);
-		} catch (Exception e) {
-			System.out.println("term not found Exception .!.!.");
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public static Professor findProf(String profID){
-		/*
-		for (Professor pr :professors){
-			if (pr.getId() == Integer.parseInt(profID))
-				return pr;
-		}
-		*/
-		return null;
-	}
-	public static Offering findOffering(String OfferingID){
-		/*for (Term t : terms ){
-			Offering findOff=t.findoOffering(OfferingID);
-			if (findOff!=null)
-				return findOff;
-		}
-		return null;*/
-		try {
-			return DBConnector.getOffering(OfferingID);
-		} catch (OfferingNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public static Student findStudent(String studentID) {
-		/*for (Student s : students){
-			if (s.getId().equals(studentID))
-				return s;
-		}
-		return null;
-		*/
-		try {
-			//System.out.println("findStudent come .");
-			return DBConnector.getStudent(studentID);
-		} catch (StudentNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public Course findCourse(String CourseID){
-		/*
-		for (Course c :courses ){
-			if (c.getId() == Integer.parseInt(CourseID))
-				return c;
-		}
-		*/
-		return null;
-	}
-	public static Term findCurrentTerm() {
-		/*Date now = new Date (Clock.getCurrentTimeMillis());
-		System.out.println("current time : "+now);
-		for (Term in: terms){
-			//System.out.println("terms : "+in.getStartDate()+" *** "+in.getEndDate());
-			if (in.getStartDate().before(now) && in.getEndDate().after(now))
-				return in;
-		}*/
-		return DBConnector.getCurrentTerm();
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		if(!s.hasOffering(offeringID))
+			throw new WithdrawException("Offering with id="+ offeringID +" has not taken by this student .");
+		if(s.offeringStatus(offeringID) != StudyStatus.INPROGRESS)
+			throw new WithdrawException("Offering with id="+ offeringID +" for student with id="+studentID+"is not in good status="+s.offeringStatus(offeringID)+" .");
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o))
+			throw new WithdrawException("Offering with id="+ offeringID +" is not in current term .");
+		Date now = new Date(Clock.getCurrentTimeMillis());
+		if (!(t.getWithdrawStartDate().before(now) && t.getWithdrawEndDate().after(now)))
+			throw new WithdrawException("Student with id="+studentID+" is not in withraw time .");
+		if(s.inProgressUnits()-o.getCourse().getUnits() < 12)
+			throw new WithdrawException("Student with id="+studentID+" will have less than 12 units after withrawing and can't withraw .");
+		
+		s.changeRecordToWaitingForWithraws(offeringID);
 	}
 }

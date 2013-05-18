@@ -122,4 +122,8 @@ public class Offering {
 	public int getCapacity() {
 		return capacity;
 	}
+	public int getRemainCapacity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

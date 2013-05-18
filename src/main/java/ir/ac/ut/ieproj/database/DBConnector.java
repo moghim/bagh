@@ -3,44 +3,45 @@ package ir.ac.ut.ieproj.database;
 import org.hibernate.Session;
 
 import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
+import ir.ac.ut.iecommon.exceptions.ProfNotFoundException;
 import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
 import ir.ac.ut.ieproj.domain.*;
 
 public class DBConnector {
 
-	public static Student getStudent(int studentId) {
+	public static Student getStudent(int studentId) throws StudentNotFoundException {
 		Session session = (Session) HibernateUtil.getSessionFactory();
 		session.beginTransaction();
 		Student student = (Student) session.get(Student.class, studentId);
 		session.close();
+		if(student == null)
+			throw new StudentNotFoundException("Student not found .");
 		return student;
 	}
-	public static Student getStudent(String id) throws StudentNotFoundException {
+	public static Professor getProfessor(int professorID) throws ProfNotFoundException {
 		// TODO
 		return null;
 	}
-	public static Term getOfferingTerm(String offeringID) {
+	public static Term getTerm(int TermID) {
 		// TODO
 		return null;
 	}
-	public static Offering getOffering(String offeringID) throws OfferingNotFoundException {
+	public static Offering getOffering(int offeringID) throws OfferingNotFoundException {
 		// TODO
 		return null;
 	}
-	public static Term getCurrentTerm() {
+	public static Course getCourse() {
 		// TODO
 		return null;
 	}
-	public static void studentAddRecord(String studentID, String offeringID) {
+	public static Term getCurrentTerm() throws Exception {
 		// TODO
+		return null;
 	}
-	public static void decreaseRemainCapacity(String offeringID) {
-		// TODO
+	public static void saveStudent(Student s) {
+		// TODO Auto-generated method stub
 	}
-	public static void studentDeleteRecord(String studentID, String offeringID) {
-		// TODO
-	}
-	public static void increaseRemainCapacity(String offeringID) {
-		// TODO
+	public static void saveOffering(Offering o) {
+		// TODO Auto-generated method stub	
 	}
 }

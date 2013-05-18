@@ -33,6 +33,8 @@ public class Course {
 	private Set<Course> corequisite;
 	
 	public Course() {
+		prerequisite = new HashSet<Course>();
+		corequisite = new HashSet<Course>();
 	}
 	public Course(String name, int units, Level level) {
 		this.name = name;
@@ -82,5 +84,13 @@ public class Course {
 	}
 	public void addCorequisite(Course course) {
 		corequisite.add(course);
+	}
+	public boolean isPrequIsPassedByStudent(Student s) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isCorequIsPassedOrInProgressByStudent(Student s) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

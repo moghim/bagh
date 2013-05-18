@@ -350,4 +350,52 @@ public class Student {
 	public void addStudyRecord(StudyRecord studyRecord) {
 		this.studyRecord.add(studyRecord);
 	}
+	public boolean hasOffering(int offeringID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public StudyStatus offeringStatus(int offeringID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void changeRecordToWithrawn(int offeringID) {
+		// TODO Auto-generated method stub
+		
+	}
+	public boolean isPassedReq() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public void deleteRecord(int offeringID) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void changeRecordToInProgress(int offeringID) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setOfferingGrade(float grade, int offeringID) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void addRecord(int offeringID) {
+		// TODO Auto-generated method stub
+		
+	}
+	public boolean hasPassedCourse() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public int lastTermAverage() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int inProgressUnits() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void changeRecordToWaitingForWithraws(int offeringID) {
+		// TODO Auto-generated method stub
+		
+	}
 }

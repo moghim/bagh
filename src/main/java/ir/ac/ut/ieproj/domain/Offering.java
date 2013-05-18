@@ -98,4 +98,15 @@ public class Offering {
 	public void setRemainCapacity(int remainCapacity) {
 		this.remainCapacity = remainCapacity;
 	}
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		if(!(o instanceof Offering))
+			return false;
+		Offering oo = (Offering) o;
+		if(oo.getId() != this.getId())
+			return false;
+		return true;
+	}
 }

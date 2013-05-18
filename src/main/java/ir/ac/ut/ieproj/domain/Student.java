@@ -1,10 +1,8 @@
 package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
-import ir.ac.ut.iecommon.exceptions.TakeException;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Student {
-	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)
@@ -30,7 +28,7 @@ public class Student {
 	private Program program;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<StudyRecord> studyRecord;
-	
+
 	public Student(){
 	}
 	public Student(String firstName, String lastName) {
@@ -68,103 +66,19 @@ public class Student {
 	public void setStudyRecord(Set<StudyRecord> studyRecord) {
 		this.studyRecord = studyRecord;
 	}
-	
-	public void addRecord(String offeringID){
-		// TODO
-		/*
-		 
-		sr.setOffering(offeringID);
-		sr.setStatus(StudyStatus.INPROGRESS);
-		studyRecord.add(sr);
-		*/
+	public void addStudyRecord(StudyRecord studyRecord) {
+		this.studyRecord.add(studyRecord);
 	}
-	public void deleteRecord(String offeringID){
-		// TODO
-		/*
-		for (int i=0;i<studyRecord.size();i++){
-			if (studyRecord.get(i).getOffering().equals(offeringID)){
-				studyRecord.remove(i);
-				break;
-			}
-		}
-		*/
-	}
-	public void changeRecordToWithrawn(String offeringID) {
-		// TODO
-		/*
-		for (int i=0;i<studyRecord.size();i++){
-			if (studyRecord.get(i).getOffering().equals(offeringID)){
-				studyRecord.get(i).setStatus(StudyStatus.WITHRAW);
-				break;
-			}
-		}
-		*/
-	}
-	public void changeRecordToWaitingForWithraws(String offeringID) {
-		// TODO
-		/*
-		for (int i=0;i<studyRecord.size();i++){
-			if (studyRecord.get(i).getOffering().equals(offeringID)){
-				studyRecord.get(i).setStatus(StudyStatus.WAITINGFORWITHRAWACCEPT);
-				break;
-			}
-		}
-		*/
-	}
-	public void changeRecordToInProgress(String offeringID) {
-		// TODO
-		/*
-		for (int i=0;i<studyRecord.size();i++){
-			if (studyRecord.get(i).getOffering().equals(offeringID)){
-				studyRecord.get(i).setStatus(StudyStatus.INPROGRESS);
-				break;
-			}
-		}
-		*/
-	}
- 	public boolean hasOffering(String offeringID){
-		for (StudyRecord sr :studyRecord){
-			if (sr.getOffering().equals(offeringID))
-				return true;
-		}
-		return false;
-	}
-	public void setOfferingGrade(float grade,String offeringID){
-	/*	for (int i=0;i<studyRecord.size();i++){
-			if (studyRecord.get(i).getOffering().equals(offeringID)){
-				studyRecord.get(i).setGrade(grade);
-				if(grade<10)
-					studyRecord.get(i).setStatus(StudyStatus.FAILED);
-				else
-					studyRecord.get(i).setStatus(StudyStatus.PASSED);
-				break;
-			}
-		}
-		*/
-		// TODO
-	}
-	public boolean isPassedCourse(String courseID, Department dep){
-		// TODO
-		/*
-		for(StudyRecord sr : studyRecord){
-			if(sr.getStatus() == StudyStatus.PASSED){
-				Offering of = dep.findOffering(sr.getOffering());
-				if (of.getCourse().equals(courseID))
-					return true;
-			}
-		}
-		*/
-		return false;
-	}
-	public int FindNumberOfPassedCourse(){
+
+	public int FindNumberOfPassedCourse() {
 		int num=0;
-		for(StudyRecord sr :studyRecord){
+		for(StudyRecord sr:studyRecord){
 			if(sr.getStatus()==StudyStatus.PASSED)
 				num++;
 		}
 		return num;
 	}
-	public int findNumberOfCourseTaken(){
+	public int findNumberOfCourseTaken() {
 		int num=0;
 		for(StudyRecord sr :studyRecord){
 			if(sr.getStatus()==StudyStatus.PASSED||sr.getStatus()==StudyStatus.INPROGRESS||sr.getStatus()==StudyStatus.WAITINGFORWITHRAWACCEPT)
@@ -172,173 +86,19 @@ public class Student {
 		}
 		return num;
 	}
-	public boolean isInprogressOrPassCourse(String courseID,Department dep){
-		// TODO
-		/*
-		for(StudyRecord sr :studyRecord){
-			if(sr.getStatus()==StudyStatus.PASSED||sr.getStatus()==StudyStatus.INPROGRESS){
-				Offering of=dep.findOffering(sr.getOffering());	
-				if (of.getCourse().equals(courseID))
-					return true;
-			}
-		}
-		*/
-		return false;
-	}
-	public boolean isPassedOffering(String offeringID) throws TakeException{
-		for(StudyRecord sr : studyRecord){
-			if(sr.getStatus()==StudyStatus.PASSED && sr.getOffering().equals(offeringID))
+	public boolean isInSameTimeOffering(Offering o) {
+		for (StudyRecord sr: studyRecord) {
+			if(sr.getOffering().getTime() == o.getTime())
 				return true;
 		}
 		return false;
 	}
-	public boolean inProgressOffering(String offeringID) {
-		//System.out.println("inProgressOffering : ");
-		for(StudyRecord sr :studyRecord){
-			//System.out.println("*"+sr.getOffering()+"* *"+sr.getStatus()+"*");
-			if(sr.getStatus()==StudyStatus.INPROGRESS && sr.getOffering().equals(offeringID))
+	public boolean isInSameTimeExam(Offering o) {
+		for (StudyRecord sr: studyRecord) {
+			if(sr.getOffering().getExamDate().equals(o.getExamDate()))
 				return true;
 		}
 		return false;
-	}
-	public float getLastTermAverage(Department dep){
-		// TODO
-		/*
-		//System.out.println("getLastTermAverage come .");
-		int lastTermID = -1;
-		for(StudyRecord sr : studyRecord) {
-			//System.out.println("offeringId = "+sr.getOffering());
-			String temp = dep.findOfferingTerm(sr.getOffering()).getId();
-			//System.out.println("term = "+temp);
-			if(!dep.findCurrentTerm().equals(temp) && Integer.parseInt(temp) > lastTermID)
-				lastTermID = Integer.parseInt(temp);
-		}
-		if(lastTermID == -1) {
-			//System.out.println("terme avali");
-			return 17;
-		}
-		String lastTerm = Integer.toString(lastTermID);
-		float avg = 0;
-		int numOfCourse = 0;
-		for(StudyRecord sr : studyRecord){
-			if (sr.getStatus() == StudyStatus.PASSED || sr.getStatus() == StudyStatus.FAILED){
-				Term ofTerm = dep.findOfferingTerm(sr.getOffering());
-			//	System.out.println("badbakht : "+Integer.getInteger(ofTerm.getId()));
-				if (!ofTerm.getId().equals(lastTerm)){
-					numOfCourse += dep.findCourse(sr.getOffering()).getUnits();
-					avg += sr.getGrade()*dep.findCourse(sr.getOffering()).getUnits();
-				}
-			}
-		}
-		if (numOfCourse != 0)
-			avg = avg/numOfCourse;
-		//System.out.println("moadel : "+avg);
-		return avg;
-		*/
-		return 0;
-	}
-	public int getCurrentTermUnit(Department dep) {
-		// TODO
-		/*
-		//System.out.println("getCurrentTerm Unit come .");
-		int unitNum = 0;
-		for(StudyRecord sr :studyRecord) {
-			if (sr.getStatus() == StudyStatus.INPROGRESS) {
-				Term ofTerm = dep.findOfferingTerm(sr.getOffering());
-				Term currentTerm = dep.findCurrentTerm();
-				if (ofTerm.getId().equals(currentTerm.getId())) {
-					Offering of = dep.findOffering(sr.getOffering());
-					Course co = dep.findCourse(of.getCourse());
-					unitNum += co.getUnits();
-				}
-			}
-		}
-		return unitNum;
-		*/
-		return 0;
-	}
-	public boolean hasWithrownOrWaitingOffering(Department dep) {
-		// TODO
-		/*
-		Term thisTerm = dep.findCurrentTerm();
-		for(StudyRecord sr : studyRecord){
-			//Offering o = dep.findOffering(sr.getOffering());
-			Term t = dep.findOfferingTerm(sr.getOffering());
-			if(thisTerm.getId().equals(t.getId())) {
-				if(sr.getStatus() == StudyStatus.WAITINGFORWITHRAWACCEPT 
-				|| sr.getStatus()== StudyStatus.WITHRAW ) {
-					return true;
-				}
-			}
-		}
-		*/
-		return false;
-	}
-	public boolean isInSameTimeCourses(Offering of,Department dep){
-		// TODO
-		/*
-		for (StudyRecord sr: studyRecord){	
-			Term currentTerm=dep.findCurrentTerm();
-			Term termSR=dep.findOfferingTerm(sr.getOffering());
-			if(termSR.getId().equals(currentTerm.getId())){
-				Offering depOf=dep.findOffering(sr.getOffering());
-				if (depOf.getTime()==of.getTime())
-					return true;
-			}	
-		}
-		*/
-		return false;
-	}
-	public boolean isInSameTimeExam(Offering of,Department dep){
-		// TODO
-		/*
-		for (StudyRecord sr: studyRecord){	
-			Term currentTerm=dep.findCurrentTerm();
-			Term termSR=dep.findOfferingTerm(sr.getOffering());
-			if(termSR.getId().equals(currentTerm.getId())){
-				Offering depOf=dep.findOffering(sr.getOffering());
-				if (depOf.getExamDate().equals(of.getExamDate()))
-					return true;
-			}
-			
-		}
-		*/
-		return false;
-	}
-	public Program findProgram(Vector<Program> Prs){
-		// TODO
-		/*
-		for (Program p:Prs){
-			if(p.getId().equals(program))
-				return p;
-		}
-		*/
-		return null;
-	}
-	public boolean isPreconPass(Course co, Department dep){
-		//System.out.println("isPreconPass come .");
-		//Course toCheck=null;
-		//System.out.println("finded course :"+co.getId());
-		
-		/*for (Course a:co.getPrerequisite()){
-			//System.out.println("here");
-			if (!isPassedCourse(a, dep))
-				return false;
-		}*/
-		return true;
-	}
-	public boolean isCoreconPass(Course co,Department dep){
-		// TODO
-		//Course toCheck=null;
-		//if(co.getCorequisite()==null)
-			//System.out.println("babbakht shodim ...");
-		//System.out.println("isCoreconPass come .");
-		/*
-		for (Course a:co.getCorequisite()){
-			if (!isInprogressOrPassCourse(a, dep))
-				return false;
-		}*/
-		return true;
 	}
 	public StudyStatus offeringStatus(String OfferingID) {
 		for(StudyRecord sr : studyRecord) {
@@ -346,72 +106,113 @@ public class Student {
 				return sr.getStatus();
 		}
 		return null;
-	}
-	public void addStudyRecord(StudyRecord studyRecord) {
-		this.studyRecord.add(studyRecord);
-	}
-	public boolean hasOffering(int offeringID) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public StudyStatus offeringStatus(int offeringID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void changeRecordToWithrawn(int offeringID) {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
 	public boolean isPassedReq() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public void deleteRecord(int offeringID) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void changeRecordToInProgress(int offeringID) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setOfferingGrade(float grade, int offeringID) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void addRecord(int offeringID) {
-		// TODO Auto-generated method stub
-		
+		return program.isPassedReq(this);
 	}
 	public boolean hasPassedCourse(Course c) {
-		// TODO Auto-generated method stub
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getCourse().getId() == c.getId())
+				return true;
+		}
 		return false;
 	}
-	public int lastTermAverage() {
-		// TODO Auto-generated method stub
-		return 0;
+	public float TermAverage(Term t) {
+		float sum = 0;
+		int num = 0;
+		for(StudyRecord sr : studyRecord) {
+			if((sr.getStatus() == StudyStatus.PASSED || sr.getStatus() == StudyStatus.FAILED) && t.hasOffering(sr.getOffering())) {
+				sum += sr.getGrade();
+				num ++;
+			}
+		}
+		return sum/num;
 	}
 	public int inProgressUnits() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public void changeRecordToWaitingForWithraws(int offeringID) {
-		// TODO Auto-generated method stub
-		
+		int result = 0;
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getStatus() == StudyStatus.INPROGRESS) {
+				result += sr.getOffering().getCourse().getUnits();
+			}
+		}
+		return result;
 	}
 	public boolean isPassedCourse(Course c) {
-		// TODO Auto-generated method stub
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getCourse().getId() == c.getId() && sr.getStatus() == StudyStatus.PASSED) 
+				return true;
+		}
 		return false;
 	}
 	public boolean isInProgresCourse(Course c) {
-		// TODO Auto-generated method stub
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getCourse().getId() == c.getId() && sr.getStatus() == StudyStatus.INPROGRESS) 
+				return true;
+		}
 		return false;
 	}
-	public int gradedPassedCourses() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int gradPassedCourses() {
+		int result = 0;
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getStatus() == StudyStatus.PASSED && sr.getOffering().getCourse().getLevel() == Level.GRAD)
+				result ++;
+		}
+		return result;
 	}
 	public Set<Course> AllPassedCourses() {
-		// TODO Auto-generated method stub
+		Set<Course> result = new HashSet<Course>();
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getStatus() == StudyStatus.PASSED)
+				result.add(sr.getOffering().getCourse());
+		}
+		return result;
+	}
+	public boolean hasOffering(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getId() == o.getId())
+				return true;
+		}
+		return false;
+	}
+	public StudyStatus offeringStatus(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(o.getId() == sr.getOffering().getId())
+				sr.getStatus();
+		}
 		return null;
+	}
+	public void changeRecordToWithrawn(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getId() == o.getId()) {
+				sr.setStatus(StudyStatus.WITHRAW);
+			}
+		}
+	}
+	public void changeRecordToWaitingForWithraws(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getId() == o.getId()) {
+				sr.setStatus(StudyStatus.WAITINGFORWITHRAWACCEPT);
+			}
+		}
+	}
+	public void changeRecordToInProgress(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getId() == o.getId()) {
+				sr.setStatus(StudyStatus.INPROGRESS);
+			}
+		}
+	}
+	public void setOfferingGrade(float grade, Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getId() == o.getId()) {
+				sr.setGrade(grade);
+			}
+		}
+	}
+	public void addRecord(Offering o) {
+		studyRecord.add(new StudyRecord(0, o, StudyStatus.INPROGRESS));
+	}
+	public void deleteRecord(Offering o) {
+		studyRecord.remove(o);
 	}
 }

@@ -1,5 +1,7 @@
 package ir.ac.ut.ieproj.domain;
 
+import ir.ac.ut.ieproj.database.DBConnector;
+
 import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
@@ -39,9 +41,9 @@ public class SimpleElectivePolicy extends ElectivePolicy {
 			return true;
 		}
 		else {
-			if(student.gradedPassedCourses()>=2)
+			if(student.gradPassedCourses()>=2)
 				return false;
-			if(student.gradedPassedCourses()==1 && student.lastTermAverage()<18)
+			if(student.gradPassedCourses()==1 && student.TermAverage(DBConnector.getPreviosTerm())<18)
 				return false;
 			return true;
 		}

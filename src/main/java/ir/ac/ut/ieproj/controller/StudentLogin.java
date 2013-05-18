@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class StudentLogin {
-
+/*
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DeptLoadException {
 		//System.out.println("sid : "+request.getParameter("sid"));
 		//System.out.println("before find");
@@ -60,4 +60,5 @@ public class StudentLogin {
 		request.setAttribute("err", "0");
 		return "course-select.jsp";
 	}
+	*/
 }

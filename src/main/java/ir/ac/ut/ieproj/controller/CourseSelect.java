@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class CourseSelect {
-
+/*
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws DeptLoadException {
 		
 		Student s = null;
@@ -38,13 +38,13 @@ public class CourseSelect {
 				String[] temps = dropOffer.split(",");
 				String offerID = temps[0].substring(1);
 				//System.out.println("data : drop : sid="+sid+",offerID="+offerID+"#");
-				Department.drop(sid, offerID);
+				Department.drop(Integer.parseInt(sid), Integer.parseInt(offerID));
 			}
 			else if (takeOffer != null){
 				String[] temps = takeOffer.split(",");
 				String offerID = temps[0].substring(1);
 				//System.out.println("data : take : sid="+sid+",offerID="+offerID+"#");
-				Department.take(sid, offerID);
+				Department.take(Integer.parseInt(sid), Integer.parseInt(offerID));
 			}
 			else {
 				System.out.println("data : not drop nor take !!!");
@@ -97,4 +97,5 @@ public class CourseSelect {
 		request.setAttribute("offers", data);
 		return "course-select.jsp";
 	}
+*/
 }

@@ -45,7 +45,7 @@ public class Program {
 		this.electives = new HashSet<Course>();
 	}
 	public boolean canPassCourse(Student s,Course c) {
-		return electivePolicy.canPasCourses(s, c, electives, mandatories);
+		return electivePolicy.canPassCourses(s, c, electives, mandatories);
 	}
 	public boolean isPassedReq(Student s) {
 		for(Course c : mandatories) {

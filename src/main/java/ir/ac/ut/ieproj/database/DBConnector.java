@@ -44,4 +44,8 @@ public class DBConnector {
 	public static void saveOffering(Offering o) {
 		// TODO Auto-generated method stub	
 	}
+	public static Term getPreviosTerm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

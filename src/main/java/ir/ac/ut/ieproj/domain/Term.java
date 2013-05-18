@@ -1,11 +1,11 @@
 package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
-import ir.ac.ut.iecommon.time.Clock;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,9 +29,12 @@ public class Term {
 	private Date enrollmentEndDate;
 	private Date addAndDropStartDate;
 	private Date addAndDropEndDate;
-	@OneToMany(fetch = FetchType.LAZY)
+	private Date withdrawStartDate;
+	private Date withdrawEndDate;
+	private Date submitGradeStartDate;
+	private Date submitGradeEndDate;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Offering> offerings;
-
 	public Term() {	
 	}
 	public Term(String name, Date startDate, Date endDate,
@@ -52,26 +55,7 @@ public class Term {
 		this.submitGradeEndDate = submitGradeEndDate;
 		this.offerings = new HashSet<Offering>();
 	}
-	private Date withdrawStartDate;
-	private Date withdrawEndDate;
-	private Date submitGradeStartDate;
-	private Date submitGradeEndDate;
 
-
-	public boolean isTakeTime() {
-		Date now = new Date (Clock.getCurrentTimeMillis());
-		if (this.getEnrollmentStartDate().before(now) && this.getEnrollmentEndDate().after(now))
-			return true;
-		return false;
-	}
-	public Offering findoOffering(int offeringID){
-		for (Offering o : offerings){
-			if (o.getId() == offeringID) {
-				return o;
-			}
-		}
-		return null;
-	}
 	public int getId() {
 		return id;
 	}
@@ -153,8 +137,11 @@ public class Term {
 	public void addOffering(Offering offering) {
 		offerings.add(offering);
 	}
-	public boolean hasOffering(Offering o) {
-		// TODO 
+	public boolean hasOffering(Offering offering) {
+		for (Offering o : offerings) {
+			if(offering.getId() == o.getId())
+				return true;
+		}
 		return false;
 	}
 }

@@ -1,8 +1,5 @@
 package ir.ac.ut.ieproj.controller;
 
-import ir.ac.ut.iecommon.exceptions.DeptLoadException;
-import ir.ac.ut.ieproj.domain.Department;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -19,20 +16,6 @@ public class FrontController extends HttpServlet{
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("salam man inja hastam .");
-		//String path = getServletContext().getInitParameter("samplePath");
-		//String user = getServletContext().getInitParameter("user");
-		//String password = getServletContext().getInitParameter("password");
-		//System.out.println("user: "+user+" password: "+password);
-		//System.out.println("path : "+path);
-		try {
-			@SuppressWarnings("unused")
-			Department d = Department.getInstance();
-		} catch (DeptLoadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		String className = request.getServletPath().substring(1, request.getServletPath().indexOf(".action"));
 		//System.out.println("class name : "+className);
 		try {

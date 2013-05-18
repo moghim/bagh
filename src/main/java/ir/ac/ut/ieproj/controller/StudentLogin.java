@@ -17,18 +17,15 @@ public class StudentLogin {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DeptLoadException {
 		//System.out.println("sid : "+request.getParameter("sid"));
-		Department d = Department.getInstance();
-		if(d==null)
-			System.out.println("besiar badbkht shodim .");
 		//System.out.println("before find");
-		Student s = d.findStudent(request.getParameter("sid"));
+		Student s = Department.findStudent(request.getParameter("sid"));
 		boolean hasError = false;
 		if(s == null) {
 			request.setAttribute("err", "1");
 
 			hasError = true;
 		}
-		else if(!d.findCurrentTerm().isTakeTime()) {
+		else if(!Department.findCurrentTerm().isTakeTime()) {
 			request.setAttribute("err", "2");
 			hasError = true;
 		}
@@ -38,8 +35,8 @@ public class StudentLogin {
 	//	request.setAttribute("sname", s.getFirstName()+" "+s.getLastName());
 		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>(); 
 		Vector<Vector<String>> data = new Vector<Vector<String>>(); 
-		for (int i = 0; i < d.findCurrentTerm().getOfferings().size(); i++) {
-			Offering o = d.findCurrentTerm().getOfferings().iterator().next(); // TODO
+		for (int i = 0; i < Department.findCurrentTerm().getOfferings().size(); i++) {
+			Offering o = Department.findCurrentTerm().getOfferings().iterator().next(); // TODO
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
 			temp.add(Integer.toString(o.getId()));

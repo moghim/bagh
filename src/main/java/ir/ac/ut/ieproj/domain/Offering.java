@@ -48,6 +48,7 @@ public class Offering {
 		isRemainCapacitySet = false;
 	}
 	public int findNumberOfStudentInOfferring() throws DeptLoadException{
+		/*
 		int num=0;
 		Department dep = Department.getInstance();
 		for (Student s:dep.getStudents()){
@@ -55,6 +56,8 @@ public class Offering {
 				num++;
 		}
 		return num;
+		*/
+		return 0;
 	}
 	public int findRemainCapacity() throws DeptLoadException {
 	//	System.out.println("capacity"+capacity);

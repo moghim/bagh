@@ -21,14 +21,13 @@ public class CourseSelect {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws DeptLoadException {
 		
 		Student s = null;
-		Department d = null;
 		String sid = null;
 		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>(); 
 		Vector<Vector<String>> data = new Vector<Vector<String>>(); 
 		
 		try {
 			request.setAttribute("err", "0");
-			d = Department.getInstance();
+			//d = Department.getInstance();
 			sid = request.getParameter("sid");
 			String dropOffer = request.getParameter("hasOffer");
 			String takeOffer = request.getParameter("canOffer");
@@ -39,13 +38,13 @@ public class CourseSelect {
 				String[] temps = dropOffer.split(",");
 				String offerID = temps[0].substring(1);
 				//System.out.println("data : drop : sid="+sid+",offerID="+offerID+"#");
-				d.drop(sid,	offerID);
+				Department.drop(sid, offerID);
 			}
 			else if (takeOffer != null){
 				String[] temps = takeOffer.split(",");
 				String offerID = temps[0].substring(1);
 				//System.out.println("data : take : sid="+sid+",offerID="+offerID+"#");
-				d.take(sid, offerID);
+				Department.take(sid, offerID);
 			}
 			else {
 				System.out.println("data : not drop nor take !!!");
@@ -64,16 +63,13 @@ public class CourseSelect {
 			request.setAttribute("err", "1");
 			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
-		} catch (DeptLoadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		s = d.findStudent(sid);
+		s = Department.findStudent(sid);
 		//System.out.println("after findSt in course select .");
 		//System.out.println("after catches in course select .");
 		//System.out.println("this term offerings size : "+d.findCurrentTerm().getOfferings().size());
-		for (int i = 0; i < d.findCurrentTerm().getOfferings().size(); i++) {
-			Offering o = d.findCurrentTerm().getOfferings().iterator().next(); // TODO
+		for (int i = 0; i < Department.findCurrentTerm().getOfferings().size(); i++) {
+			Offering o = Department.findCurrentTerm().getOfferings().iterator().next(); // TODO
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
 			temp.add(Integer.toString(o.getId()));

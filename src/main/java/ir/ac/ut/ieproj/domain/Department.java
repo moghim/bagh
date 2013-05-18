@@ -12,37 +12,14 @@ import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
 import ir.ac.ut.iecommon.exceptions.SubmitGradeException;
 import ir.ac.ut.iecommon.exceptions.TakeException;
 import ir.ac.ut.iecommon.exceptions.WithdrawException;
-import ir.ac.ut.iecommon.interfaces.DepartmentI;
 import ir.ac.ut.iecommon.time.Clock;
 import ir.ac.ut.ieproj.database.DBConnector;
 
 import java.util.Date;
-import java.util.Vector;
 
-
-public class Department implements DepartmentI{
-
+public class Department {
 	
-	private static Department OneDept = null;
-	
-	private String name;
-	private Vector<Student> students = new Vector<Student>();
-	private Vector<Course> courses = new Vector<Course>();
-	private Vector<Program> programs = new Vector<Program>();
-	private Vector<Term> terms = new Vector<Term>();
-	private Vector<Professor> professors = new Vector<Professor>();
-
-	public static Department getInstance() throws DeptLoadException {
-		if (OneDept == null)
-			OneDept = new Department();
-		return OneDept;
-	}
-	private Department() throws DeptLoadException {
-		// Exists only to defeat instantiation.	
-	}
-	
-	@Override
-	public void acceptWithdraw(String studentID, String offeringID, String professorID)
+	public static void acceptWithdraw(String studentID, String offeringID, String professorID)
 			throws AcceptWithdrawException, StudentNotFoundException,
 			OfferingNotFoundException, ProfNotFoundException {
 
@@ -69,9 +46,9 @@ public class Department implements DepartmentI{
 			throw new AcceptWithdrawException("Offering was not waiting for withraw .");
 		s.changeRecordToWithrawn(offeringID);
 	}
-	@Override
-	public void checkDegreeReq(String studentID) throws CheckDegreeReqException,
+	public static void checkDegreeReq(String studentID) throws CheckDegreeReqException,
 	StudentNotFoundException {
+		/*
 		Student findSt = findStudent(studentID);
 		if (findSt == null)
 			throw new StudentNotFoundException("Student with id "+studentID+" not found .");
@@ -80,9 +57,9 @@ public class Department implements DepartmentI{
 			throw new CheckDegreeReqException("Student with id "+studentID+" doesn't pass enough courses .");
 		}
 		//System.out.println("check degree succsesful .");
+		 */
 	}
-	@Override
-	public void drop(String StudentID, String offeringID) throws DropException,
+	public static void drop(String StudentID, String offeringID) throws DropException,
 	StudentNotFoundException, OfferingNotFoundException {
 		Student findSt = findStudent(StudentID);
 		if (findSt == null)
@@ -117,8 +94,7 @@ public class Department implements DepartmentI{
 			throw new DropException("Error from drop function: drop in wrong time. ");
 		}
 	}
-	@Override
-	public void rejectWithdraw(String studentID, String offeringID, String professorID)
+	public static void rejectWithdraw(String studentID, String offeringID, String professorID)
 			throws RejectWithdrawException, StudentNotFoundException,
 			OfferingNotFoundException, ProfNotFoundException {
 		Student s = findStudent(studentID);
@@ -145,8 +121,7 @@ public class Department implements DepartmentI{
 		s.changeRecordToInProgress(offeringID);
 
 	}
-	@Override
-	public void submitGrade(String StudentID, String ProfID, String OfferingID, float Grade)
+	public static void submitGrade(String StudentID, String ProfID, String OfferingID, float Grade)
 			throws SubmitGradeException, StudentNotFoundException,
 			OfferingNotFoundException, ProfNotFoundException {
 		Student findSt=findStudent(StudentID);
@@ -173,8 +148,7 @@ public class Department implements DepartmentI{
 			throw new SubmitGradeException("Error from submitGrade function: this is not an appropriate time for grade submitions .");
 		findSt.setOfferingGrade(Grade, OfferingID);
 	}
-	@Override
-	public void take(String StudentID, String offeringID) throws TakeException,
+	public static void take(String StudentID, String offeringID) throws TakeException,
 	StudentNotFoundException, OfferingNotFoundException {
 		// TODO
 		/*
@@ -245,10 +219,10 @@ public class Department implements DepartmentI{
 		throw new TakeException("Error from take function: take in wrong time. ");
 		*/	
 	}	
-	@Override
-	public void withdraw(String studentID, String offeringID) throws WithdrawException,
+	public static void withdraw(String studentID, String offeringID) throws WithdrawException,
 	StudentNotFoundException, OfferingNotFoundException {
 
+		/*
 		Student s = findStudent(studentID);
 		Offering o = findOffering(offeringID);
 		Term t = findOfferingTerm(offeringID);
@@ -271,9 +245,10 @@ public class Department implements DepartmentI{
 			throw new WithdrawException("Only one offering can be withrawn in a term .");
 		}
 		s.changeRecordToWaitingForWithraws(offeringID);
+		*/
 	}
 
-	public Term findOfferingTerm(String offeringID){
+	public static Term findOfferingTerm(String offeringID){
 		/*for (Term t : terms ){
 			Offering findOff=t.findoOffering(offeringID);
 			if (findOff!=null)
@@ -287,14 +262,16 @@ public class Department implements DepartmentI{
 		}
 		return null;
 	}
-	public Professor findProf(String profID){
+	public static Professor findProf(String profID){
+		/*
 		for (Professor pr :professors){
 			if (pr.getId() == Integer.parseInt(profID))
 				return pr;
 		}
+		*/
 		return null;
 	}
-	public Offering findOffering(String OfferingID){
+	public static Offering findOffering(String OfferingID){
 		/*for (Term t : terms ){
 			Offering findOff=t.findoOffering(OfferingID);
 			if (findOff!=null)
@@ -308,7 +285,7 @@ public class Department implements DepartmentI{
 		}
 		return null;
 	}
-	public Student findStudent(String studentID) {
+	public static Student findStudent(String studentID) {
 		/*for (Student s : students){
 			if (s.getId().equals(studentID))
 				return s;
@@ -324,13 +301,15 @@ public class Department implements DepartmentI{
 		return null;
 	}
 	public Course findCourse(String CourseID){
+		/*
 		for (Course c :courses ){
 			if (c.getId() == Integer.parseInt(CourseID))
 				return c;
 		}
+		*/
 		return null;
 	}
-	public Term findCurrentTerm() {
+	public static Term findCurrentTerm() {
 		/*Date now = new Date (Clock.getCurrentTimeMillis());
 		System.out.println("current time : "+now);
 		for (Term in: terms){
@@ -339,42 +318,5 @@ public class Department implements DepartmentI{
 				return in;
 		}*/
 		return DBConnector.getCurrentTerm();
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Vector<Student> getStudents() {
-		return students;
-	}
-	public void setStudents(Vector<Student> students) {
-		this.students = students;
-	}
-	public Vector<Course> getCourses() {
-		return courses;
-	}
-	public void setCourses(Vector<Course> courses) {
-		this.courses = courses;
-	}
-	public Vector<Program> getPrograms() {
-		return programs;
-	}
-	public void setPrograms(Vector<Program> programs) {
-		this.programs = programs;
-	}
-	public Vector<Professor> getProfessors() {
-		return professors;
-	}
-	public void setProfessors(Vector<Professor> professors) {
-		this.professors = professors;
-	}
-	public Vector<Term> getTerms() {
-		return terms;
-	}
-	public void setTerms(Vector<Term> terms) {
-		this.terms = terms;
 	}
 }

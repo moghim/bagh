@@ -2,11 +2,13 @@ package ir.ac.ut.ieproj.domain;
 
 import java.util.Vector;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table
+@DiscriminatorValue("S")
 public class SimpleElectivePolicy extends ElectivePolicy {
 
 	@Override

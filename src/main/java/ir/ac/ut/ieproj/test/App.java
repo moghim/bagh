@@ -110,9 +110,10 @@ public class App
 		pack1.addCourse(c12);
 		pack2.addCourse(c13);
 		
-		PackagedElectivePolicy pa = new PackagedElectivePolicy();
-		pa.addPackage(pack1);
-		pa.addPackage(pack2);
+		PackagedElectivePolicy pa1 = new PackagedElectivePolicy();
+		pa1.addPackage(pack1);
+		pa1.addPackage(pack2);
+		SimpleElectivePolicy pa2 = new SimpleElectivePolicy();
 		
 		pp1.addMandatory(c1);
 		pp1.addMandatory(c2);
@@ -124,7 +125,7 @@ public class App
 		pp1.addMandatory(c8);
 		pp1.addElective(c7);
 		pp1.addElective(c8);
-		pp1.setElectivePolicy(new SimpleElectivePolicy());
+		pp1.setElectivePolicy(pa2);
 		pp2.addMandatory(c1);
 		pp2.addMandatory(c2);
 		pp2.addMandatory(c3);
@@ -135,7 +136,7 @@ public class App
 		pp2.addElective(c8);
 		pp2.addElective(c12);
 		pp2.addElective(c13);
-		pp2.setElectivePolicy(pa);
+		pp2.setElectivePolicy(pa1);
 		
 		Student s1 = new Student("Gholam", "Patoobaf");
 		Student s2 = new Student("Ghamar", "Aghrabparast");
@@ -157,6 +158,7 @@ public class App
 		session.beginTransaction();
 		
 		// make data persistent
+		// professors :
 		session.save(p1);
 		session.save(p2);
 		session.save(p3);
@@ -166,16 +168,7 @@ public class App
 		session.save(p7);
 		session.save(p8);
 		session.save(p9);
-		
-		session.save(ss1);
-		session.save(ss2);
-		session.save(ss3);
-		session.save(ss4);
-		session.save(ss5);
-		
-		session.save(s1);
-		session.save(s2);
-		
+		// courses : 
 		session.save(c1);
 		session.save(c2);
 		session.save(c3);
@@ -189,7 +182,7 @@ public class App
 		session.save(c11);
 		session.save(c12);
 		session.save(c13);
-		
+		// Offerings :
 		session.save(o1);
 		session.save(o2);
 		session.save(o3);
@@ -200,12 +193,27 @@ public class App
 		session.save(o8);
 		session.save(o9);
 		session.save(o10);
-		
-		session.save(t1);
-		session.save(t2);
-		
+		// StudyRecords : 
+		session.save(ss1);
+		session.save(ss2);
+		session.save(ss3);
+		session.save(ss4);
+		session.save(ss5);
+		// Packages : 
+		session.save(pack1);
+		session.save(pack2);
+		// ElectivePolicies
+		session.save(pa1);
+		session.save(pa2);
+		// Programs :
 		session.save(pp1);
 		session.save(pp2);
+		// Students :
+		session.save(s1);
+		session.save(s2);
+		// Terms : 
+		session.save(t1);
+		session.save(t2);
 		
 		// commiting changes
 		session.getTransaction().commit();

@@ -1,7 +1,10 @@
 package ir.ac.ut.ieproj.domain;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -9,14 +12,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table
+@DiscriminatorValue("P")
 public class PackagedElectivePolicy extends ElectivePolicy {
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "packagedelectivepolicy")
-	private Vector<Package> packages = new Vector<Package>();
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Package> packages;
 	
 	public PackagedElectivePolicy() {
+		packages = new HashSet<Package>();
 	}
-	public PackagedElectivePolicy(Vector<Package> packages) {
+	public PackagedElectivePolicy(Set<Package> packages) {
 		super();
 		this.packages = packages;
 	}
@@ -117,10 +122,10 @@ public class PackagedElectivePolicy extends ElectivePolicy {
 		*/
 		return false;
 	}
-	public Vector<Package> getPackages() {
+	public Set<Package> getPackages() {
 		return packages;
 	}
-	public void setPackages(Vector<Package> packages) {
+	public void setPackages(Set<Package> packages) {
 		this.packages = packages;
 	}
 	public void addPackage(Package package1) {

@@ -16,13 +16,13 @@ public class App
     	initialize();
 		
 		// date = "04-02-2013"
-		//d.take("810190421", "8");
-		//d.take("810190421", "8");
-		//d.drop("810190420", "9");
-		//d.drop("810190421", "8");
-		//d.withdraw("810190420", "9");
-		//d.withdraw("810190421", "6");
-		//d.withdraw("810190421", "7");
+		Department.take(810190421, 8);
+		//Department.take(810190421, 8);
+		//Department.drop(810190420, 9);
+		//Department.drop(810190421, 8);
+		//Department.withdraw(810190420, 9);
+		//Department.withdraw(810190421, 6);
+		//Department.withdraw(810190421, 7);
 		
 		//System.out.println(d.findStudent("810190421").getLastTermAverage(d));
 		
@@ -143,6 +143,9 @@ public class App
 		
 		Student s1 = new Student("Gholam", "Patoobaf");
 		Student s2 = new Student("Ghamar", "Aghrabparast");
+		
+		s1.setProgram(pp1);
+		s2.setProgram(pp2);
 		
 		StudyRecord ss1 = new StudyRecord(9, o1, StudyStatus.FAILED);
 		StudyRecord ss2 = new StudyRecord(0, o9, StudyStatus.INPROGRESS);

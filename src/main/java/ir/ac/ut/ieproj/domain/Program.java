@@ -44,7 +44,7 @@ public class Program {
 		this.mandatories = new HashSet<Course>();
 		this.electives = new HashSet<Course>();
 	}
-	public boolean canPassCourse(Student s,Course c) {
+	public boolean canPassCourse(Student s,Course c) throws Exception {
 		return electivePolicy.canPassCourses(s, c, electives, mandatories);
 	}
 	public boolean isPassedReq(Student s) {

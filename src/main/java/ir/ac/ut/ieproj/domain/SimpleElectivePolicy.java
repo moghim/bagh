@@ -25,7 +25,7 @@ public class SimpleElectivePolicy extends ElectivePolicy {
 		return false;
 	}
 	@Override
-	public boolean canPassCourses(Student student, Course course, Set<Course> electives, Set<Course> mandatories) {
+	public boolean canPassCourses(Student student, Course course, Set<Course> electives, Set<Course> mandatories) throws Exception {
 		if(course.getLevel() == Level.UNDERGRAD) {
 			boolean isInAllowedCourse = false;
 			for(Course c : electives) {

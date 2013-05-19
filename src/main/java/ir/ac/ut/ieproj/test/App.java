@@ -83,6 +83,9 @@ public class App
 		Offering o9 = new Offering(p2, c1, 1, 1, 10, new Date(2013, 5, 20));
 		Offering o10 = new Offering(p2, c9, 1, 1, 10, new Date(2013, 5, 21));
 		
+		//new Term(name, startDate, endDate, enrollmentStartDate
+		//, enrollmentEndDate, addAndDropStartDate, addAndDropEndDate, withdrawStartDate
+		//, withdrawEndDate, submitGradeStartDate, submitGradeEndDate)
 		Term t1 = new Term("Fall-12", new Date(2012, 9, 15), new Date(2013, 1, 2), new Date(2012, 9, 8)
 		, new Date(2012, 9, 19), new Date(2012, 9, 22), new Date(2012, 9, 25), new Date(2012, 11, 26)
 		, new Date(2012, 11, 28), new Date(2012, 11, 28), new Date(2012, 12, 15));
@@ -152,6 +155,12 @@ public class App
 		s2.addStudyRecord(ss3);
 		s2.addStudyRecord(ss4);
 		s2.addStudyRecord(ss5);
+		
+		ss1.getOffering().decRemainCapacity();
+		ss2.getOffering().decRemainCapacity();
+		ss3.getOffering().decRemainCapacity();
+		ss4.getOffering().decRemainCapacity();
+		ss5.getOffering().decRemainCapacity();
 		
 		// begin transacton
 		Session session = HibernateUtil.getSessionFactory().openSession();

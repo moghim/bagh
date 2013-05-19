@@ -33,7 +33,7 @@ public abstract class ElectivePolicy {
 		this.id = id;
 	}
 	public abstract boolean isPassedReq(Student s, Set<Course> electives, Set<Course> mandatories);
-	public abstract boolean canPassCourses(Student s, Course c, Set<Course> electives, Set<Course> mandatories);
+	public abstract boolean canPassCourses(Student s, Course c, Set<Course> electives, Set<Course> mandatories) throws Exception;
 	
 }
 	

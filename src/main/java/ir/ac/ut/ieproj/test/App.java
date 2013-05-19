@@ -9,11 +9,9 @@ import ir.ac.ut.ieproj.database.HibernateUtil;
 
 import org.hibernate.Session;
 
-public class App 
-{
-	public static void main( String[] args ) throws Exception
-	{
-		//Logger.getLogger("").setLevel(org.apache.log4j.Level.WARN);
+public class App {
+	public static void main(String[] args) throws Exception {
+		// Logger.getLogger("").setLevel(org.apache.log4j.Level.WARN);
 		System.out.println("Hello World !");
 		initialize();
 
@@ -22,65 +20,74 @@ public class App
 		// DBConnector test :
 		Student s1 = DBConnector.getStudent(810190420);
 		Student s2 = DBConnector.getStudent(810190421);
-		System.out.println("Student test 1 : "+s1);
-		System.out.println("Student test 2 : "+s2);
+		System.out.println("Student test 1 : " + s1);
+		System.out.println("Student test 2 : " + s2);
 
 		Professor p1 = DBConnector.getProfessor(1);
 		Professor p2 = DBConnector.getProfessor(5);
-		System.out.println("Professor test 1 : "+p1);
-		System.out.println("Professor test 2 : "+p2);
+		System.out.println("Professor test 1 : " + p1);
+		System.out.println("Professor test 2 : " + p2);
 
 		Offering o1 = DBConnector.getOffering(1);
 		Offering o2 = DBConnector.getOffering(6);
-		System.out.println("Offering test 1 : "+o1);
-		System.out.println("Offering test 2 : "+o2);
+		System.out.println("Offering test 1 : " + o1);
+		System.out.println("Offering test 2 : " + o2);
 
 		Term t1 = DBConnector.getCurrentTerm();
 		Term t2 = DBConnector.getPreviosTerm();
-		System.out.println("Term test 1 : "+t1);
-		System.out.println("Term test 2 : "+t2);
+		System.out.println("Term test 1 : " + t1);
+		System.out.println("Term test 2 : " + t2);
+
+		System.out.println("average s1 in this term : "+s1.TermAverage(t1));
+		System.out.println("average s1 in prev term : "+s1.TermAverage(t2));
+		System.out.println("average s2 in this term : "+s2.TermAverage(t1));
+		System.out.println("average s2 in prev term : "+s2.TermAverage(t2));
 
 		// System Tests :
 
+		// take and drop time :
+		/*
 		Department.drop(810190420, 9);
-		System.out.println("After drop student : "+DBConnector.getStudent(810190420));
-		//Department.take(810190420, 9);
+		System.out.println("After drop student : " + DBConnector.getStudent(810190420));
+		Department.take(810190420, 9);
+		System.out.println("After take student : " + DBConnector.getStudent(810190420));
 		//Department.take(810190421, 8);
 		//Department.drop(810190421, 8);
-		//Department.withdraw(810190420, 9);
-		//Department.withdraw(810190421, 6);
-		//Department.withdraw(810190421, 7);
+		 */
 
-		//System.out.println(d.findStudent("810190421").getLastTermAverage(d));
+		// withraw time :
+		Department.withdraw(810190420, 9);
+		// Department.withdraw(810190421, 6);
+		// Department.withdraw(810190421, 7);
 
-		//d.acceptWithdraw("810190421", "7", "9");
-		//d.rejectWithdraw("810190421", "6", "1");
 
-		//d.submitGrade("810190421", "9", "7", 0);
-		//d.checkDegreeReq("810190420");
+		// d.acceptWithdraw("810190421", "7", "9");
+		// d.rejectWithdraw("810190421", "6", "1");
 
-		//System.out.println("\n");
+		// d.submitGrade("810190421", "9", "7", 0);
+		// d.checkDegreeReq("810190420");
 	}
 
 	@SuppressWarnings("deprecation")
 	private static void initialize() {
-		System.out.println("Initializing and mproduce initiate data ...");
+		System.out.println("Initializing and producing initiate data ...");
 
 		int year = 1900;
 		int month = 1;
 
 		// making needed data
-		Professor p1 = new Professor(1,"Ramtin", "Khosravi");
-		Professor p2 = new Professor(2,"Ahmad", "Khonsari");
-		Professor p3 = new Professor(3,"Hesham", "Faili");
-		Professor p4 = new Professor(4,"Fatemeh", "Ghasemi");
-		Professor p5 = new Professor(5,"Mahmood", "Kharat");
-		Professor p6 = new Professor(6,"Mahmoudreza", "Hashemi");
-		Professor p7 = new Professor(7,"Fattaneh", "Taghiyareh");
-		Professor p8 = new Professor(8,"Azadeh", "Shakery");
-		Professor p9 = new Professor(9,"Siamak", "Mohammadi");
+		Professor p1 = new Professor(1, "Ramtin", "Khosravi");
+		Professor p2 = new Professor(2, "Ahmad", "Khonsari");
+		Professor p3 = new Professor(3, "Hesham", "Faili");
+		Professor p4 = new Professor(4, "Fatemeh", "Ghasemi");
+		Professor p5 = new Professor(5, "Mahmood", "Kharat");
+		Professor p6 = new Professor(6, "Mahmoudreza", "Hashemi");
+		Professor p7 = new Professor(7, "Fattaneh", "Taghiyareh");
+		Professor p8 = new Professor(8, "Azadeh", "Shakery");
+		Professor p9 = new Professor(9, "Siamak", "Mohammadi");
 
-		Course c1 = new Course("Fundamentals of Programming", 4, Level.UNDERGRAD);
+		Course c1 = new Course("Fundamentals of Programming", 4,
+				Level.UNDERGRAD);
 		Course c2 = new Course("Advanced Programming", 3, Level.UNDERGRAD);
 		Course c3 = new Course("Discrete Mathematics", 3, Level.UNDERGRAD);
 		Course c4 = new Course("Data Structures", 3, Level.UNDERGRAD);
@@ -102,27 +109,40 @@ public class App
 		c6.addPrerequisite(c4);
 		c6.addCorequisite(c5);
 
-		Offering o1 = new Offering(p6, c1, 1, 1, 10,  new Date(2013-year, 1-month, 20));
-		//System.out.println("Date example : "+(new Date(2013-year, 1-month, 20)));
-		Offering o2 = new Offering(p1, c2, 1, 1, 10, new Date(2013-year, 1-month, 20));
-		Offering o3 = new Offering(p9, c3, 1, 2, 10, new Date(2013-year, 1-month, 20));
-		Offering o4 = new Offering(p3, c4, 1, 3, 10, new Date(2013-year, 1-month, 20));
-		Offering o5 = new Offering(p1, c7, 1, 6, 10, new Date(2013-year, 1-month, 20));
-		Offering o6 = new Offering(p1, c2, 1, 5, 10, new Date(2013-year, 5-month, 20));
-		Offering o7 = new Offering(p9, c3, 1, 6, 10, new Date(2013-year, 5-month, 20));
-		Offering o8 = new Offering(p4, c8, 1, 6, 10, new Date(2013-year, 5-month, 20));
-		Offering o9 = new Offering(p2, c1, 1, 1, 10, new Date(2013-year, 5-month, 20));
-		Offering o10 = new Offering(p2, c9, 1, 1, 10, new Date(2013-year, 5-month, 21));
+		//new Offering(professor, course, section, time, capacity, examDate)
+		Offering o1 = new Offering(p6, c1, 1, 1, 10, new Date(2013 - year,
+				1 - month, 20));
+		Offering o2 = new Offering(p1, c2, 1, 1, 10, new Date(2013 - year,
+				1 - month, 20));
+		Offering o3 = new Offering(p9, c3, 1, 2, 10, new Date(2013 - year,
+				1 - month, 20));
+		Offering o4 = new Offering(p3, c4, 1, 3, 10, new Date(2013 - year,
+				1 - month, 20));
+		Offering o5 = new Offering(p1, c7, 1, 6, 10, new Date(2013 - year,
+				1 - month, 20));
+		Offering o6 = new Offering(p1, c2, 1, 5, 10, new Date(2013 - year,
+				5 - month, 20));
+		Offering o7 = new Offering(p9, c3, 1, 6, 10, new Date(2013 - year,
+				5 - month, 20));
+		Offering o8 = new Offering(p4, c8, 1, 6, 10, new Date(2013 - year,
+				5 - month, 20));
+		Offering o9 = new Offering(p2, c1, 1, 7, 10, new Date(2013 - year,
+				5 - month, 20));
+		Offering o10 = new Offering(p2, c9, 1, 8, 10, new Date(2013 - year,
+				5 - month, 21));
 
-		//new Term(name, startDate, endDate, enrollmentStartDate
-		//, enrollmentEndDate, addAndDropStartDate, addAndDropEndDate, withdrawStartDate
-		//, withdrawEndDate, submitGradeStartDate, submitGradeEndDate)
-		Term t1 = new Term("Fall-12", new Date(2012-year, 1-month, 1), new Date(2013-year, 1-month, 2), new Date(2012-year, 9-month, 8)
-		, new Date(2012-year, 9-month, 19), new Date(2012-year, 9-month, 22), new Date(2012-year, 9-month, 25), new Date(2012-year, 11-month, 26)
-		, new Date(2012-year, 11-month, 28), new Date(2012-year, 11-month, 28), new Date(2012-year, 12-month, 15));
-		Term t2 = new Term("Spring-13", new Date(2013-year, 1-month, 1), new Date(2014-year, 5-month, 29), new Date(2013-year, 5-month, 1)
-		, new Date(2013-year, 6-month, 1), new Date(2013-year, 2-month, 2), new Date(2013-year, 2-month, 6), new Date(2013, 4-month, 20)
-		, new Date(2013-year, 4-month, 22), new Date(2013-year, 6-month, 23), new Date(2013-year, 6-month, 29));
+		//new Term(name, startDate, endDate
+		//		 , enrollmentStartDate , enrollmentEndDate, addAndDropStartDate
+		//		 , addAndDropEndDate, withdrawStartDate , withdrawEndDate
+		//		 , submitGradeStartDate, submitGradeEndDate)
+		Term t1 = new Term("Fall-12", new Date(2012 - year, 1 - month, 1), new Date(2013 - year, 1 - month, 2),
+				new Date(2012 - year, 9 - month, 8), new Date(2012 - year, 9 - month, 19), new Date(2012 - year, 9 - month, 22),
+				new Date(2012 - year, 9 - month, 25), new Date(2012 - year, 11 - month, 26),new Date(2012 - year, 11 - month, 28),
+				new Date(2012 - year, 11 - month, 28), new Date(2012 - year, 12 - month, 15));
+		Term t2 = new Term("Spring-13", new Date(2013 - year, 1 - month, 1), new Date(2014 - year, 5 - month, 29),
+				new Date(2013 - year, 5 - month, 1), new Date(2013 - year, 6 - month, 1), new Date(2013 - year, 2 - month, 2),
+				new Date(2013 - year, 2 - month, 6), new Date(2013 - year, 1 - month, 1), new Date(2013 - year, 10 - month, 1),
+				new Date(2013 - year, 6 - month, 23), new Date(2013 - year, 6 - month, 29));
 
 		t1.addOffering(o1);
 		t1.addOffering(o2);
@@ -196,7 +216,6 @@ public class App
 		ss4.getOffering().decRemainCapacity();
 		ss5.getOffering().decRemainCapacity();
 
-
 		// begin transacton
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -212,7 +231,7 @@ public class App
 		session.save(p7);
 		session.save(p8);
 		session.save(p9);
-		// courses : 
+		// courses :
 		session.save(c1);
 		session.save(c2);
 		session.save(c3);
@@ -245,7 +264,7 @@ public class App
 		session.save(ss4);
 		session.save(ss5);
 
-		// Packages : 
+		// Packages :
 		session.save(pack1);
 		session.save(pack2);
 		// ElectivePolicies
@@ -257,7 +276,7 @@ public class App
 		// Students :
 		session.save(s1);
 		session.save(s2);
-		// Terms : 
+		// Terms :
 		session.save(t1);
 		session.save(t2);
 

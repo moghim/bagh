@@ -135,6 +135,7 @@ public class Department {
 			throw new TakeException("Student with id="+studentID+" has offering in same time .");
 		if(s.isInSameTimeExam(o))
 			throw new TakeException("Student with id="+studentID+" has exam in same time .");
+		// TODO an student with was not in university for one term is not supported ...
 		if(preTerm!=null  && s.TermAverage(preTerm)<10 && s.inProgressUnits()+o.getCourse().getUnits()>14)
 			throw new TakeException("Student with id="+studentID+" has below 10 average and can't take more than 14 units .");
 		if(preTerm!=null && s.TermAverage(preTerm)<17 && s.inProgressUnits()+o.getCourse().getUnits()>20)
@@ -162,6 +163,8 @@ public class Department {
 		if(!t.hasOffering(o))
 			throw new WithdrawException("Offering with id="+ offeringID +" is not in current term .");
 		Date now = new Date(Clock.getCurrentTimeMillis());
+		//System.out.println("now : "+now);
+		System.out.println("withraw start and end : "+t.getWithdrawStartDate()+" "+t.getWithdrawEndDate());
 		if (!(t.getWithdrawStartDate().before(now) && t.getWithdrawEndDate().after(now)))
 			throw new WithdrawException("Student with id="+studentID+" is not in withraw time .");
 		if(s.inProgressUnits()-o.getCourse().getUnits() < 12)

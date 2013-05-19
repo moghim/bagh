@@ -102,8 +102,9 @@ public class Student {
 		return program.isPassedReq(this);
 	}
 	public boolean hasPassedCourse(Course c) {
+		//System.out.println("Student hasPassesCourse : s="+this+" course="+c);
 		for(StudyRecord sr : studyRecord) {
-			if(sr.getOffering().getCourse().getId() == c.getId())
+			if(sr.getOffering().getCourse().getId() == c.getId() && sr.getStatus() != StudyStatus.FAILED)
 				return true;
 		}
 		return false;
@@ -117,6 +118,8 @@ public class Student {
 				num ++;
 			}
 		}
+		if(num == 0)
+			return 0;
 		return sum/num;
 	}
 	public int inProgressUnits() {
@@ -207,10 +210,12 @@ public class Student {
 	}
 	public void deleteRecord(Offering o) throws Exception {
 		boolean isDeleted = false;
+		StudyRecord s = null;
 		for(StudyRecord sr : studyRecord) {
 			if(sr.getOffering().getId() == o.getId())
-				isDeleted = studyRecord.remove(sr);
+				s = sr;
 		}
+		isDeleted = studyRecord.remove(s);
 		if(!isDeleted)
 			throw new Exception("Delete was not successful .");
 	}

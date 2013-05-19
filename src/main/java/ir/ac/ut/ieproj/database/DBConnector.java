@@ -43,8 +43,8 @@ public class DBConnector {
 	public static Term getCurrentTerm() throws Exception {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Date now = new Date();
-		Query query = session.createQuery("From term where endDate>="+now+" , startDate<="+now);
+		Query query = session.createQuery("From Term where endDate >= :now and startDate <= :now");
+		query.setParameter("now", new Date());
 		@SuppressWarnings("unchecked")
 		List<Term> resultList = query.list();
 		session.close();
@@ -57,7 +57,7 @@ public class DBConnector {
 	public static Term getPreviosTerm() throws Exception {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("From term where id="+(getCurrentTerm().getId()-1));
+		Query query = session.createQuery("From Term where id="+(getCurrentTerm().getId()-1));
 		@SuppressWarnings("unchecked")
 		List<Term> resultList = query.list();
 		session.close();

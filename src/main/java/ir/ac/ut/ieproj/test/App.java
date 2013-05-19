@@ -1,6 +1,6 @@
 package ir.ac.ut.ieproj.test;
 
-import java.sql.Date;
+import java.util.Date;
 
 import ir.ac.ut.ieproj.domain.*;
 import ir.ac.ut.ieproj.domain.Package;
@@ -16,7 +16,7 @@ public class App
     	initialize();
 		
 		// date = "04-02-2013"
-		Department.take(810190421, 8);
+		//Department.take(810190421, 8);
 		//Department.take(810190421, 8);
 		//Department.drop(810190420, 9);
 		//Department.drop(810190421, 8);
@@ -39,16 +39,19 @@ public class App
 	private static void initialize() {
 		System.out.println("Initializing and mproduce initiate data ...");
 		
+		int year = 1900;
+		int month = 1;
+		
 		// making needed data
-		Professor p1 = new Professor("Ramtin", "Khosravi");
-		Professor p2 = new Professor("Ahmad", "Khonsari");
-		Professor p3 = new Professor("Hesham", "Faili");
-		Professor p4 = new Professor("Fatemeh", "Ghasemi");
-		Professor p5 = new Professor("Mahmood", "Kharat");
-		Professor p6 = new Professor("Mahmoudreza", "Hashemi");
-		Professor p7 = new Professor("Fattaneh", "Taghiyareh");
-		Professor p8 = new Professor("Azadeh", "Shakery");
-		Professor p9 = new Professor("Siamak", "Mohammadi");
+		Professor p1 = new Professor(1,"Ramtin", "Khosravi");
+		Professor p2 = new Professor(2,"Ahmad", "Khonsari");
+		Professor p3 = new Professor(3,"Hesham", "Faili");
+		Professor p4 = new Professor(4,"Fatemeh", "Ghasemi");
+		Professor p5 = new Professor(5,"Mahmood", "Kharat");
+		Professor p6 = new Professor(6,"Mahmoudreza", "Hashemi");
+		Professor p7 = new Professor(7,"Fattaneh", "Taghiyareh");
+		Professor p8 = new Professor(8,"Azadeh", "Shakery");
+		Professor p9 = new Professor(9,"Siamak", "Mohammadi");
 		
 		Course c1 = new Course("Fundamentals of Programming", 4, Level.UNDERGRAD);
 		Course c2 = new Course("Advanced Programming", 3, Level.UNDERGRAD);
@@ -72,26 +75,27 @@ public class App
 		c6.addPrerequisite(c4);
 		c6.addCorequisite(c5);
 		
-		Offering o1 = new Offering(p6, c1, 1, 1, 10, new Date(2013, 1, 20));
-		Offering o2 = new Offering(p1, c2, 1, 1, 10, new Date(2013, 1, 20));
-		Offering o3 = new Offering(p9, c3, 1, 2, 10, new Date(2013, 1, 20));
-		Offering o4 = new Offering(p3, c4, 1, 3, 10, new Date(2013, 1, 20));
-		Offering o5 = new Offering(p1, c7, 1, 6, 10, new Date(2013, 1, 20));
-		Offering o6 = new Offering(p1, c2, 1, 5, 10, new Date(2013, 5, 20));
-		Offering o7 = new Offering(p9, c3, 1, 6, 10, new Date(2013, 5, 20));
-		Offering o8 = new Offering(p4, c8, 1, 6, 10, new Date(2013, 5, 20));
-		Offering o9 = new Offering(p2, c1, 1, 1, 10, new Date(2013, 5, 20));
-		Offering o10 = new Offering(p2, c9, 1, 1, 10, new Date(2013, 5, 21));
+		Offering o1 = new Offering(p6, c1, 1, 1, 10,  new Date(2013-year, 1-month, 20));
+		//System.out.println("Date example : "+(new Date(2013-year, 1-month, 20)));
+		Offering o2 = new Offering(p1, c2, 1, 1, 10, new Date(2013-year, 1-month, 20));
+		Offering o3 = new Offering(p9, c3, 1, 2, 10, new Date(2013-year, 1-month, 20));
+		Offering o4 = new Offering(p3, c4, 1, 3, 10, new Date(2013-year, 1-month, 20));
+		Offering o5 = new Offering(p1, c7, 1, 6, 10, new Date(2013-year, 1-month, 20));
+		Offering o6 = new Offering(p1, c2, 1, 5, 10, new Date(2013-year, 5-month, 20));
+		Offering o7 = new Offering(p9, c3, 1, 6, 10, new Date(2013-year, 5-month, 20));
+		Offering o8 = new Offering(p4, c8, 1, 6, 10, new Date(2013-year, 5-month, 20));
+		Offering o9 = new Offering(p2, c1, 1, 1, 10, new Date(2013-year, 5-month, 20));
+		Offering o10 = new Offering(p2, c9, 1, 1, 10, new Date(2013-year, 5-month, 21));
 		
 		//new Term(name, startDate, endDate, enrollmentStartDate
 		//, enrollmentEndDate, addAndDropStartDate, addAndDropEndDate, withdrawStartDate
 		//, withdrawEndDate, submitGradeStartDate, submitGradeEndDate)
-		Term t1 = new Term("Fall-12", new Date(2012, 9, 15), new Date(2013, 1, 2), new Date(2012, 9, 8)
-		, new Date(2012, 9, 19), new Date(2012, 9, 22), new Date(2012, 9, 25), new Date(2012, 11, 26)
-		, new Date(2012, 11, 28), new Date(2012, 11, 28), new Date(2012, 12, 15));
-		Term t2 = new Term("Spring-13", new Date(2013, 1, 26), new Date(2013, 5, 29), new Date(2013, 1, 21)
-		, new Date(2013, 1, 24), new Date(2013, 2, 2), new Date(2013, 2, 6), new Date(2013, 4, 20)
-		, new Date(2013, 4, 22), new Date(2013, 6, 23), new Date(2013, 6, 29));
+		Term t1 = new Term("Fall-12", new Date(2012-year, 9-month, 15), new Date(2013-year, 1-month, 2), new Date(2012-year, 9-month, 8)
+		, new Date(2012-year, 9-month, 19), new Date(2012-year, 9-month, 22), new Date(2012-year, 9-month, 25), new Date(2012-year, 11-month, 26)
+		, new Date(2012-year, 11-month, 28), new Date(2012-year, 11-month, 28), new Date(2012-year, 12-month, 15));
+		Term t2 = new Term("Spring-13", new Date(2013-year, 1-month, 26), new Date(2013-year, 5-month, 29), new Date(2013-year, 1-month, 21)
+		, new Date(2013-year, 1-month, 24), new Date(2013-year, 2-month, 2), new Date(2013-year, 2-month, 6), new Date(2013, 4-month, 20)
+		, new Date(2013-year, 4-month, 22), new Date(2013-year, 6-month, 23), new Date(2013-year, 6-month, 29));
 		
 		t1.addOffering(o1);
 		t1.addOffering(o2);
@@ -141,8 +145,8 @@ public class App
 		pp2.addElective(c13);
 		pp2.setElectivePolicy(pa1);
 		
-		Student s1 = new Student("Gholam", "Patoobaf");
-		Student s2 = new Student("Ghamar", "Aghrabparast");
+		Student s1 = new Student(810190420, "Gholam", "Patoobaf");
+		Student s2 = new Student(810190421, "Ghamar", "Aghrabparast");
 		
 		s1.setProgram(pp1);
 		s2.setProgram(pp2);

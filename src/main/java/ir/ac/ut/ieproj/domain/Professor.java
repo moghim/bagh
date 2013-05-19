@@ -1,10 +1,7 @@
 package ir.ac.ut.ieproj.domain;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,7 +10,6 @@ import javax.persistence.Table;
 public class Professor {
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String firstName;
@@ -21,7 +17,8 @@ public class Professor {
 	
 	public Professor() {
 	}
-	public Professor(String firstName, String lastName) {
+	public Professor(int id, String firstName, String lastName) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

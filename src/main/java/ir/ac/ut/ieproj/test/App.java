@@ -55,17 +55,24 @@ public class App {
 		//Department.drop(810190421, 8);
 		 */
 
-		// withraw time :
-		Department.withdraw(810190420, 9);
-		// Department.withdraw(810190421, 6);
-		// Department.withdraw(810190421, 7);
+		// withdraw time :
+		Department.withdraw(810190421, 7);
+		System.out.println("After withdraw student : " + DBConnector.getStudent(810190421));
+		//Department.withdraw(810190421, 6);
+		//Department.withdraw(810190421, 7);
 
+		// accept and reject withdraw time :
+		//Department.acceptWithdraw(810190421, 7, 9);
+		Department.rejectWithdraw(810190421, 7, 9);
+		//Department.rejectWithdraw(810190421, 6, 1);
+		System.out.println("After reject withdraw student : " + DBConnector.getStudent(810190421));
 
-		// d.acceptWithdraw("810190421", "7", "9");
-		// d.rejectWithdraw("810190421", "6", "1");
-
-		// d.submitGrade("810190421", "9", "7", 0);
-		// d.checkDegreeReq("810190420");
+		// submit grade time :
+		Department.submitGrade(810190421, 9, 7, (float) 13.3);
+		System.out.println("After submit grade student : " + DBConnector.getStudent(810190421));
+		
+		// end test :
+		//Department.checkDegreeReq(810190420);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -88,7 +95,8 @@ public class App {
 
 		Course c1 = new Course("Fundamentals of Programming", 4,
 				Level.UNDERGRAD);
-		Course c2 = new Course("Advanced Programming", 3, Level.UNDERGRAD);
+		//Course c2 = new Course("Advanced Programming", 3, Level.UNDERGRAD);
+		Course c2 = new Course("Advanced Programming", 15, Level.UNDERGRAD);
 		Course c3 = new Course("Discrete Mathematics", 3, Level.UNDERGRAD);
 		Course c4 = new Course("Data Structures", 3, Level.UNDERGRAD);
 		Course c5 = new Course("Database Systems", 3, Level.UNDERGRAD);
@@ -142,7 +150,7 @@ public class App {
 		Term t2 = new Term("Spring-13", new Date(2013 - year, 1 - month, 1), new Date(2014 - year, 5 - month, 29),
 				new Date(2013 - year, 5 - month, 1), new Date(2013 - year, 6 - month, 1), new Date(2013 - year, 2 - month, 2),
 				new Date(2013 - year, 2 - month, 6), new Date(2013 - year, 1 - month, 1), new Date(2013 - year, 10 - month, 1),
-				new Date(2013 - year, 6 - month, 23), new Date(2013 - year, 6 - month, 29));
+				new Date(2013 - year, 1 - month, 1), new Date(2013 - year, 6 - month, 29));
 
 		t1.addOffering(o1);
 		t1.addOffering(o2);

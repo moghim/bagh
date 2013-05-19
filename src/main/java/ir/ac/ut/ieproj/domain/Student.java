@@ -202,6 +202,10 @@ public class Student {
 		for(StudyRecord sr : studyRecord) {
 			if(sr.getOffering().getId() == o.getId()) {
 				sr.setGrade(grade);
+				if(grade >= 10)
+					sr.setStatus(StudyStatus.PASSED);
+				else
+					sr.setStatus(StudyStatus.FAILED);
 			}
 		}
 	}
@@ -228,5 +232,12 @@ public class Student {
 		}
 		result += "]";
 		return result;
+	}
+	public boolean hasWaitingForWithrawOfferingInTerm(Term t) {
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getStatus() == StudyStatus.WAITINGFORWITHRAWACCEPT && t.hasOffering(sr.getOffering()))
+				return true;
+		}
+		return false;
 	}
 }

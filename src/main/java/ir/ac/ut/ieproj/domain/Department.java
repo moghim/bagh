@@ -26,7 +26,7 @@ public class Department {
 		if(o.getProfessor().getId() != professorID)
 			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
 		if(s.offeringStatus(o) != StudyStatus.WAITINGFORWITHRAWACCEPT)
-		
+			throw new AcceptWithdrawException("Offering with id "+offeringID+"is not in good status="+s.offeringStatus(o)+" .");
 		s.changeRecordToWithrawn(o);
 		DBConnector.saveStudent(s);
 	}
@@ -87,15 +87,13 @@ public class Department {
 		
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
-		@SuppressWarnings("unused")
 		Professor p = DBConnector.getProfessor(professorID);
 		Term t = DBConnector.getCurrentTerm();
-		if(!t.hasOffering(o)) {
+		if(!t.hasOffering(o))
 			throw new SubmitGradeException("The offering with id= "+offeringID+" does not belongs to this term .");
-		}
 		if(!s.hasOffering(o))
 			throw new SubmitGradeException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
-		if(o.getProfessor().getId() != professorID)
+		if(o.getProfessor().getId() != p.getId())
 			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
 		if(s.offeringStatus(o) != StudyStatus.INPROGRESS)
 			throw new SubmitGradeException("Offering was not in progress .");
@@ -162,9 +160,11 @@ public class Department {
 		Term t = DBConnector.getCurrentTerm();
 		if(!t.hasOffering(o))
 			throw new WithdrawException("Offering with id="+ offeringID +" is not in current term .");
+		if(s.hasWaitingForWithrawOfferingInTerm(t))
+			throw new WithdrawException("Student with id="+studentID+"  has another waiting for withraw offering in this term .");
 		Date now = new Date(Clock.getCurrentTimeMillis());
 		//System.out.println("now : "+now);
-		System.out.println("withraw start and end : "+t.getWithdrawStartDate()+" "+t.getWithdrawEndDate());
+		//System.out.println("withraw start and end : "+t.getWithdrawStartDate()+" "+t.getWithdrawEndDate());
 		if (!(t.getWithdrawStartDate().before(now) && t.getWithdrawEndDate().after(now)))
 			throw new WithdrawException("Student with id="+studentID+" is not in withraw time .");
 		if(s.inProgressUnits()-o.getCourse().getUnits() < 12)

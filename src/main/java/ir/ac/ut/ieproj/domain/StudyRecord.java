@@ -59,4 +59,19 @@ public class StudyRecord {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Override
+	public String toString() {
+		return "[id=" + id + ", grade=" + grade  + ", status=" + status + "]";
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) 
+			return false;
+		if(!(obj instanceof StudyRecord))
+			return false;
+		StudyRecord s = (StudyRecord) obj;
+		if(!s.getOffering().equals(this.getOffering()))
+			return false;
+		return true;
+	}
 }

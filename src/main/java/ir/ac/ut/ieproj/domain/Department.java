@@ -45,7 +45,7 @@ public class Department {
 		if(!s.hasOffering(o))
 			throw new DropException("Offering with id="+ offeringID +" has not taken by this student .");
 		if(s.offeringStatus(o) != StudyStatus.INPROGRESS)
-			throw new DropException("Offering with id="+ offeringID +" for student with id="+studentID+"is not in good status="+s.offeringStatus(o)+" .");
+			throw new DropException("Offering with id="+ offeringID +" for student with id="+studentID+" is not in good status="+s.offeringStatus(o)+" .");
 		Term t = DBConnector.getCurrentTerm();
 		if(!t.hasOffering(o))
 			throw new DropException("Offering with id="+ offeringID +" is not in current term .");

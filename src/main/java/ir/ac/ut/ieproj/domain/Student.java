@@ -98,13 +98,6 @@ public class Student {
 		}
 		return false;
 	}
-	public StudyStatus offeringStatus(String OfferingID) {
-		for(StudyRecord sr : studyRecord) {
-			if(sr.getOffering().equals(OfferingID))
-				return sr.getStatus();
-		}
-		return null;
-	}	
 	public boolean isPassedReq() {
 		return program.isPassedReq(this);
 	}
@@ -166,7 +159,9 @@ public class Student {
 		return result;
 	}
 	public boolean hasOffering(Offering o) {
+		//System.out.println("in has offering for student : "+this.id+" and offering : "+o.getId());
 		for(StudyRecord sr : studyRecord) {
+			//System.out.println("in for : "+sr.getOffering()+" "+sr.getStatus());
 			if(sr.getOffering().getId() == o.getId())
 				return true;
 		}
@@ -175,7 +170,7 @@ public class Student {
 	public StudyStatus offeringStatus(Offering o) {
 		for(StudyRecord sr : studyRecord) {
 			if(o.getId() == sr.getOffering().getId())
-				sr.getStatus();
+				return sr.getStatus();
 		}
 		return null;
 	}
@@ -210,7 +205,23 @@ public class Student {
 	public void addRecord(Offering o) {
 		studyRecord.add(new StudyRecord(0, o, StudyStatus.INPROGRESS));
 	}
-	public void deleteRecord(Offering o) {
-		studyRecord.remove(o);
+	public void deleteRecord(Offering o) throws Exception {
+		boolean isDeleted = false;
+		for(StudyRecord sr : studyRecord) {
+			if(sr.getOffering().getId() == o.getId())
+				isDeleted = studyRecord.remove(sr);
+		}
+		if(!isDeleted)
+			throw new Exception("Delete was not successful .");
+	}
+	@Override
+	public String toString() {
+		String result = "";
+		result +=  "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + " studyRecords=";
+		for (StudyRecord sr : studyRecord) {
+			result += sr + " ";
+		}
+		result += "]";
+		return result;
 	}
 }

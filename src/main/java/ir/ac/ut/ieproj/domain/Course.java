@@ -14,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
+/**
+ * @author mehran
+ *
+ */
 @Entity
 @Table
 public class Course {
@@ -98,5 +102,10 @@ public class Course {
 				return false; 
 		}
 		return true;
+	}
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", name=" + name + ", units=" + units
+				+ ", level=" + level + "]";
 	}
 }

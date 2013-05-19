@@ -144,4 +144,16 @@ public class Term {
 		}
 		return false;
 	}
+	@Override
+	public String toString() {
+		return "Term [id=" + id + ", name=" + name + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", enrollmentStartDate="
+				+ enrollmentStartDate + ", enrollmentEndDate="
+				+ enrollmentEndDate + ", addAndDropStartDate="
+				+ addAndDropStartDate + ", addAndDropEndDate="
+				+ addAndDropEndDate + ", withdrawStartDate="
+				+ withdrawStartDate + ", withdrawEndDate=" + withdrawEndDate
+				+ ", submitGradeStartDate=" + submitGradeStartDate
+				+ ", submitGradeEndDate=" + submitGradeEndDate + "]";
+	}
 }

@@ -21,9 +21,9 @@ public class Offering {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)
 	private int id;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Professor professor;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Course course;
 	private int section;
 	private int time;
@@ -108,5 +108,12 @@ public class Offering {
 		if(oo.getId() != this.getId())
 			return false;
 		return true;
+	}
+	@Override
+	public String toString() {
+		return "Offering [id=" + id + ", professor=" + professor + ", course="
+				+ course + ", section=" + section + ", time=" + time
+				+ ", capacity=" + capacity + ", remainCapacity="
+				+ remainCapacity + ", examDate=" + examDate + "]";
 	}
 }

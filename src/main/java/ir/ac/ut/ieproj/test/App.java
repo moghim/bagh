@@ -75,7 +75,7 @@ public class App {
 		//Department.checkDegreeReq(810190420);
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "unused" })
 	private static void initialize() {
 		System.out.println("Initializing and producing initiate data ...");
 

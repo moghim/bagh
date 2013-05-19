@@ -10,30 +10,25 @@ import ir.ac.ut.ieproj.domain.Offering;
 import ir.ac.ut.ieproj.domain.Student;
 
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class CourseSelect {
-/*
+
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws DeptLoadException {
-		
+
 		Student s = null;
 		String sid = null;
-		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>(); 
-		Vector<Vector<String>> data = new Vector<Vector<String>>(); 
-		
+
 		try {
 			request.setAttribute("err", "0");
-			//d = Department.getInstance();
 			sid = request.getParameter("sid");
-			String dropOffer = request.getParameter("hasOffer");
-			String takeOffer = request.getParameter("canOffer");
-			//System.out.println("data : sid="+sid+",dropOffer="+dropOffer+",takeOffer="+takeOffer+"#");
-			//System.out.println("course id : #"+courseID+"#");
-			//System.out.println("data : student name : "+s.getFirstName()+" "+s.getLastName());
+			String dropOffer = request.getParameter("drop");
+			String takeOffer = request.getParameter("take");
 			if (dropOffer != null){
 				String[] temps = dropOffer.split(",");
 				String offerID = temps[0].substring(1);
@@ -48,54 +43,68 @@ public class CourseSelect {
 			}
 			else {
 				System.out.println("data : not drop nor take !!!");
+				throw new Exception("No chioce has been recognized .");
 			}
+
+		} catch (TakeException e) {
+			request.setAttribute("err", "1");
+			request.setAttribute("errMessage", e.getMessage());
+			e.printStackTrace();
 		} catch (DropException e) {
 			request.setAttribute("err", "1");
 			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
 		} catch (StudentNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Student not found in CourseSelect.java controller .");
 			e.printStackTrace();
 		} catch (OfferingNotFoundException e) {
+			System.out.println("Offering not found in CourseSelect.java controller .");
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (TakeException e) {
-			request.setAttribute("err", "1");
-			request.setAttribute("errMessage", e.getMessage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		s = Department.findStudent(sid);
-		//System.out.println("after findSt in course select .");
-		//System.out.println("after catches in course select .");
-		//System.out.println("this term offerings size : "+d.findCurrentTerm().getOfferings().size());
-		for (int i = 0; i < Department.findCurrentTerm().getOfferings().size(); i++) {
-			Offering o = Department.findCurrentTerm().getOfferings().iterator().next(); // TODO
+		Set<Offering> of = new HashSet<Offering>();
+		try {
+			s = Department.getStudent(Integer.parseInt(sid));
+			of =  Department.getCurrentTerm().getOfferings();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>(); 
+		Vector<Vector<String>> data = new Vector<Vector<String>>(); 
+		for (Offering o : of) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Vector<String> temp = new Vector<String>();	
 			temp.add(Integer.toString(o.getId()));
-			// TODO temp.add(d.findCourse(o.getCourse()).getName());		
-			// TODO temp.add(Integer.toString(d.findCourse(o.getCourse()).getUnits()));
+			temp.add(o.getCourse().getName());		
+			temp.add(Integer.toString(o.getCourse().getUnits()));
 			temp.add(Integer.toString(o.getTime()));
-			// TODO temp.add(d.findProf(o.getProfessor()).getFirstName()+" "+d.findProf(o.getProfessor()).getLastName());
+			temp.add((o.getProfessor()).getFirstName()+" "+o.getProfessor().getLastName());
 			temp.add(sdf.format(o.getExamDate()));
-			temp.add(Integer.toString(o.findRemainCapacity()));
+			temp.add(Integer.toString(o.getRemainCapacity()));
 			temp.add(Integer.toString(o.getCapacity()));
-			//System.out.println("in for in course select : offering id="+o.getId()+" status: "+((s.inProgressOffering(o.getId()))?"INPROGRESS":"ELSE"));
-			if (s.inProgressOffering(Integer.toString(o.getId())))
+
+			if (s.isInProgressOffering(o))
 				dataInprogress.add(temp);
 			else
 				data.add(temp);
 		}
-		//Vector<Course> courses = d.getCourses();
-		//request.setAttribute("courses", courses);
-		//System.out.println("asb : "+request.getParameter("asb"));
-
-		//System.out.println("after catch ... ");
 		request.setAttribute("sid", s.getId());
 		request.setAttribute("sname", s.getFirstName()+" "+s.getLastName());
 		request.setAttribute("inprogressOffer", dataInprogress);
 		request.setAttribute("offers", data);
+		request.setAttribute("err", "0");
 		return "course-select.jsp";
 	}
-*/
 }

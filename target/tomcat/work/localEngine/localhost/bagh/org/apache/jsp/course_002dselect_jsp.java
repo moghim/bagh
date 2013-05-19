@@ -307,7 +307,7 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myUrl}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\" method=\"POST\">  \r\n");
           out.write("                <input  class=\"btn-custom\" type=\"submit\" value=\"drop\" />\r\n");
-          out.write("                <input type=\"hidden\" name=\"hasOffer\" value=\"");
+          out.write("                <input type=\"hidden\" name=\"drop\" value=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${offer}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\">\r\n");
           out.write("              </form>  \r\n");
@@ -402,7 +402,7 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myUrl}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\" method=\"POST\">  \r\n");
           out.write("                <input class=\"btn-custom\" type=\"submit\" value=\"take\" />\r\n");
-          out.write("                <input type=\"hidden\" name=\"canOffer\" value=\"");
+          out.write("                <input type=\"hidden\" name=\"take\" value=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${offer}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\">\r\n");
           out.write("              </form>  \r\n");

@@ -86,7 +86,7 @@ Some Examples! (you can probably do better than these, though)
             <td>
               <form style="text-align:center" action="${myUrl}" method="POST">  
                 <input  class="btn-custom" type="submit" value="drop" />
-                <input type="hidden" name="hasOffer" value="${offer}">
+                <input type="hidden" name="drop" value="${offer}">
               </form>  
             </td>
           </tr>
@@ -114,7 +114,7 @@ Some Examples! (you can probably do better than these, though)
             <td>
               <form style="text-align:center" action="${myUrl}" method="POST">  
                 <input class="btn-custom" type="submit" value="take" />
-                <input type="hidden" name="canOffer" value="${offer}">
+                <input type="hidden" name="take" value="${offer}">
               </form>  
             </td>
           </tr>        

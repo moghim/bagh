@@ -51,13 +51,13 @@ public class StudentLogin {
 					dataInprogress.add(temp);
 				else
 					data.add(temp);
-				request.setAttribute("sid", s.getId());
-				request.setAttribute("sname", s.getFirstName()+" "+s.getLastName());
-				request.setAttribute("inprogressOffer", dataInprogress);
-				request.setAttribute("offers", data);
-				request.setAttribute("err", "0");
-				return "course-select.jsp";
 			}
+			request.setAttribute("sid", s.getId());
+			request.setAttribute("sname", s.getFirstName()+" "+s.getLastName());
+			request.setAttribute("inprogressOffer", dataInprogress);
+			request.setAttribute("offers", data);
+			request.setAttribute("err", "0");
+			return "course-select.jsp";
 		}
 		catch (StudentNotFoundException e) {
 			e.printStackTrace();
@@ -68,6 +68,5 @@ public class StudentLogin {
 			request.setAttribute("err", 3);
 			return "student-login.jsp";
 		}
-		return null;
 	}
 }

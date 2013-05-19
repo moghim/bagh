@@ -1,9 +1,11 @@
 package ir.ac.ut.ieproj.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -162,4 +164,56 @@ public class Term {
 			return true;
 		return false;
 	}
+	public Vector<Vector<String>> inProgressOfferings(Student s) {
+		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>();  
+		for (Offering o : this.getOfferings()) {
+			if(s.isInProgressOffering(o)) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Vector<String> temp = new Vector<String>();	
+				temp.add(Integer.toString(o.getId()));
+				temp.add(o.getCourse().getName());		
+				temp.add(Integer.toString(o.getCourse().getUnits()));
+				temp.add(Integer.toString(o.getTime()));
+				temp.add((o.getProfessor()).getFirstName()+" "+o.getProfessor().getLastName());
+				temp.add(sdf.format(o.getExamDate()));
+				temp.add(Integer.toString(o.getRemainCapacity()));
+				temp.add(Integer.toString(o.getCapacity()));
+				dataInprogress.add(temp);
+			}
+		}
+		return dataInprogress;
+	}
+	public Vector<Vector<String>> notInProgressOfferings(Student s) {
+		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>();  
+		for (Offering o : this.getOfferings()) {
+			if(!s.isInProgressOffering(o)) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Vector<String> temp = new Vector<String>();	
+				temp.add(Integer.toString(o.getId()));
+				temp.add(o.getCourse().getName());		
+				temp.add(Integer.toString(o.getCourse().getUnits()));
+				temp.add(Integer.toString(o.getTime()));
+				temp.add((o.getProfessor()).getFirstName()+" "+o.getProfessor().getLastName());
+				temp.add(sdf.format(o.getExamDate()));
+				temp.add(Integer.toString(o.getRemainCapacity()));
+				temp.add(Integer.toString(o.getCapacity()));
+				dataInprogress.add(temp);
+			}
+		}
+		return dataInprogress;
+	}
+	public boolean isWithrawTime(Date date) {
+		if(date.after(withdrawStartDate) && date.before(withdrawEndDate))
+			return true;
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+

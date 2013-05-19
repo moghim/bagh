@@ -1,17 +1,14 @@
 package ir.ac.ut.ieproj.controller;
 
-import ir.ac.ut.iecommon.exceptions.DeptLoadException;
 import ir.ac.ut.iecommon.exceptions.DropException;
 import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
 import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
 import ir.ac.ut.iecommon.exceptions.TakeException;
+import ir.ac.ut.ieproj.database.DBConnector;
 import ir.ac.ut.ieproj.domain.Department;
-import ir.ac.ut.ieproj.domain.Offering;
 import ir.ac.ut.ieproj.domain.Student;
+import ir.ac.ut.ieproj.domain.Term;
 
-import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CourseSelect {
 
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws DeptLoadException {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
 		Student s = null;
 		String sid = null;
+		Term t = null;
 
 		try {
 			request.setAttribute("err", "0");
@@ -67,10 +65,9 @@ public class CourseSelect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Set<Offering> of = new HashSet<Offering>();
 		try {
+			t = DBConnector.getCurrentTerm();
 			s = Department.getStudent(Integer.parseInt(sid));
-			of =  Department.getCurrentTerm().getOfferings();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,25 +78,8 @@ public class CourseSelect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>(); 
-		Vector<Vector<String>> data = new Vector<Vector<String>>(); 
-		for (Offering o : of) {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			Vector<String> temp = new Vector<String>();	
-			temp.add(Integer.toString(o.getId()));
-			temp.add(o.getCourse().getName());		
-			temp.add(Integer.toString(o.getCourse().getUnits()));
-			temp.add(Integer.toString(o.getTime()));
-			temp.add((o.getProfessor()).getFirstName()+" "+o.getProfessor().getLastName());
-			temp.add(sdf.format(o.getExamDate()));
-			temp.add(Integer.toString(o.getRemainCapacity()));
-			temp.add(Integer.toString(o.getCapacity()));
-
-			if (s.isInProgressOffering(o))
-				dataInprogress.add(temp);
-			else
-				data.add(temp);
-		}
+		Vector<Vector<String>> dataInprogress = t.inProgressOfferings(s); 
+		Vector<Vector<String>> data = t.notInProgressOfferings(s); 
 		request.setAttribute("sid", s.getId());
 		request.setAttribute("sname", s.getFirstName()+" "+s.getLastName());
 		request.setAttribute("inprogressOffer", dataInprogress);

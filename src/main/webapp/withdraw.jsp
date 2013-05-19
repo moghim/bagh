@@ -85,53 +85,21 @@ body {
 			<th style="width: 100px">Capacity</th>
 			<th style="width: 150px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${inprogressOffers}">
+		<c:forEach var="offer" items="${canWithdrawOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
 				</c:forEach>
 				<td>
-					<form style="text-align: center" action="CourseSelect.action"
+					<form style="text-align: center" action="Withdraw.action"
 						method="POST">
 						<input type="hidden" name="sid" value=&{sid}> <input
-							class="btn-custom" type="submit" value="drop" /> <input
-							type="hidden" name="drop" value="${offer}">
+							class="btn-custom" type="submit" value="Withdraw" /> <input
+							type="hidden" name="withdraw" value="${offer}">
 					</form>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<br>
-
-	<h4 style="text-align: center">Term Offerings</h4>
-	<table align="center">
-		<tr class="success">
-			<th style="width: 10px">ID</th>
-			<th style="width: 240px">Course</th>
-			<th style="width: 30px">Units</th>
-			<th style="width: 30px">Time</th>
-			<th style="width: 200px">Teacher Name</th>
-			<th style="width: 140px">Exam Date</th>
-			<th style="width: 140px">Remain Capacity</th>
-			<th style="width: 100px">Capacity</th>
-			<th style="width: 20px">Action</th>
-		</tr>
-		<c:forEach var="offer" items="${offers}">
-			<tr>
-				<c:forEach var="off" items="${offer}">
-					<td>${off}</td>
-				</c:forEach>
-				<td>
-					<form style="text-align: center" action="CourseSelect.action"
-						method="POST">
-						<input type="hidden" name="sid" value=&{sid}> <input
-							class="btn-custom" type="submit" value="take" /> <input
-							type="hidden" name="take" value="${offer}">
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-
 </body>
 </html>

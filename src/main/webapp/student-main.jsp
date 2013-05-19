@@ -35,7 +35,7 @@ body {
 </style>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
-<title>Student Login Page</title>
+<title>Student Main Page</title>
 </head>
 
 <body>
@@ -43,21 +43,46 @@ body {
 	<br>
 	<br>
 	<br>
+	<h3 align="center">Welcome ${name} !</h3>
+	<br>
+	<h4 style="text-align: center">Term In Progress Offerings :</h4>
+	<table align="center">
+		<tr class="success">
+			<th style="width: 10px">ID</th>
+			<th style="width: 240px">Course</th>
+			<th style="width: 30px">Units</th>
+			<th style="width: 30px">Time</th>
+			<th style="width: 200px">Teacher Name</th>
+			<th style="width: 140px">Exam Date</th>
+			<th style="width: 140px">Remain Capacity</th>
+			<th style="width: 100px">Capacity</th>
+		</tr>
+		<c:forEach var="offer" items="${inProgress}">
+			<tr>
+				<c:forEach var="off" items="${offer}">
+					<td>${off}</td>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+	</table>
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<h3 align="center">Please enter your ID to login :</h3>
-	<br>
-	<form style="text-align: center" action="StudentLogin.action"
+	<form style="text-align: center" action="StudentMain.action"
 		method="POST">
-		student id : <input type="text" name="sid"> <input
-			class="btn-custom" type="submit" value="Sign in">
+		<input type="hidden" name="sid" value=&{sid}> <input
+			type="hidden" name="choice" value="CourseSelect"> <input
+			class="btn-custom" type="submit" value="Course select">
+	</form>
+	<br>
+	<form style="text-align: center" action="StudentMain.action"
+		method="POST">
+		<input type="hidden" name="sid" value=&{sid}> <input
+			type="hidden" name="choice" value="Withdraw"> <input
+			class="btn-custom" type="submit" value="Withdraw">
 	</form>
 	<c:if test="${hasError == '1'}">
-		<h4 align="center">error : ${errMessage}</h4>
+		<h4 align="center">${errMessage}</h4>
 	</c:if>
 </body>
 </html>

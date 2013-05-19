@@ -156,4 +156,10 @@ public class Term {
 				+ ", submitGradeStartDate=" + submitGradeStartDate
 				+ ", submitGradeEndDate=" + submitGradeEndDate + "]";
 	}
+	public boolean isTakeTime(Date now) {
+		if(now.after(enrollmentStartDate) && now.before(enrollmentEndDate)
+				|| now.after(addAndDropStartDate) && now.before(addAndDropEndDate))
+			return true;
+		return false;
+	}
 }

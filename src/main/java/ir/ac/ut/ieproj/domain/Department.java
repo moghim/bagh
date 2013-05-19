@@ -125,6 +125,7 @@ public class Department {
 			throw new TakeException("Offering with id="+offeringID+" has no more capacity .");
 		if(s.hasPassedCourse(o.getCourse()))
 			throw new TakeException("Student with id="+studentID+" has passed course of offering with id="+offeringID+" .");
+		// TODO : take a course which you have in progress in another offering .
 		if(!o.getCourse().isPrequIsPassedByStudent(s))
 			throw new TakeException("Prequisite condition for course of offering with id="+offeringID+" is not observed by student with id="+studentID+" .");
 		if(!o.getCourse().isCorequIsPassedOrInProgressByStudent(s))
@@ -171,5 +172,12 @@ public class Department {
 			throw new WithdrawException("Student with id="+studentID+" will have less than 12 units after withrawing and can't withraw .");
 		
 		s.changeRecordToWaitingForWithraws(o);
+	}
+	
+	public static Student getStudent(int studentID) throws StudentNotFoundException {
+		return DBConnector.getStudent(studentID);
+	}
+	public static Term getCurrentTerm() throws Exception {
+		return DBConnector.getCurrentTerm();
 	}
 }

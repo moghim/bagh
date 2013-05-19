@@ -240,4 +240,11 @@ public class Student {
 		}
 		return false;
 	}
+	public boolean isInProgressOffering(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(o.getId() == sr.getOffering().getId() && sr.getStatus() == StudyStatus.INPROGRESS)
+				return true;
+		}
+		return false;
+	}
 }

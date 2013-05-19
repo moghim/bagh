@@ -13,7 +13,7 @@ public class App {
 	public static void main(String[] args) throws Exception {
 		// Logger.getLogger("").setLevel(org.apache.log4j.Level.WARN);
 		System.out.println("Hello World !");
-		initialize();
+		//initialize();
 
 		// SubSytem Tests :
 
@@ -56,20 +56,20 @@ public class App {
 		 */
 
 		// withdraw time :
-		Department.withdraw(810190421, 7);
-		System.out.println("After withdraw student : " + DBConnector.getStudent(810190421));
+		//Department.withdraw(810190421, 7);
+		//System.out.println("After withdraw student : " + DBConnector.getStudent(810190421));
 		//Department.withdraw(810190421, 6);
 		//Department.withdraw(810190421, 7);
 
 		// accept and reject withdraw time :
 		//Department.acceptWithdraw(810190421, 7, 9);
-		Department.rejectWithdraw(810190421, 7, 9);
+		//Department.rejectWithdraw(810190421, 7, 9);
 		//Department.rejectWithdraw(810190421, 6, 1);
-		System.out.println("After reject withdraw student : " + DBConnector.getStudent(810190421));
+		//System.out.println("After reject withdraw student : " + DBConnector.getStudent(810190421));
 
 		// submit grade time :
-		Department.submitGrade(810190421, 9, 7, (float) 13.3);
-		System.out.println("After submit grade student : " + DBConnector.getStudent(810190421));
+		//Department.submitGrade(810190421, 9, 7, (float) 13.3);
+		//System.out.println("After submit grade student : " + DBConnector.getStudent(810190421));
 		
 		// end test :
 		//Department.checkDegreeReq(810190420);

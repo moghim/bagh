@@ -44,7 +44,10 @@
 	</c:if>
 	<c:if test="${err == '2'}">
 		<h4 align="center">Your enrollment time is passed or not came yet .</h4>
-	</c:if>	
+	</c:if>
+	<c:if test="${err == '3'}">
+		<h4 align="center">Current term is not added in database .</h4>
+	</c:if>		
  
   </body>
 </html>

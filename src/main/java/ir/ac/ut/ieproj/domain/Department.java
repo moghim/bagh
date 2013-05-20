@@ -176,13 +176,16 @@ public class Department {
 		s.changeRecordToWaitingForWithraws(o);
 	}
 	
-	public static Student getStudent(int studentID) throws StudentNotFoundException {
-		return DBConnector.getStudent(studentID);
-	}
 	public static Term getCurrentTerm() throws termNotFoundException {
 		return DBConnector.getCurrentTerm();
 	}
 	public static Person getPerson(int personID) throws PersonNotFoundException {
 		return DBConnector.getPerson(personID);
+	}
+	public static Professor getProfessor(int professorID) throws ProfNotFoundException {
+		return DBConnector.getProfessor(professorID);
+	}
+	public static Student getStudent(int studentID) throws StudentNotFoundException {
+		return DBConnector.getStudent(studentID);
 	}
 }

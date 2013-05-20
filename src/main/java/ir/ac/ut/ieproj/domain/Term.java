@@ -202,11 +202,6 @@ public class Term {
 		}
 		return dataInprogress;
 	}
-	public boolean isWithrawTime(Date date) {
-		if(date.after(withdrawStartDate) && date.before(withdrawEndDate))
-			return true;
-		return false;
-	}
 	public Vector<Vector<String>> teachingOfferings(Professor p) {
 		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>();  
 		for (Offering o : this.getOfferings()) {
@@ -225,5 +220,21 @@ public class Term {
 			}
 		}
 		return dataInprogress;
+	}
+	public boolean isWithrawTime(Date date) {
+		if(date.after(withdrawStartDate) && date.before(withdrawEndDate))
+			return true;
+		return false;
+	}
+	public boolean isSubmitGradeTime(Date date) {
+		if(date.after(submitGradeStartDate) && date.before(submitGradeEndDate))
+			return true;
+		return false;
+	}
+	public boolean isWithrawResponseTime(Date date) {
+		// TODO : is time good ?  
+		if(date.after(startDate) && date.before(endDate))
+			return true;
+		return false;
 	}
 }

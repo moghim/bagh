@@ -8,6 +8,7 @@ import ir.ac.ut.ieproj.database.DBConnector;
 import ir.ac.ut.ieproj.domain.Department;
 import ir.ac.ut.ieproj.domain.Student;
 import ir.ac.ut.ieproj.domain.Term;
+import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,7 @@ public class StudentMain {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("StudentMain.java : ");
-		Student s= null;
+		Student s = null;
 		Term t = null;
 		try {
 			String sid = request.getParameter("sid");
@@ -65,7 +66,7 @@ public class StudentMain {
 		} catch (StudentNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		} catch (termNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

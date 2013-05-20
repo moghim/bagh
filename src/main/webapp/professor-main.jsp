@@ -102,7 +102,7 @@ body {
 		method="POST">
 		<input type="hidden" name="sid" value="${sid}"> <input
 			type="hidden" name="choice" value="withdraw"> <input
-			class="btn-custom" type="submit" value="Withdraw Edit">
+			class="btn-custom" type="submit" value="Withdraw Response">
 	</form>
 
 	<c:if test="${hasError == '1'}">

@@ -207,13 +207,23 @@ public class Term {
 			return true;
 		return false;
 	}
+	public Vector<Vector<String>> teachingOfferings(Professor p) {
+		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>();  
+		for (Offering o : this.getOfferings()) {
+			if(o.getProfessor().getId() == p.getId()) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Vector<String> temp = new Vector<String>();	
+				temp.add(Integer.toString(o.getId()));
+				temp.add(o.getCourse().getName());		
+				temp.add(Integer.toString(o.getCourse().getUnits()));
+				temp.add(Integer.toString(o.getTime()));
+				temp.add((o.getProfessor()).getFirstName()+" "+o.getProfessor().getLastName());
+				temp.add(sdf.format(o.getExamDate()));
+				temp.add(Integer.toString(o.getRemainCapacity()));
+				temp.add(Integer.toString(o.getCapacity()));
+				dataInprogress.add(temp);
+			}
+		}
+		return dataInprogress;
+	}
 }
-
-
-
-
-
-
-
-
-

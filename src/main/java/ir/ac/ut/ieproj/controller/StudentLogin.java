@@ -1,9 +1,13 @@
 package ir.ac.ut.ieproj.controller;
 
-import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
 import ir.ac.ut.ieproj.domain.Department;
+import ir.ac.ut.ieproj.domain.Person;
+import ir.ac.ut.ieproj.domain.Professor;
 import ir.ac.ut.ieproj.domain.Student;
 import ir.ac.ut.ieproj.domain.Term;
+import ir.ac.ut.ieproj.exception.PersonNotFoundException;
+import ir.ac.ut.ieproj.exception.autenticationException;
+import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,15 +17,29 @@ public class StudentLogin {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		//System.out.println("StudentLogin controller come .");
 		//System.out.println("sid : "+request.getParameter("sid"));
-		Student s = null;
+		Person person = null;
 		Term t= null;
 		try {
 			String sid = request.getParameter("sid");
+			String password = request.getParameter("password");
 			request.setAttribute("sid",sid);
-			s = Department.getStudent(Integer.parseInt(sid));
+			person = Department.getPerson(Integer.parseInt(sid));
 			t = Department.getCurrentTerm();
+			if(!person.getPassword().equals(password))
+				throw new autenticationException("Username or password is incorrect .");
 		}
-		catch (StudentNotFoundException e) {
+		catch (PersonNotFoundException e) {
+			e.printStackTrace();
+			request.setAttribute("hasError", 1);
+			request.setAttribute("errMessage", e.getMessage());
+			return "student-login.jsp";
+			
+		} catch (termNotFoundException e) {
+			e.printStackTrace();
+			request.setAttribute("hasError", 1);
+			request.setAttribute("errMessage", e.getMessage());
+			return "student-login.jsp";
+		} catch (autenticationException e) {
 			e.printStackTrace();
 			request.setAttribute("hasError", 1);
 			request.setAttribute("errMessage", e.getMessage());
@@ -32,10 +50,19 @@ public class StudentLogin {
 			request.setAttribute("errMessage", e.getMessage());
 			return "student-login.jsp";
 		}
-		request.setAttribute("name", (s.getFirstName()+" "+s.getLastName()));
-		request.setAttribute("inProgressOffers", t.inProgressOfferings(s));
-		//request.setAttribute("canTake", t.notInProgressOfferings(s));
+		Student s = null;
+		Professor p = null;
+		request.setAttribute("name", (person.getFirstName()+" "+person.getLastName()));
 		request.setAttribute("hasError", 0);
-		return "student-main.jsp";
+		if(person instanceof Student) {
+			s = (Student) person;
+			request.setAttribute("inProgressOffers", t.inProgressOfferings(s));
+			return "student-main.jsp";
+		}
+		else {
+			p = (Professor) person;
+			request.setAttribute("teachingOffers", t.teachingOfferings(p));
+			return "professor-main.jsp";
+		}
 	}
 }

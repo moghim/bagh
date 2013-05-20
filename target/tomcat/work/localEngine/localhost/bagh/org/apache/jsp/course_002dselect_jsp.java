@@ -64,10 +64,6 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("<!DOCTYPE html\">\r\n");
       out.write("<html>\r\n");
       out.write("<head>\r\n");
-      out.write("\r\n");
-      out.write("<script>\r\n");
-      out.write("\t\r\n");
-      out.write("</script>\r\n");
       out.write("<meta http-equiv=\"Content-Type\"\r\n");
       out.write("\tcontent=\"text/html; charset=windows-1256\">\r\n");
       out.write("<title>Course Selection</title>\r\n");
@@ -175,7 +171,8 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\r\n");
       out.write("\t</table>\r\n");
       out.write("\t<br>\r\n");
-      out.write("\t<form style=\"text-align:center\" action=\"CourseSelect.action\" method=\"POST\">\r\n");
+      out.write("\t<form style=\"text-align: center\" action=\"CourseSelect.action\"\r\n");
+      out.write("\t\tmethod=\"POST\">\r\n");
       out.write("\t\t<input type=\"hidden\" name=\"sid\" value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${sid}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("\"> <input\r\n");
@@ -204,7 +201,7 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_005fif_005f0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _005fjspx_005ftagPool_005fc_005fif_0026_005ftest.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_005fif_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fif_005f0.setParent(null);
-    // /course-select.jsp(70,1) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /course-select.jsp(66,1) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fif_005f0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${err == '1'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null, false)).booleanValue());
     int _jspx_eval_c_005fif_005f0 = _jspx_th_c_005fif_005f0.doStartTag();
     if (_jspx_eval_c_005fif_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -235,10 +232,10 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f0.setParent(null);
-    // /course-select.jsp(89,2) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /course-select.jsp(85,2) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f0.setVar("offer");
-    // /course-select.jsp(89,2) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
-    _jspx_th_c_005fforEach_005f0.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(89,2) '${inProgressOffers}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${inProgressOffers}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
+    // /course-select.jsp(85,2) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
+    _jspx_th_c_005fforEach_005f0.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(85,2) '${inProgressOffers}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${inProgressOffers}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
     int[] _jspx_push_body_count_c_005fforEach_005f0 = new int[] { 0 };
     try {
       int _jspx_eval_c_005fforEach_005f0 = _jspx_th_c_005fforEach_005f0.doStartTag();
@@ -251,7 +248,8 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
             return true;
           out.write("\r\n");
           out.write("\t\t\t\t<td>\r\n");
-          out.write("\t\t\t\t\t<form style=\"text-align:center\" action=\"CourseSelect.action\" method=\"POST\">\r\n");
+          out.write("\t\t\t\t\t<form style=\"text-align: center\" action=\"CourseSelect.action\"\r\n");
+          out.write("\t\t\t\t\t\tmethod=\"POST\">\r\n");
           out.write("\t\t\t\t\t\t<input type=\"hidden\" name=\"sid\" value=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${sid}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\"> <input\r\n");
@@ -290,10 +288,10 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f1 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f0);
-    // /course-select.jsp(91,4) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /course-select.jsp(87,4) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f1.setVar("off");
-    // /course-select.jsp(91,4) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
-    _jspx_th_c_005fforEach_005f1.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(91,4) '${offer}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${offer}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
+    // /course-select.jsp(87,4) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
+    _jspx_th_c_005fforEach_005f1.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(87,4) '${offer}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${offer}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
     int[] _jspx_push_body_count_c_005fforEach_005f1 = new int[] { 0 };
     try {
       int _jspx_eval_c_005fforEach_005f1 = _jspx_th_c_005fforEach_005f1.doStartTag();
@@ -331,10 +329,10 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f2 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f2.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f2.setParent(null);
-    // /course-select.jsp(119,2) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /course-select.jsp(116,2) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f2.setVar("offer");
-    // /course-select.jsp(119,2) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
-    _jspx_th_c_005fforEach_005f2.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(119,2) '${otherOffers}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${otherOffers}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
+    // /course-select.jsp(116,2) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
+    _jspx_th_c_005fforEach_005f2.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(116,2) '${otherOffers}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${otherOffers}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
     int[] _jspx_push_body_count_c_005fforEach_005f2 = new int[] { 0 };
     try {
       int _jspx_eval_c_005fforEach_005f2 = _jspx_th_c_005fforEach_005f2.doStartTag();
@@ -347,7 +345,8 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
             return true;
           out.write("\r\n");
           out.write("\t\t\t\t<td>\r\n");
-          out.write("\t\t\t\t\t<form style=\"text-align:center\" action=\"CourseSelect.action\" method=\"POST\">\r\n");
+          out.write("\t\t\t\t\t<form style=\"text-align: center\" action=\"CourseSelect.action\"\r\n");
+          out.write("\t\t\t\t\t\tmethod=\"POST\">\r\n");
           out.write("\t\t\t\t\t\t<input type=\"hidden\" name=\"sid\" value=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${sid}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\"> <input\r\n");
@@ -386,10 +385,10 @@ public final class course_002dselect_jsp extends org.apache.jasper.runtime.HttpJ
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f3 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f3.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /course-select.jsp(121,4) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /course-select.jsp(118,4) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f3.setVar("off");
-    // /course-select.jsp(121,4) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
-    _jspx_th_c_005fforEach_005f3.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(121,4) '${offer}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${offer}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
+    // /course-select.jsp(118,4) name = items type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
+    _jspx_th_c_005fforEach_005f3.setItems(new org.apache.jasper.el.JspValueExpression("/course-select.jsp(118,4) '${offer}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${offer}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
     int[] _jspx_push_body_count_c_005fforEach_005f3 = new int[] { 0 };
     try {
       int _jspx_eval_c_005fforEach_005f3 = _jspx_th_c_005fforEach_005f3.doStartTag();

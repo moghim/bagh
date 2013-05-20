@@ -1,5 +1,7 @@
 package ir.ac.ut.ieproj.domain;
 
+import ir.ac.ut.iecommon.exceptions.DropException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -189,7 +191,7 @@ public class Student extends Person {
 	public void addRecord(Offering o) {
 		studyRecord.add(new StudyRecord(0, o, StudyStatus.INPROGRESS));
 	}
-	public void deleteRecord(Offering o) throws Exception {
+	public void deleteRecord(Offering o) throws DropException {
 		boolean isDeleted = false;
 		StudyRecord s = null;
 		for(StudyRecord sr : studyRecord) {
@@ -198,7 +200,7 @@ public class Student extends Person {
 		}
 		isDeleted = studyRecord.remove(s);
 		if(!isDeleted)
-			throw new Exception("Delete was not successful .");
+			throw new DropException("Delete was not successful .");
 	}
 	@Override
 	public String toString() {

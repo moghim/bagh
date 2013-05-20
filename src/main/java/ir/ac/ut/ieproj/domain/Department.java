@@ -6,12 +6,14 @@ import ir.ac.ut.iecommon.exceptions.*;
 import ir.ac.ut.iecommon.time.Clock;
 
 import ir.ac.ut.ieproj.database.DBConnector;
+import ir.ac.ut.ieproj.exception.PersonNotFoundException;
+import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 public class Department {
 	
 	public static void acceptWithdraw(int studentID, int offeringID, int professorID)
 			throws AcceptWithdrawException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException, Exception {
+			OfferingNotFoundException, ProfNotFoundException, termNotFoundException {
 		
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
@@ -38,7 +40,7 @@ public class Department {
 			throw new CheckDegreeReqException("Student with id "+studentID+" doesn't pass enough courses .");
 	}
 	public static void drop(int studentID, int offeringID) throws DropException,
-	StudentNotFoundException, OfferingNotFoundException, Exception {
+	StudentNotFoundException, OfferingNotFoundException, termNotFoundException {
 		
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
@@ -62,7 +64,7 @@ public class Department {
 	}
 	public static void rejectWithdraw(int studentID, int offeringID, int professorID)
 			throws RejectWithdrawException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException, Exception {
+			OfferingNotFoundException, ProfNotFoundException, termNotFoundException {
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
 		@SuppressWarnings("unused")
@@ -83,7 +85,7 @@ public class Department {
 	}
 	public static void submitGrade(int studentID, int professorID, int offeringID, float grade)
 			throws SubmitGradeException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException, Exception {
+			OfferingNotFoundException, ProfNotFoundException, termNotFoundException {
 		
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
@@ -107,7 +109,7 @@ public class Department {
 		DBConnector.saveStudent(s);
 	}
 	public static void take(int studentID, int offeringID) throws TakeException,
-	StudentNotFoundException, OfferingNotFoundException, Exception {
+	StudentNotFoundException, OfferingNotFoundException, termNotFoundException {
 	
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
@@ -150,7 +152,7 @@ public class Department {
 		DBConnector.saveOffering(o);	
 	}	
 	public static void withdraw(int studentID, int offeringID) throws WithdrawException,
-	StudentNotFoundException, OfferingNotFoundException, Exception {
+	StudentNotFoundException, OfferingNotFoundException, termNotFoundException {
 
 		Student s = DBConnector.getStudent(studentID);
 		Offering o = DBConnector.getOffering(offeringID);
@@ -177,7 +179,10 @@ public class Department {
 	public static Student getStudent(int studentID) throws StudentNotFoundException {
 		return DBConnector.getStudent(studentID);
 	}
-	public static Term getCurrentTerm() throws Exception {
+	public static Term getCurrentTerm() throws termNotFoundException {
 		return DBConnector.getCurrentTerm();
+	}
+	public static Person getPerson(int personID) throws PersonNotFoundException {
+		return DBConnector.getPerson(personID);
 	}
 }

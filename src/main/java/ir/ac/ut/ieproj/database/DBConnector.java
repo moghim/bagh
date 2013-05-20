@@ -10,11 +10,19 @@ import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
 import ir.ac.ut.iecommon.exceptions.ProfNotFoundException;
 import ir.ac.ut.iecommon.exceptions.StudentNotFoundException;
 import ir.ac.ut.ieproj.domain.*;
+import ir.ac.ut.ieproj.exception.PersonNotFoundException;
+import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 public class DBConnector {
 
 	private static Session session = HibernateUtil.getSessionFactory().openSession();
-	
+
+	public static Person getPerson(int personID) throws PersonNotFoundException {
+		Person person = (Person) session.get(Person.class, personID);
+		if(person == null)
+			throw new PersonNotFoundException("Person not found in database .");
+		return person;
+	}
 	public static Student getStudent(int studentId) throws StudentNotFoundException {
 		Student student = (Student) session.get(Student.class, studentId);
 		if(student == null)
@@ -33,7 +41,7 @@ public class DBConnector {
 			throw new OfferingNotFoundException("Professor not found in database .");
 		return offering;
 	}
-	public static Term getCurrentTerm() throws Exception {
+	public static Term getCurrentTerm() throws termNotFoundException {
 		session.beginTransaction();
 		Query query = session.createQuery("From Term where endDate >= :now and startDate <= :now");
 		query.setParameter("now", new Date());
@@ -41,12 +49,12 @@ public class DBConnector {
 		List<Term> resultList = query.list();
 		session.getTransaction().commit();
 		if(resultList.isEmpty())
-			throw new Exception("Current term does not exist .");
+			throw new termNotFoundException("Current term does not exist .");
 		if(resultList.size() > 1)
-			throw new Exception("More than 1 term has conditions to be current term .");
+			throw new termNotFoundException("More than 1 term has conditions to be current term .");
 		return resultList.get(0);
 	}
-	public static Term getPreviosTerm() throws Exception {
+	public static Term getPreviosTerm() throws termNotFoundException {
 		Term currentTerm = getCurrentTerm();
 		session.beginTransaction();
 		Query query = session.createQuery("From Term where id="+(currentTerm.getId()-1));
@@ -54,9 +62,9 @@ public class DBConnector {
 		List<Term> resultList = query.list();
 		session.getTransaction().commit();
 		if(resultList.isEmpty())
-			throw new Exception("Previos term does not exist .");
+			throw new termNotFoundException("Previos term does not exist .");
 		if(resultList.size() > 1)
-			throw new Exception("More than 1 term has conditions to be previos term .");
+			throw new termNotFoundException("More than 1 term has conditions to be previos term .");
 		return resultList.get(0);
 	}
 	public static void saveStudent(Student s) {

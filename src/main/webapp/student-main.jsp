@@ -6,10 +6,13 @@
 <!DOCTYPE html">
 <html>
 <head>
+<meta http-equiv="Content-Type"
+	content="text/html; charset=windows-1256">
+<title>Course Selection</title>
 <style>
 .btn-custom {
-	width: 100px;
-	height: 30px;
+	width: 150px;
+	height: 50px;
 	background-color: hsl(196, 100%, 4%) !important;
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#28c5ff",
@@ -28,14 +31,34 @@
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.89);
 	-webkit-font-smoothing: antialiased;
 }
+</style>
+<style>
+table,td,th {
+	border: 1px solid #8A2BE2;
+	background-color: #D8BFD8;
+	text-align: center;
+	vertical-align: middle;
+	height: 50px;
+}
+
+th {
+	text-align: center;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #8A2BE2;
+	color: white;
+}
+
+textarea {
+	height: 25px;
+}
 
 body {
-	background-image: url('asb.gif');
+	background-image: url('bluepap.jpg');
 }
 </style>
-<meta http-equiv="Content-Type"
-	content="text/html; charset=windows-1256">
-<title>Student Main Page</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 
 <body>
@@ -68,14 +91,14 @@ body {
 	<br>
 	<br>
 	<br>
-	<form style="text-align:center" action="StudentMain.action"
+	<form style="text-align: center" action="StudentMain.action"
 		method="POST">
 		<input type="hidden" name="sid" value="${sid}"> <input
 			type="hidden" name="choice" value="CourseSelect"> <input
 			class="btn-custom" type="submit" value="Course select">
 	</form>
 	<br>
-	<form style="text-align:center" action="StudentMain.action"
+	<form style="text-align: center" action="StudentMain.action"
 		method="POST">
 		<input type="hidden" name="sid" value="${sid}"> <input
 			type="hidden" name="choice" value="Withdraw"> <input

@@ -51,10 +51,10 @@ body {
 	<br>
 	<h3 align="center">Please enter your ID to login :</h3>
 	<br>
-	<form style="text-align:center" action="StudentLogin.action"
-		method="POST">
-		student id : <input type="text" name="sid"> <input
-			class="btn-custom" type="submit" value="Sign in">
+	<form style="text-align:center" action="StudentLogin.action" method="POST">
+		user name : <input type="text" name="sid"><br>
+		password  : <input type="text" name="password"><br>
+		<input class="btn-custom" type="submit" value="Sign in">
 	</form>
 	<c:if test="${hasError == '1'}">
 		<h4 align="center">error : ${errMessage}</h4>

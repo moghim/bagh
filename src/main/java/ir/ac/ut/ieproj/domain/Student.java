@@ -4,59 +4,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class Student {
+@DiscriminatorValue("Student")
+public class Student extends Person {
 
-	@Id
-	@Column(unique = true, nullable = false)
-	private int id;
-	private String firstName;
-	private String lastName;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Program program;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<StudyRecord> studyRecord;
 
-	public Student(){
+	public Student() {
+		super();
+		this.studyRecord = new HashSet<StudyRecord>();
 	}
-	public Student(int id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.studyRecord = new HashSet<StudyRecord>(); 
+	public Student(int id, String password, String firstName, String lastName) {
+		super(id, password, firstName, lastName);
+		this.studyRecord = new HashSet<StudyRecord>();
 	}
 	public Program getProgram() {
 		return program;
 	}
 	public void setProgram(Program program) {
 		this.program = program;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 	public Set<StudyRecord> getStudyRecord() {
 		return studyRecord;

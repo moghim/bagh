@@ -83,15 +83,15 @@ public class App {
 		int month = 1;
 
 		// making needed data
-		Professor p1 = new Professor(1, "Ramtin", "Khosravi");
-		Professor p2 = new Professor(2, "Ahmad", "Khonsari");
-		Professor p3 = new Professor(3, "Hesham", "Faili");
-		Professor p4 = new Professor(4, "Fatemeh", "Ghasemi");
-		Professor p5 = new Professor(5, "Mahmood", "Kharat");
-		Professor p6 = new Professor(6, "Mahmoudreza", "Hashemi");
-		Professor p7 = new Professor(7, "Fattaneh", "Taghiyareh");
-		Professor p8 = new Professor(8, "Azadeh", "Shakery");
-		Professor p9 = new Professor(9, "Siamak", "Mohammadi");
+		Professor p1 = new Professor(1, "123456", "Ramtin", "Khosravi");
+		Professor p2 = new Professor(2, "123456", "Ahmad", "Khonsari");
+		Professor p3 = new Professor(3, "123456", "Hesham", "Faili");
+		Professor p4 = new Professor(4, "123456", "Fatemeh", "Ghasemi");
+		Professor p5 = new Professor(5, "123456", "Mahmood", "Kharat");
+		Professor p6 = new Professor(6, "123456", "Mahmoudreza", "Hashemi");
+		Professor p7 = new Professor(7, "123456", "Fattaneh", "Taghiyareh");
+		Professor p8 = new Professor(8, "123456", "Azadeh", "Shakery");
+		Professor p9 = new Professor(9, "123456", "Siamak", "Mohammadi");
 
 		Course c1 = new Course("Fundamentals of Programming", 4,
 				Level.UNDERGRAD);
@@ -200,8 +200,8 @@ public class App {
 		pp2.addElective(c13);
 		pp2.setElectivePolicy(pa1);
 
-		Student s1 = new Student(810190420, "Gholam", "Patoobaf");
-		Student s2 = new Student(810190421, "Ghamar", "Aghrabparast");
+		Student s1 = new Student(810190420, "123456", "Gholam", "Patoobaf");
+		Student s2 = new Student(810190421, "123456", "Ghamar", "Aghrabparast");
 
 		s1.setProgram(pp1);
 		s2.setProgram(pp2);

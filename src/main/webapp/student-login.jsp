@@ -51,7 +51,7 @@ body {
 	<br>
 	<h3 align="center">Please enter your ID to login :</h3>
 	<br>
-	<form style="text-align: center" action="StudentLogin.action"
+	<form style="text-align:center" action="StudentLogin.action"
 		method="POST">
 		student id : <input type="text" name="sid"> <input
 			class="btn-custom" type="submit" value="Sign in">

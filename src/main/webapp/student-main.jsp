@@ -45,7 +45,7 @@ body {
 	<br>
 	<h3 align="center">Welcome ${name} !</h3>
 	<br>
-	<h4 style="text-align: center">Term In Progress Offerings :</h4>
+	<h4 align="center">Term In Progress Offerings :</h4>
 	<table align="center">
 		<tr class="success">
 			<th style="width: 10px">ID</th>
@@ -57,7 +57,7 @@ body {
 			<th style="width: 140px">Remain Capacity</th>
 			<th style="width: 100px">Capacity</th>
 		</tr>
-		<c:forEach var="offer" items="${inProgress}">
+		<c:forEach var="offer" items="${inProgressOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
@@ -68,19 +68,20 @@ body {
 	<br>
 	<br>
 	<br>
-	<form style="text-align: center" action="StudentMain.action"
+	<form style="text-align:center" action="StudentMain.action"
 		method="POST">
-		<input type="hidden" name="sid" value=&{sid}> <input
+		<input type="hidden" name="sid" value="${sid}"> <input
 			type="hidden" name="choice" value="CourseSelect"> <input
 			class="btn-custom" type="submit" value="Course select">
 	</form>
 	<br>
-	<form style="text-align: center" action="StudentMain.action"
+	<form style="text-align:center" action="StudentMain.action"
 		method="POST">
-		<input type="hidden" name="sid" value=&{sid}> <input
+		<input type="hidden" name="sid" value="${sid}"> <input
 			type="hidden" name="choice" value="Withdraw"> <input
 			class="btn-custom" type="submit" value="Withdraw">
 	</form>
+
 	<c:if test="${hasError == '1'}">
 		<h4 align="center">${errMessage}</h4>
 	</c:if>

@@ -13,7 +13,7 @@ public class FrontController extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String className = request.getServletPath().substring(1, request.getServletPath().indexOf(".action"));
-		//System.out.println("class name : "+className);
+		System.out.println("FrontController class name : "+className);
 		try {
 			Class<?> ctrlClass = null;
 			if(className == null) {

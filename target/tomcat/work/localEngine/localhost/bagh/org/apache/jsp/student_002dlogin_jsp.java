@@ -106,7 +106,7 @@ public final class student_002dlogin_jsp extends org.apache.jasper.runtime.HttpJ
       out.write("\t<br>\r\n");
       out.write("\t<h3 align=\"center\">Please enter your ID to login :</h3>\r\n");
       out.write("\t<br>\r\n");
-      out.write("\t<form style=\"text-align: center\" action=\"StudentLogin.action\"\r\n");
+      out.write("\t<form style=\"text-align:center\" action=\"StudentLogin.action\"\r\n");
       out.write("\t\tmethod=\"POST\">\r\n");
       out.write("\t\tstudent id : <input type=\"text\" name=\"sid\"> <input\r\n");
       out.write("\t\t\tclass=\"btn-custom\" type=\"submit\" value=\"Sign in\">\r\n");

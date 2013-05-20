@@ -85,7 +85,7 @@ body {
 			<th style="width: 100px">Capacity</th>
 			<th style="width: 150px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${canWithdrawOffers}">
+		<c:forEach var="offer" items="${inProgressOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
@@ -93,7 +93,7 @@ body {
 				<td>
 					<form style="text-align: center" action="Withdraw.action"
 						method="POST">
-						<input type="hidden" name="sid" value=&{sid}> <input
+						<input type="hidden" name="sid" value="${sid}"> <input
 							class="btn-custom" type="submit" value="Withdraw" /> <input
 							type="hidden" name="withdraw" value="${offer}">
 					</form>
@@ -101,5 +101,11 @@ body {
 			</tr>
 		</c:forEach>
 	</table>
+	<br>
+	<form style="text-align: center" action="Withdraw.action" method="POST">
+		<input type="hidden" name="sid" value="${sid}"> <input
+			class="btn-custom" type="submit" value="home" /><input type="hidden"
+			name="choice" value="home">
+	</form>
 </body>
 </html>

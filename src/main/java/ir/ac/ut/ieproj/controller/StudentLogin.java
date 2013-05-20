@@ -17,6 +17,7 @@ public class StudentLogin {
 		Term t= null;
 		try {
 			String sid = request.getParameter("sid");
+			request.setAttribute("sid",sid);
 			s = Department.getStudent(Integer.parseInt(sid));
 			t = Department.getCurrentTerm();
 		}
@@ -32,7 +33,7 @@ public class StudentLogin {
 			return "student-login.jsp";
 		}
 		request.setAttribute("name", (s.getFirstName()+" "+s.getLastName()));
-		request.setAttribute("inProgress", t.inProgressOfferings(s));
+		request.setAttribute("inProgressOffers", t.inProgressOfferings(s));
 		//request.setAttribute("canTake", t.notInProgressOfferings(s));
 		request.setAttribute("hasError", 0);
 		return "student-main.jsp";

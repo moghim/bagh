@@ -1,9 +1,7 @@
 package ir.ac.ut.ieproj.domain;
 
-import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -248,25 +246,5 @@ public class Student {
 				return true;
 		}
 		return false;
-	}
-	public Vector<Vector<String>> canWithdrawOfferings(Term t) {
-		Vector<Vector<String>> result = new Vector<Vector<String>>();  
-		for (StudyRecord sr : studyRecord) {
-			if(sr.getStatus() == StudyStatus.INPROGRESS && t.hasOffering(sr.getOffering())) {
-				Offering o = sr.getOffering();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				Vector<String> temp = new Vector<String>();	
-				temp.add(Integer.toString(o.getId()));
-				temp.add(o.getCourse().getName());		
-				temp.add(Integer.toString(o.getCourse().getUnits()));
-				temp.add(Integer.toString(o.getTime()));
-				temp.add((o.getProfessor()).getFirstName()+" "+o.getProfessor().getLastName());
-				temp.add(sdf.format(o.getExamDate()));
-				temp.add(Integer.toString(o.getRemainCapacity()));
-				temp.add(Integer.toString(o.getCapacity()));
-				result.add(temp);
-			}
-		}
-		return result;
 	}
 }

@@ -25,6 +25,15 @@ public class CourseSelect {
 		try {
 			request.setAttribute("err", "0");
 			sid = request.getParameter("sid");
+			t = DBConnector.getCurrentTerm();
+			s = Department.getStudent(Integer.parseInt(sid));
+			String choice = request.getParameter("choice");
+			if(choice!=null && choice.equals("home")) {
+				request.setAttribute("sid", s.getId());
+				request.setAttribute("name", (s.getFirstName()+" "+s.getLastName()));
+				request.setAttribute("inProgressOffers", t.inProgressOfferings(s));
+				return "student-main.jsp";
+			}
 			String dropOffer = request.getParameter("drop");
 			String takeOffer = request.getParameter("take");
 			if (dropOffer != null){
@@ -43,14 +52,8 @@ public class CourseSelect {
 				System.out.println("data : not drop nor take !!!");
 				throw new Exception("No chioce has been recognized .");
 			}
-
-		} catch (TakeException e) {
-			request.setAttribute("err", "1");
-			request.setAttribute("errMessage", e.getMessage());
-			e.printStackTrace();
-		} catch (DropException e) {
-			request.setAttribute("err", "1");
-			request.setAttribute("errMessage", e.getMessage());
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (StudentNotFoundException e) {
 			System.out.println("Student not found in CourseSelect.java controller .");
@@ -58,33 +61,34 @@ public class CourseSelect {
 		} catch (OfferingNotFoundException e) {
 			System.out.println("Offering not found in CourseSelect.java controller .");
 			e.printStackTrace();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
+		} catch (TakeException e) {
+			request.setAttribute("err", 1);
+			request.setAttribute("errMessage", e.getMessage());
+			e.printStackTrace();
+		} catch (DropException e) {
+			request.setAttribute("err", 1);
+			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			t = DBConnector.getCurrentTerm();
-			s = Department.getStudent(Integer.parseInt(sid));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (StudentNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Vector<Vector<String>> dataInprogress = t.inProgressOfferings(s);
+		Vector<Vector<String>> data = t.notInProgressOfferings(s);
+		/*
+		System.out.println("CourseSelect : inProgress size : "+dataInprogress.size());
+		if(dataInprogress.size()>0) {
+			System.out.println("inProg: ");
+			for(int i=0;i<dataInprogress.get(0).size();i++) {
+				System.out.println("#"+dataInprogress.get(0).get(i)+"#");
+			}
 		}
-		Vector<Vector<String>> dataInprogress = t.inProgressOfferings(s); 
-		Vector<Vector<String>> data = t.notInProgressOfferings(s); 
+		System.out.println("CourseSelect : notInProgress size : "+data.size());
+		*/
 		request.setAttribute("sid", s.getId());
-		request.setAttribute("sname", s.getFirstName()+" "+s.getLastName());
-		request.setAttribute("inprogressOffer", dataInprogress);
-		request.setAttribute("offers", data);
-		request.setAttribute("err", "0");
+		request.setAttribute("name", s.getFirstName()+" "+s.getLastName());
+		request.setAttribute("inProgressOffers", dataInprogress);
+		request.setAttribute("otherOffers", data);
 		return "course-select.jsp";
 	}
 }

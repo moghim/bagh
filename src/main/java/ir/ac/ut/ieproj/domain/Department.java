@@ -162,14 +162,14 @@ public class Department {
 		if(!t.hasOffering(o))
 			throw new WithdrawException("Offering with id="+ offeringID +" is not in current term .");
 		if(s.hasWaitingForWithrawOfferingInTerm(t))
-			throw new WithdrawException("Student with id="+studentID+"  has another waiting for withraw offering in this term .");
+			throw new WithdrawException("Student with id="+studentID+"  has another waiting for withdraw offering in this term .");
 		Date now = new Date(Clock.getCurrentTimeMillis());
 		//System.out.println("now : "+now);
 		//System.out.println("withraw start and end : "+t.getWithdrawStartDate()+" "+t.getWithdrawEndDate());
 		if (!(t.getWithdrawStartDate().before(now) && t.getWithdrawEndDate().after(now)))
-			throw new WithdrawException("Student with id="+studentID+" is not in withraw time .");
+			throw new WithdrawException("Student with id="+studentID+" is not in withdraw time .");
 		if(s.inProgressUnits()-o.getCourse().getUnits() < 12)
-			throw new WithdrawException("Student with id="+studentID+" will have less than 12 units after withrawing and can't withraw .");
+			throw new WithdrawException("Student with id="+studentID+" will have less than 12 units after withrawing offer with id="+offeringID+" and can't withdraw .");
 		
 		s.changeRecordToWaitingForWithraws(o);
 	}

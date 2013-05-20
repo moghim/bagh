@@ -66,13 +66,14 @@ body {
 </head>
 
 <body>
+	<h3 align="center">${err}</h3>
 	<c:if test="${err == '1'}">
 		<h4 align="center">error : ${errMessage}</h4>
 	</c:if>
-	<h3 style="text-align: center">Student Name : ${name}</h3>
+	<h3 align="center">Student Name : ${name}</h3>
 	<br>
 
-	<h4 style="text-align: center">Selected Offerings</h4>
+	<h4 align="center">Selected Offerings</h4>
 	<table align="center" class="success">
 		<tr>
 			<th style="width: 10px">ID</th>
@@ -85,15 +86,14 @@ body {
 			<th style="width: 100px">Capacity</th>
 			<th style="width: 150px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${inprogressOffers}">
+		<c:forEach var="offer" items="${inProgressOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
 				</c:forEach>
 				<td>
-					<form style="text-align: center" action="CourseSelect.action"
-						method="POST">
-						<input type="hidden" name="sid" value=&{sid}> <input
+					<form style="text-align:center" action="CourseSelect.action" method="POST">
+						<input type="hidden" name="sid" value="${sid}"> <input
 							class="btn-custom" type="submit" value="drop" /> <input
 							type="hidden" name="drop" value="${offer}">
 					</form>
@@ -103,7 +103,7 @@ body {
 	</table>
 	<br>
 
-	<h4 style="text-align: center">Term Offerings</h4>
+	<h4 align="center">Term Offerings</h4>
 	<table align="center">
 		<tr class="success">
 			<th style="width: 10px">ID</th>
@@ -116,15 +116,14 @@ body {
 			<th style="width: 100px">Capacity</th>
 			<th style="width: 20px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${offers}">
+		<c:forEach var="offer" items="${otherOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
 				</c:forEach>
 				<td>
-					<form style="text-align: center" action="CourseSelect.action"
-						method="POST">
-						<input type="hidden" name="sid" value=&{sid}> <input
+					<form style="text-align:center" action="CourseSelect.action" method="POST">
+						<input type="hidden" name="sid" value="${sid}"> <input
 							class="btn-custom" type="submit" value="take" /> <input
 							type="hidden" name="take" value="${offer}">
 					</form>
@@ -132,6 +131,11 @@ body {
 			</tr>
 		</c:forEach>
 	</table>
-
+	<br>
+	<form style="text-align:center" action="CourseSelect.action" method="POST">
+		<input type="hidden" name="sid" value="${sid}"> <input
+			class="btn-custom" type="submit" value="home" /><input type="hidden"
+			name="choice" value="home">
+	</form>
 </body>
 </html>

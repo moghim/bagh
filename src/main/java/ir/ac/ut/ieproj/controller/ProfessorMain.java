@@ -43,7 +43,7 @@ public class ProfessorMain {
 					return "submit-grade-list.jsp";
 				}
 			}
-			else if(choice.equals("Withdraw")) {
+			else if(choice.equals("withdraw")) {
 				System.out.println("choice for Withdraw .");
 				if(!t.isWithrawResponseTime(new Date(Clock.getCurrentTimeMillis()))) {
 					System.out.println("choice for Withdraw was bad.");
@@ -54,9 +54,9 @@ public class ProfessorMain {
 				}
 				else {
 					System.out.println("choice for Withdraw was good .");
-					// TODO
+					request.setAttribute("teachingOffers", t.teachingOfferings(p));
 					request.setAttribute("err", 0);
-					return "withdraw-response.jsp";
+					return "withdraw-response-list.jsp";
 				}
 			}
 		} catch (NumberFormatException e) {

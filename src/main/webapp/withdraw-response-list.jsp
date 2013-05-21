@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
-<title>Submit Grade</title>
+<title>Withdraw Response List</title>
 <style>
 .btn-custom {
 	width: 150px;
@@ -68,28 +68,30 @@ body {
 	<br>
 	<h3 align="center">Welcome ${name} !</h3>
 	<br>
-	<h4 align="center">Students In Offerings :</h4>
+	<h4 align="center">Teaching Offerings :</h4>
 	<table align="center">
 		<tr class="success">
 			<th style="width: 10px">ID</th>
-			<th style="width: 200px">Name</th>
-			<th style="width: 200px">Grade</th>
-			<th style="width: 200px">Status</th>
-			<th style="width: 300px">Action</th>
+			<th style="width: 240px">Course</th>
+			<th style="width: 30px">Units</th>
+			<th style="width: 30px">Time</th>
+			<th style="width: 200px">Teacher Name</th>
+			<th style="width: 140px">Exam Date</th>
+			<th style="width: 140px">Remain Capacity</th>
+			<th style="width: 100px">Capacity</th>
+			<th style="width: 150px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${students}">
+		<c:forEach var="offer" items="${teachingOffers}">
 			<tr>
 				<c:forEach var="off" items="${offer}">
 					<td>${off}</td>
 				</c:forEach>
 				<td>
-					<form style="text-align: center" action="WithdrawResponse.action"
+					<form style="text-align: center" action="WithdrawResponseList.action"
 						method="POST">
 						<input type="hidden" name="sid" value="${sid}"> <input
-							name="accept" class="btn-custom" type="submit" value="accept" /><input
-							name="reject" class="btn-custom" type="submit" value="reject" />
-						<input type="hidden" name="student" value="${offer}"> <input
-							type="hidden" name="offering" value="${offering}">
+							class="btn-custom" type="submit" value="Responsing" /> <input
+							type="hidden" name="offer" value="${offer}">
 					</form>
 				</td>
 			</tr>
@@ -99,13 +101,14 @@ body {
 	<br>
 	<br>
 	<br>
-	<form style="text-align: center" action="SubmitGrade.action"
+	<form style="text-align: center" action="WithdrawResponseList.action"
 		method="POST">
 		<input type="hidden" name="sid" value="${sid}"> <input
 			class="btn-custom" type="submit" value="home" /><input type="hidden"
 			name="choice" value="home">
 	</form>
-	<c:if test="${err == '1'}">
+
+	<c:if test="${hasError == '1'}">
 		<h4 align="center">${errMessage}</h4>
 	</c:if>
 </body>

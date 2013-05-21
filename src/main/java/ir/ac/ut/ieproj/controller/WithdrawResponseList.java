@@ -15,16 +15,16 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubmitGradeList {
+public class WithdrawResponseList {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("SubmitGradeList.java : ");
+		System.out.println("WithrawResponseList.java : ");
 		Professor p = null;
 		Term t = null;
 		Offering o = null;
 		try {
 			String sid = request.getParameter("sid");
-			System.out.println("sid in SubmitGradeList : "+sid);
+			System.out.println("sid in WithrawResponseList : "+sid);
 			p = Department.getProfessor(Integer.parseInt(sid));
 			t = DBConnector.getCurrentTerm();
 			String choice = request.getParameter("choice");
@@ -40,20 +40,20 @@ public class SubmitGradeList {
 			String[] temps = offer.split(",");
 			String offerID = temps[0].substring(1);
 			o = Department.getOffering(Integer.parseInt(offerID));
-			System.out.println("choice for submit grading .");
-			if(!t.isSubmitGradeTime(new Date(Clock.getCurrentTimeMillis()))) {
-				System.out.println("choice for submit was bad.");
+			System.out.println("choice for withdraw responsing .");
+			if(!t.isWithrawResponseTime(new Date(Clock.getCurrentTimeMillis()))) {
+				System.out.println("choice for withdraw response was bad.");
 				request.setAttribute("teachingOffers", t.teachingOfferings(p));
 				request.setAttribute("err", 1);
 				request.setAttribute("errMessage", "Grade Submit time has been passed or not come yet .");
-				return "submit-grade-list.jsp";
+				return "withdraw-response-list.jsp";
 			}
 			else {
-				System.out.println("choice for submit grade was good .");
-				request.setAttribute("students", Department.studentsInOffering(o));
+				System.out.println("choice for withdraw response grade was good .");
+				request.setAttribute("students", Department.studentsInOfferingWaitingForWithdraw(o));
 				request.setAttribute("offering", o.getId());
 				request.setAttribute("err", 0);
-				return "submit-grade.jsp";
+				return "withdraw-response.jsp";
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

@@ -83,7 +83,16 @@ public class DBConnector {
 		//System.out.println("first student id : "+resultList.get(0).getId());
 		return resultList;
 	}
-	
+	public static List<Student> getStudentsInOfferingWaitingForWithdraw(Offering offering) {
+		System.out.println("getStudentsInOfferingWaitingForWithdraw in DBconnector : ");
+		session.beginTransaction();
+		Query query = session.createQuery("select s from Student as s inner join s.studyRecord ss with ss.offering.id="+offering.getId()+" and ss.status='WAITINGFORWITHRAWACCEPT'");
+		@SuppressWarnings("unchecked")
+		List<Student> resultList = query.list();
+		session.getTransaction().commit();
+		return resultList;
+	}
+
 	public static void saveStudent(Student s) {
 		session.beginTransaction();
 		session.update(s);

@@ -13,27 +13,6 @@ import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 public class Department {
 
-	public static void acceptWithdraw(int studentID, int offeringID, int professorID)
-			throws AcceptWithdrawException, StudentNotFoundException,
-			OfferingNotFoundException, ProfNotFoundException, termNotFoundException {
-
-		Student s = DBConnector.getStudent(studentID);
-		Offering o = DBConnector.getOffering(offeringID);
-		@SuppressWarnings("unused")
-		Professor p = DBConnector.getProfessor(professorID);
-		Term t = DBConnector.getCurrentTerm();
-		if(!t.hasOffering(o)) {
-			throw new AcceptWithdrawException("The offering with id= "+offeringID+" does not belongs to this term .");
-		}
-		if(!s.hasOffering(o))
-			throw new AcceptWithdrawException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
-		if(o.getProfessor().getId() != professorID)
-			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
-		if(s.offeringStatus(o) != StudyStatus.WAITINGFORWITHRAWACCEPT)
-			throw new AcceptWithdrawException("Offering with id "+offeringID+"is not in good status="+s.offeringStatus(o)+" .");
-		s.changeRecordToWithrawn(o);
-		DBConnector.saveStudent(s);
-	}
 	public static void checkDegreeReq(int studentID) throws CheckDegreeReqException,
 	StudentNotFoundException {
 
@@ -108,6 +87,27 @@ public class Department {
 		DBConnector.saveStudent(s);
 		DBConnector.saveOffering(o);
 	}
+	public static void acceptWithdraw(int studentID, int offeringID, int professorID)
+			throws AcceptWithdrawException, StudentNotFoundException,
+			OfferingNotFoundException, ProfNotFoundException, termNotFoundException {
+
+		Student s = DBConnector.getStudent(studentID);
+		Offering o = DBConnector.getOffering(offeringID);
+		@SuppressWarnings("unused")
+		Professor p = DBConnector.getProfessor(professorID);
+		Term t = DBConnector.getCurrentTerm();
+		if(!t.hasOffering(o)) {
+			throw new AcceptWithdrawException("The offering with id= "+offeringID+" does not belongs to this term .");
+		}
+		if(!s.hasOffering(o))
+			throw new AcceptWithdrawException("Student with id "+studentID+" has no offering with id "+offeringID+" .");
+		if(o.getProfessor().getId() != professorID)
+			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
+		if(s.offeringStatus(o) != StudyStatus.WAITINGFORWITHRAWACCEPT)
+			throw new AcceptWithdrawException("Offering with id "+offeringID+"is not in good status="+s.offeringStatus(o)+" .");
+		s.changeRecordToWithrawn(o);
+		DBConnector.saveStudent(s);
+	}
 	public static void rejectWithdraw(int studentID, int offeringID, int professorID)
 			throws RejectWithdrawException, StudentNotFoundException,
 			OfferingNotFoundException, ProfNotFoundException, termNotFoundException {
@@ -124,7 +124,7 @@ public class Department {
 		if(o.getProfessor().getId() != professorID)
 			throw new ProfNotFoundException("Offering with id "+offeringID+"'s professor is not this professor with id "+professorID+" .");
 		if(s.offeringStatus(o) != StudyStatus.WAITINGFORWITHRAWACCEPT)
-			throw new RejectWithdrawException("Offering was not waiting for withraw .");
+			throw new RejectWithdrawException("Offering with id "+offeringID+"is not in good status="+s.offeringStatus(o)+" .");
 
 		s.changeRecordToInProgress(o);
 		DBConnector.saveStudent(s);		
@@ -183,6 +183,19 @@ public class Department {
 
 	public static Vector<Vector<String>> studentsInOffering(Offering offering) {
 		List<Student> students = DBConnector.getStudentsInOffering(offering);
+		Vector <Vector <String>> result = new Vector< Vector <String>>();
+		for(Student s : students) {
+			Vector<String> temp = new Vector<String>();
+			temp.add(Integer.toString(s.getId()));
+			temp.add(s.getFirstName()+" "+s.getLastName());
+			temp.add(Float.toString(s.getGrade(offering)));
+			temp.add(s.getStatus(offering).toString());
+			result.add(temp);
+		}
+		return result;
+	}
+	public static Vector<Vector<String>> studentsInOfferingWaitingForWithdraw(Offering offering) {
+		List<Student> students = DBConnector.getStudentsInOfferingWaitingForWithdraw(offering);
 		Vector <Vector <String>> result = new Vector< Vector <String>>();
 		for(Student s : students) {
 			Vector<String> temp = new Vector<String>();

@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,6 +25,7 @@ public class Course {
 	private int id;
 	private String name;
 	private int units;
+	@Enumerated(EnumType.STRING)
 	private Level level;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "pre", joinColumns = {@JoinColumn(name = "first")}, inverseJoinColumns = {@JoinColumn(name = "last")})

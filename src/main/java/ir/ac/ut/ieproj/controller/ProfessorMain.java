@@ -26,8 +26,8 @@ public class ProfessorMain {
 			t = DBConnector.getCurrentTerm();
 			String choice = request.getParameter("choice");
 			request.setAttribute("sid", p.getId());
-			request.setAttribute("sname", p.getFirstName()+" "+p.getLastName());
-			if(choice.equals("submitGrade")) {
+			request.setAttribute("name", p.getFirstName()+" "+p.getLastName());
+			if(choice != null && choice.equals("submitGrade")) {
 				System.out.println("choice for submitGrade .");
 				if(!t.isSubmitGradeTime(new Date(Clock.getCurrentTimeMillis()))) {
 					System.out.println("choice for submitGrade was bad .");
@@ -38,9 +38,9 @@ public class ProfessorMain {
 				}
 				else {
 					System.out.println("choice for submitGrade was good .");
-					// TODO
+					request.setAttribute("teachingOffers", t.teachingOfferings(p));
 					request.setAttribute("err", 0);
-					return "submit-grade.jsp";
+					return "submit-grade-list.jsp";
 				}
 			}
 			else if(choice.equals("Withdraw")) {

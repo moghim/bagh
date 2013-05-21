@@ -1,6 +1,7 @@
 package ir.ac.ut.ieproj.test;
 
 import java.util.Date;
+import java.util.Scanner;
 
 import ir.ac.ut.ieproj.domain.*;
 import ir.ac.ut.ieproj.domain.Package;
@@ -13,6 +14,7 @@ public class App {
 	public static void main(String[] args) throws Exception {
 		// Logger.getLogger("").setLevel(org.apache.log4j.Level.WARN);
 		System.out.println("Hello World !");
+		
 		//initialize();
 
 		// SubSytem Tests :
@@ -43,8 +45,19 @@ public class App {
 		System.out.println("average s2 in this term : "+s2.TermAverage(t1));
 		System.out.println("average s2 in prev term : "+s2.TermAverage(t2));
 
+		Scanner s = new Scanner(System.in);
+		@SuppressWarnings("unused")
+		String temp = s.next();
+		s1.deleteRecord(o1);
+		DBConnector.saveStudent(s1);
+		
+		temp = s.next();
+		s1.addRecord(o1);
+		DBConnector.saveStudent(s1);
+		//DBConnector.deleteStudyRecord(s1.getStudyRecordOfOffering(o1));
+		
 		// System Tests :
-
+		
 		// take and drop time :
 		/*
 		Department.drop(810190420, 9);

@@ -22,6 +22,7 @@ public class Package {
 	private int id;
 	private String name;
 	@ManyToMany(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "package_id")
 	private Set<Course> courses;
 	
 	public Package() {

@@ -2,7 +2,6 @@ package ir.ac.ut.ieproj.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,10 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
-/**
- * @author mehran
- *
- */
 @Entity
 @Table
 public class Course {
@@ -29,10 +24,10 @@ public class Course {
 	private String name;
 	private int units;
 	private Level level;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "pre", joinColumns = {@JoinColumn(name = "first")}, inverseJoinColumns = {@JoinColumn(name = "last")})
 	private Set<Course> prerequisite;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "co", joinColumns = {@JoinColumn(name = "first")}, inverseJoinColumns = {@JoinColumn(name = "last")})
 	private Set<Course> corequisite;
 	

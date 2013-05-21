@@ -4,7 +4,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,13 +24,15 @@ public class Program {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private String name;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "program_mandatory", joinColumns = {@JoinColumn(name = "program")}, inverseJoinColumns = {@JoinColumn(name = "mandatorycourse")})
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "program_mandatory_course", joinColumns = {@JoinColumn(name = "program")}, inverseJoinColumns = {@JoinColumn(name = "mandatorycourse")})
+	//@JoinColumn(name = "program_mandatory_course")
 	private Set<Course> mandatories;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "program_elective", joinColumns = {@JoinColumn(name = "program")}, inverseJoinColumns = {@JoinColumn(name = "electivecourse")})
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "program_elective_course", joinColumns = {@JoinColumn(name = "program")}, inverseJoinColumns = {@JoinColumn(name = "electivecourse")})
+	//@JoinTable(name = "program_elective_course")
 	private Set<Course> electives;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	private ElectivePolicy electivePolicy;
 	
 	public Program() {

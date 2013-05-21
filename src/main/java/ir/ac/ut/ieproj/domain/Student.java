@@ -5,10 +5,10 @@ import ir.ac.ut.iecommon.exceptions.DropException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,9 +18,11 @@ import javax.persistence.Table;
 @DiscriminatorValue("Student")
 public class Student extends Person {
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Program program;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval=true, cascade=javax.persistence.CascadeType.ALL)
+	//@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@JoinColumn(name = "student_id")
 	private Set<StudyRecord> studyRecord;
 
 	public Student() {
@@ -70,9 +72,9 @@ public class Student extends Person {
 		}
 		return false;
 	}
-	public boolean isInSameTimeExam(Offering o) {
+	public boolean isInSameTimeExam(Offering o, Term t) {
 		for (StudyRecord sr: studyRecord) {
-			if(sr.getOffering().getExamDate().equals(o.getExamDate()))
+			if(sr.getOffering().getExamDate().equals(o.getExamDate()) && t.hasOffering(sr.getOffering()))
 				return true;
 		}
 		return false;
@@ -225,5 +227,26 @@ public class Student extends Person {
 				return true;
 		}
 		return false;
+	}
+	public StudyStatus getStatus(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(o.getId() == sr.getOffering().getId())
+				return sr.getStatus();
+		}
+		return null;
+	}
+	public float getGrade(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(o.getId() == sr.getOffering().getId())
+				return sr.getGrade();
+		}
+		return -1;
+	}
+	public StudyRecord getStudyRecordOfOffering(Offering o) {
+		for(StudyRecord sr : studyRecord) {
+			if(o.getId() == sr.getOffering().getId())
+				return sr;
+		}
+		return null;
 	}
 }

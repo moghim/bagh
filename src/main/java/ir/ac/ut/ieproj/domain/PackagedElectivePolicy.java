@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 public class PackagedElectivePolicy extends ElectivePolicy {
 
 	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "electivePolicy")
 	private Set<Package> packages;
 
 	public PackagedElectivePolicy() {

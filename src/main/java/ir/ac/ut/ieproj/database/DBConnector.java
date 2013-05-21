@@ -67,14 +67,41 @@ public class DBConnector {
 			throw new termNotFoundException("More than 1 term has conditions to be previos term .");
 		return resultList.get(0);
 	}
+	public static List<Student> getStudentsInOffering(Offering offering) {
+		System.out.println("getStudentsInOffering in DBconnector : ");
+		session.beginTransaction();
+		Query query = session.createQuery("select s from Student as s inner join s.studyRecord ss with ss.offering.id="+offering.getId());
+		//System.out.println("query has no error or exception !!!");
+		//Query query = session.createQuery("From Student s where s.id="+810190420);
+		//Query query = session.createQuery("from Student s where exists (from StudyRecord ss where exists (from Offering o where o.id="
+		//+offering.getId()+" and ss.offering=o)");
+		@SuppressWarnings("unchecked")
+		List<Student> resultList = query.list();
+		session.getTransaction().commit();
+		//System.out.println("students in offering size : "+resultList.size());
+		//System.out.println("first student : "+resultList.get(0));
+		//System.out.println("first student id : "+resultList.get(0).getId());
+		return resultList;
+	}
+	
 	public static void saveStudent(Student s) {
 		session.beginTransaction();
-		session.save(s);
+		session.update(s);
 		session.getTransaction().commit();
 	}
 	public static void saveOffering(Offering o) {
 		session.beginTransaction();
-		session.save(o);
+		session.update(o);
+		session.getTransaction().commit();
+	}
+	public static void deleteStudyRecord(StudyRecord studyRecord) {
+		session.beginTransaction();
+		session.delete(studyRecord);
+		session.getTransaction().commit();
+	}
+	public static void saveStudyRecord(StudyRecord sr) {
+		session.beginTransaction();
+		session.update(sr);
 		session.getTransaction().commit();
 	}
 }

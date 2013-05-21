@@ -7,12 +7,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,7 +35,8 @@ public class Term {
 	private Date withdrawEndDate;
 	private Date submitGradeStartDate;
 	private Date submitGradeEndDate;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "term_id")
 	private Set<Offering> offerings;
 	public Term() {	
 	}
@@ -203,6 +204,7 @@ public class Term {
 		return dataInprogress;
 	}
 	public Vector<Vector<String>> teachingOfferings(Professor p) {
+		// TODO : is it true ?
 		Vector<Vector<String>> dataInprogress = new Vector<Vector<String>>();  
 		for (Offering o : this.getOfferings()) {
 			if(o.getProfessor().getId() == p.getId()) {

@@ -2,7 +2,6 @@ package ir.ac.ut.ieproj.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +19,7 @@ public class StudyRecord {
 	@Column(unique = true, nullable = false)
 	private int id;
 	private float grade;
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Offering offering;
 	private StudyStatus status;
 	

@@ -52,6 +52,7 @@ public class CourseSelect {
 				System.out.println("data : not drop nor take !!!");
 				throw new Exception("No chioce has been recognized .");
 			}
+			//salam 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

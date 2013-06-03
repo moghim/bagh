@@ -29,7 +29,7 @@ public class CourseSelect {
 			t = DBConnector.getCurrentTerm();
 			s = Department.getStudent(Integer.parseInt(sid));
 			String choice = request.getParameter("choice");
-			if(choice!=null && choice.equals("home")) {
+			if(choice!=null && choice.equals("home") && 1==2) {
 				request.setAttribute("sid", s.getId());
 				request.setAttribute("name", (s.getFirstName()+" "+s.getLastName()));
 				request.setAttribute("inProgressOffers", t.inProgressOfferings(s));

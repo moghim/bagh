@@ -23,6 +23,7 @@ public class CourseSelect {
 		Term t = null;
 
 		try {
+		// payam khare
 			request.setAttribute("err", "0");
 			sid = request.getParameter("sid");
 			t = DBConnector.getCurrentTerm();

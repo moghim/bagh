@@ -18,12 +18,51 @@
 	
 	<context-param>
     	<param-name>user</param-name>
-    	<param-value>payam</param-value>
+    	<param-value>root</param-value>
 	</context-param>
 	
 	<context-param>
     	<param-name>password</param-name>
     	<param-value>123</param-value>
 	</context-param>
+		<error-page>
+		<error-code>403</error-code>
+		<location>/access-err.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/notfound.jsp</location>
+	</error-page>
+
+	<!-- Security Constraints -->
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>index</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+			<role-name>member</role-name>
+		</auth-constraint>
+	</security-constraint>
 	
+	<!-- Login config -->
+	
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/student-login.jsp</form-login-page>
+			<form-error-page>/login-error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	<!-- Security Roles -->
+	
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<role-name>member</role-name>
+	</security-role>
 </web-app>

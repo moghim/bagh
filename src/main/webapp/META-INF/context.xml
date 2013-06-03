@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/REALM">
+  <!-- works! -->
+  <Resource name="jdbc/boostandb"
+            type="javax.sql.DataSource"
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://127.0.0.1:3306/boostandb"
+            username="root"
+            password="123"
+            maxActive="8"
+            maxIdle="4"
+            maxWait="10000"
+            auth="Container"
+          />
+  <!-- Does not seem to work?! -->
+  <Realm className="org.apache.catalina.realm.DataSourceRealm"
+         dataSourceName="jdbc/boostandb"
+         userTable="person" 
+         userNameCol="id" 
+         userCredCol="password"
+         userRoleTable="user_roles" 
+         roleNameCol="role_name"
+         localDataSource="true"/>
+</Context>

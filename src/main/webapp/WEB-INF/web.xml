@@ -77,9 +77,9 @@
 	<!-- Security Roles -->
 	
 	<security-role>
-		<role-name>admin</role-name>
+		<role-name>stu</role-name>
 	</security-role>
 	<security-role>
-		<role-name>member</role-name>
+		<role-name>prof</role-name>
 	</security-role>
 </web-app>

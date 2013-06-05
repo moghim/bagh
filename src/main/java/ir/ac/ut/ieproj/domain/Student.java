@@ -29,8 +29,8 @@ public class Student extends Person {
 		super();
 		this.studyRecord = new HashSet<StudyRecord>();
 	}
-	public Student(int id, String password, String firstName, String lastName) {
-		super(id, password, firstName, lastName);
+	public Student(int id, String password, String firstName, String lastName, String roleName) {
+		super(id, password, firstName, lastName, roleName);
 		this.studyRecord = new HashSet<StudyRecord>();
 	}
 	public Program getProgram() {

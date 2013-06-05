@@ -14,8 +14,8 @@ public class Professor extends Person {
 		super();
 	}
 
-	public Professor(int id, String password, String firstName, String lastName) {
-		super(id, password, firstName, lastName);
+	public Professor(int id, String password, String firstName, String lastName, String roleName) {
+		super(id, password, firstName, lastName, roleName);
 	}
 
 	@Override

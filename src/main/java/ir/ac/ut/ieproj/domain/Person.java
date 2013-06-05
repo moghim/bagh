@@ -23,17 +23,19 @@ public class Person {
 	@Id
 	@Column(unique = true, nullable = false)
 	protected int id;
+	protected String roleName;
 	protected String password;
 	protected String firstName;
 	protected String lastName;
 	
 	public Person() {
 	}
-	public Person(int id, String password, String firstName, String lastName) {
+	public Person(int id, String password, String firstName, String lastName, String roleName) {
 		this.id = id;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.roleName = roleName;
 	}
 	public int getId() {
 		return id;

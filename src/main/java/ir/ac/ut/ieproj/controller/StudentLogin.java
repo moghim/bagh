@@ -20,6 +20,7 @@ public class StudentLogin {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		//System.out.println("StudentLogin controller come .");
 		//System.out.println("sid : "+request.getParameter("sid"));
+		
 		Person person = null;
 		Term t= null;
 		try {

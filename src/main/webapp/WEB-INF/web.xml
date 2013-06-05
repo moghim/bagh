@@ -38,12 +38,29 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>index</web-resource-name>
-			<url-pattern>/*</url-pattern>
+			<web-resource-name>prof</web-resource-name>
+			<url-pattern>/professor-main.jsp</url-pattern>
+			<url-pattern>/student-login.jsp</url-pattern>
+			<url-pattern>/submit-grade.jsp</url-pattern>
+			<url-pattern>/submit-grade-list.jsp</url-pattern>
+			<url-pattern>/withdraw-response.jsp</url-pattern>
+			<url-pattern>/withdraw-response-list.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>admin</role-name>
-			<role-name>member</role-name>
+			<role-name>prof</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>student</web-resource-name>
+			<url-pattern>/student-login.jsp</url-pattern>
+			<url-pattern>/course-select.jsp</url-pattern>
+			<url-pattern>/student-main.jsp</url-pattern>
+			<url-pattern>/withdraw.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>stu</role-name>
 		</auth-constraint>
 	</security-constraint>
 	

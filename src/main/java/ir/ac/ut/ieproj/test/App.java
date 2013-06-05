@@ -15,7 +15,7 @@ public class App {
 		// Logger.getLogger("").setLevel(org.apache.log4j.Level.WARN);
 		System.out.println("Hello World !");
 		
-		//initialize();
+		initialize();
 
 		// SubSytem Tests :
 
@@ -96,15 +96,15 @@ public class App {
 		int month = 1;
 
 		// making needed data
-		Professor p1 = new Professor(1, "123456", "Ramtin", "Khosravi");
-		Professor p2 = new Professor(2, "123456", "Ahmad", "Khonsari");
-		Professor p3 = new Professor(3, "123456", "Hesham", "Faili");
-		Professor p4 = new Professor(4, "123456", "Fatemeh", "Ghasemi");
-		Professor p5 = new Professor(5, "123456", "Mahmood", "Kharat");
-		Professor p6 = new Professor(6, "123456", "Mahmoudreza", "Hashemi");
-		Professor p7 = new Professor(7, "123456", "Fattaneh", "Taghiyareh");
-		Professor p8 = new Professor(8, "123456", "Azadeh", "Shakery");
-		Professor p9 = new Professor(9, "123456", "Siamak", "Mohammadi");
+		Professor p1 = new Professor(1, "123456", "Ramtin", "Khosravi", "prof");
+		Professor p2 = new Professor(2, "123456", "Ahmad", "Khonsari", "prof");
+		Professor p3 = new Professor(3, "123456", "Hesham", "Faili", "prof");
+		Professor p4 = new Professor(4, "123456", "Fatemeh", "Ghasemi", "prof");
+		Professor p5 = new Professor(5, "123456", "Mahmood", "Kharat", "prof");
+		Professor p6 = new Professor(6, "123456", "Mahmoudreza", "Hashemi", "prof");
+		Professor p7 = new Professor(7, "123456", "Fattaneh", "Taghiyareh", "prof");
+		Professor p8 = new Professor(8, "123456", "Azadeh", "Shakery", "prof");
+		Professor p9 = new Professor(9, "123456", "Siamak", "Mohammadi", "prof");
 
 		Course c1 = new Course("Fundamentals of Programming", 4,
 				Level.UNDERGRAD);
@@ -213,8 +213,8 @@ public class App {
 		pp2.addElective(c13);
 		pp2.setElectivePolicy(pa1);
 
-		Student s1 = new Student(810190420, "123456", "Gholam", "Patoobaf");
-		Student s2 = new Student(810190421, "123456", "Ghamar", "Aghrabparast");
+		Student s1 = new Student(810190420, "123456", "Gholam", "Patoobaf", "stu");
+		Student s2 = new Student(810190421, "123456", "Ghamar", "Aghrabparast", "stu");
 
 		s1.setProgram(pp1);
 		s2.setProgram(pp2);

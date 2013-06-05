@@ -1,0 +1,19 @@
+[33mcommit 592623ce9ae7ee1f7126f553c6f0aa55d9af2f78[m
+Author: Payam <payam222@gmail.com>
+Date:   Mon Jun 3 17:15:07 2013 +0430
+
+    test 3
+
+[1mdiff --git a/src/main/java/ir/ac/ut/ieproj/controller/CourseSelect.java b/src/main/java/ir/ac/ut/ieproj/controller/CourseSelect.java[m
+[1mindex 2445a44..1444005 100644[m
+[1m--- a/src/main/java/ir/ac/ut/ieproj/controller/CourseSelect.java[m
+[1m+++ b/src/main/java/ir/ac/ut/ieproj/controller/CourseSelect.java[m
+[36m@@ -29,7 +29,7 @@[m [mpublic class CourseSelect {[m
+ 			t = DBConnector.getCurrentTerm();[m
+ 			s = Department.getStudent(Integer.parseInt(sid));[m
+ 			String choice = request.getParameter("choice");[m
+[31m-			if(choice!=null && choice.equals("home")) {[m
+[32m+[m			[32m{[m
+ 				request.setAttribute("sid", s.getId());[m
+ 				request.setAttribute("name", (s.getFirstName()+" "+s.getLastName()));[m
+ 				request.setAttribute("inProgressOffers", t.inProgressOfferings(s));[m

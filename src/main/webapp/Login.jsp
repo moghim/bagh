@@ -51,9 +51,9 @@ body {
 	<br>
 	<h3 align="center">Please enter your ID to login :</h3>
 	<br>
-	<form style="text-align:center" action="StudentLogin.action" method="POST">
-		user name : <input type="text" name="sid"><br>
-		password  : <input type="text" name="password"><br>
+	<form style="text-align:center" action='<%= response.encodeURL("j_security_check") %>' method="POST">
+		user name : <input type="text" name="j_username"><br>
+		password  : <input type="text" name="j_password"><br>
 		<input class="btn-custom" type="submit" value="Sign in">
 	</form>
 	<c:if test="${hasError == '1'}">

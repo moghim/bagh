@@ -66,7 +66,7 @@ body {
 	<br>
 	<br>
 	<br>
-	<h3 align="center">Welcome ${name} !</h3>
+	<h3 align="center">Welcome <%=request.getSession().getAttribute("name") %> !</h3>
 	<br>
 	<h4 align="center">Term In Progress Offerings :</h4>
 	<table align="center">
@@ -91,18 +91,14 @@ body {
 	<br>
 	<br>
 	<br>
-	<form style="text-align: center" action="StudentMain.action"
-		method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			type="hidden" name="choice" value="CourseSelect"> <input
-			class="btn-custom" type="submit" value="Course select">
+	<form style="text-align: center" action="CourseSelect.action" method="POST"> 
+		<input type="hidden" name="choice" value="CourseSelect">
+		<input class="btn-custom" type="submit" value="Course select">
 	</form>
 	<br>
-	<form style="text-align: center" action="StudentMain.action"
-		method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			type="hidden" name="choice" value="Withdraw"> <input
-			class="btn-custom" type="submit" value="Withdraw">
+	<form style="text-align: center" action="Withdraw.action" method="POST">
+		<input type="hidden" name="choice" value="Withdraw">
+		<input class="btn-custom" type="submit" value="Withdraw">
 	</form>
 
 	<c:if test="${hasError == '1'}">

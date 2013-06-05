@@ -1,4 +1,7 @@
 package ir.ac.ut.ieproj.controller;
+import ir.ac.ut.ieproj.domain.Department;
+import ir.ac.ut.ieproj.domain.Person;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -11,22 +14,35 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String className = request.getServletPath().substring(1, request.getServletPath().indexOf(".action"));
-		System.out.println("FrontController class name : "+className);
-		try {
-			Class<?> ctrlClass = null;
-			if(className == null) {
-				ctrlClass = Class.forName("ir.ac.ut.ieproj.controller.Login");
+		try {	
+			String path = request.getServletPath();
+			int jspIndex = path.indexOf(".jsp");
+			int actionIndex = path.indexOf(".action");
+			String className = null;
+			if(jspIndex != -1) {
+				className = path.substring(1, jspIndex);
+			}
+			else if(actionIndex != -1) {
+				className = path.substring(1, actionIndex);
 			}
 			else {
-				ctrlClass = Class.forName("ir.ac.ut.ieproj.controller." + className);
+				throw new Exception("Not good path in URL .");
 			}
+			System.out.println("FrontController class name : "+className);
+			Class<?> ctrlClass = null;
+			ctrlClass = Class.forName("ir.ac.ut.ieproj.controller." + className);
 			Method m = ctrlClass.getMethod("execute", HttpServletRequest.class, HttpServletResponse.class);
+
+			if(request.getSession().getAttribute("name") == null) {
+				Person p = Department.getPerson(Integer.parseInt(request.getUserPrincipal().getName()));
+				request.getSession().setAttribute("name", p.getFirstName()+" "+p.getLastName());
+			}
+
 			String forward = (String)m.invoke(ctrlClass.newInstance(), request, response);
 			request.getRequestDispatcher(forward).forward(request, response);
 		} catch (Exception ex) {
 			response.setContentType("text/html");
-			response.getOutputStream().println("There is an error in loading the page .\nPlease contact +989354428397 ." + ex.getMessage());
+			response.getOutputStream().println("The site is under construction , Please try later !" + ex.getMessage());
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

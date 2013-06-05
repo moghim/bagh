@@ -9,11 +9,11 @@
 	
 	<servlet-mapping>
 		<servlet-name>FrontController</servlet-name>
-		<url-pattern>*.action</url-pattern>
+		<url-pattern>*</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>		
-		<welcome-file>student-login.jsp</welcome-file>
+		<welcome-file>Login.jsp</welcome-file>
 	</welcome-file-list>
 	
 	<context-param>
@@ -39,12 +39,12 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>prof</web-resource-name>
-			<url-pattern>/professor-main.jsp</url-pattern>
-			<url-pattern>/student-login.jsp</url-pattern>
-			<url-pattern>/submit-grade.jsp</url-pattern>
-			<url-pattern>/submit-grade-list.jsp</url-pattern>
-			<url-pattern>/withdraw-response.jsp</url-pattern>
-			<url-pattern>/withdraw-response-list.jsp</url-pattern>
+			<url-pattern>/ProfessorMain.jsp</url-pattern>
+			<url-pattern>/Login.jsp</url-pattern>
+			<url-pattern>/SubmitGrade.jsp</url-pattern>
+			<url-pattern>/SubmitGradeList.jsp</url-pattern>
+			<url-pattern>/WithdrawResponse.jsp</url-pattern>
+			<url-pattern>/WithdrawResponseList.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>prof</role-name>
@@ -54,10 +54,10 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>student</web-resource-name>
-			<url-pattern>/student-login.jsp</url-pattern>
-			<url-pattern>/course-select.jsp</url-pattern>
-			<url-pattern>/student-main.jsp</url-pattern>
-			<url-pattern>/withdraw.jsp</url-pattern>
+			<url-pattern>/StudentLogin.jsp</url-pattern>
+			<url-pattern>/CourseSelect.jsp</url-pattern>
+			<url-pattern>/StudentMain.jsp</url-pattern>
+			<url-pattern>/Withdraw.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>stu</role-name>
@@ -69,7 +69,7 @@
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
-			<form-login-page>/student-login.jsp</form-login-page>
+			<form-login-page>/Login.jsp</form-login-page>
 			<form-error-page>/login-error.jsp</form-error-page>
 		</form-login-config>
 	</login-config>

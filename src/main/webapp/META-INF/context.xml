@@ -19,7 +19,7 @@
          userTable="person" 
          userNameCol="id" 
          userCredCol="password"
-         userRoleTable="user_roles" 
+         userRoleTable="person" 
          roleNameCol="role_name"
          localDataSource="true"/>
 </Context>

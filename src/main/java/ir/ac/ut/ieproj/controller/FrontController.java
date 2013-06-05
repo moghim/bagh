@@ -16,7 +16,7 @@ public class FrontController extends HttpServlet{
 		try {
 			Class<?> ctrlClass = null;
 			if(className == null) {
-				ctrlClass = Class.forName("ir.ac.ut.ieproj.controller.StudentLogin");
+				ctrlClass = Class.forName("ir.ac.ut.ieproj.controller.Login");
 			}
 			else {
 				ctrlClass = Class.forName("ir.ac.ut.ieproj.controller." + className);

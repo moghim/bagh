@@ -11,14 +11,11 @@ import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-
-public class StudentLogin {
+public class Login {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		//System.out.println("StudentLogin controller come .");
+		//System.out.println("Login controller come .");
 		//System.out.println("sid : "+request.getParameter("sid"));
 		
 		Person person = null;

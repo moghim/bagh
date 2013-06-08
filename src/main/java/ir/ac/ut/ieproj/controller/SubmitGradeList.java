@@ -1,16 +1,14 @@
 package ir.ac.ut.ieproj.controller;
 
-import ir.ac.ut.iecommon.exceptions.OfferingNotFoundException;
+import java.util.Date;
+
 import ir.ac.ut.iecommon.exceptions.ProfNotFoundException;
 import ir.ac.ut.iecommon.time.Clock;
 import ir.ac.ut.ieproj.database.DBConnector;
 import ir.ac.ut.ieproj.domain.Department;
-import ir.ac.ut.ieproj.domain.Offering;
 import ir.ac.ut.ieproj.domain.Professor;
 import ir.ac.ut.ieproj.domain.Term;
 import ir.ac.ut.ieproj.exception.termNotFoundException;
-
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +16,22 @@ import javax.servlet.http.HttpServletResponse;
 public class SubmitGradeList {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("SubmitGradeList.java : ");
+		
+		System.out.println("SubmitGradeList.java starts .");
 		Professor p = null;
 		Term t = null;
-		Offering o = null;
+		request.setAttribute("err", "0");
 		try {
-			String sid = request.getParameter("sid");
-			System.out.println("sid in SubmitGradeList : "+sid);
-			p = Department.getProfessor(Integer.parseInt(sid));
+			p = Department.getProfessor(Integer.parseInt(request.getUserPrincipal().getName()));
 			t = DBConnector.getCurrentTerm();
+			if(!t.isSubmitGradeTime(new Date(Clock.getCurrentTimeMillis()))) {
+				System.out.println("choice for SubmitGrade was bad.");
+				request.setAttribute("teachingOffers", t.teachingOfferings(p));
+				request.setAttribute("err", 1);
+				request.setAttribute("errMessage", "Grade Submit time has been passed or not come yet .");
+				return "/WEB-INF/prof/ProfessorMain.jsp";
+			}
+			/*
 			String choice = request.getParameter("choice");
 			request.setAttribute("sid", p.getId());
 			request.setAttribute("name", p.getFirstName()+" "+p.getLastName());
@@ -55,26 +60,23 @@ public class SubmitGradeList {
 				request.setAttribute("err", 0);
 				return "submit-grade.jsp";
 			}
+		*/
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("err", 1);
+			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
 		}  catch (termNotFoundException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("err", 1);
+			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
 		} catch (ProfNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (OfferingNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			request.setAttribute("err", 1);
+			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
 		}
-		System.out.println("Unknown error .");
+		System.out.println("SubmitGradeList set data .");
 		request.setAttribute("teachingOffers", t.teachingOfferings(p));
-		request.setAttribute("err", "1");
-		request.setAttribute("errMessage", "Unknown Error ... ");
-		return "submit-grade-list.jsp";
+		//request.setAttribute("errMessage", "Unknown Error ... ");
+		return "/WEB-INF/prof/SubmitGradeList.jsp";
 	}
 }

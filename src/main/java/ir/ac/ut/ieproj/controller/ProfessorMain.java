@@ -1,14 +1,11 @@
 package ir.ac.ut.ieproj.controller;
 
 import ir.ac.ut.iecommon.exceptions.ProfNotFoundException;
-import ir.ac.ut.iecommon.time.Clock;
 import ir.ac.ut.ieproj.database.DBConnector;
 import ir.ac.ut.ieproj.domain.Department;
 import ir.ac.ut.ieproj.domain.Professor;
 import ir.ac.ut.ieproj.domain.Term;
 import ir.ac.ut.ieproj.exception.termNotFoundException;
-
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,10 +64,10 @@ public class ProfessorMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Unknown error .");
+		//System.out.println("Unknown error .");
 		request.setAttribute("teachingOffers", t.teachingOfferings(p));
-		request.setAttribute("err", "1");
-		request.setAttribute("errMessage", "Unknown Error ... ");
+		request.setAttribute("err", "0");
+		//request.setAttribute("errMessage", "Unknown Error ... ");
 		
 		return "/WEB-INF/prof/ProfessorMain.jsp";
 	}

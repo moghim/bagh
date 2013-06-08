@@ -17,7 +17,7 @@ public class StudentMain {
 		request.setAttribute("hasError", 0);
 		if(request.getUserPrincipal()==null) {
 			System.out.println("principle was null .");
-			return "StudentMain.jsp";
+			return "/WEB-INF/stud/StudentMain.jsp";
 		}
 		try {
 			Term t = Department.getCurrentTerm();

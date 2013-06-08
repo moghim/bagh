@@ -20,23 +20,15 @@ public class FrontController extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {	
 			System.out.println("FrontController start : ");
-			//String path = request.getServletPath();
-			//System.out.println("path:"+path+"#");
 			String url = request.getRequestURI();
-			//System.out.println("url:"+url+"#");
+			System.out.println("url:"+url+"#");
 			int jspIndex = url.indexOf(".jsp");
-			int actionIndex = url.indexOf(".action");
 			String className = null;
 			if(jspIndex != -1) {
 				System.out.println("jsp ast");
 				className = url.substring(11, jspIndex);
 			}
-			else if(actionIndex != -1) {
-				System.out.println("action ast");
-				className = url.substring(11 , actionIndex);
-			}
 			else {
-				//throw new Exception("Not good path in URL .");
 				if (request.getUserPrincipal()!=null){
 					Person p = DBConnector.getPerson(Integer.parseInt(request.getUserPrincipal().getName()));
 					if (p instanceof Student)
@@ -48,7 +40,7 @@ public class FrontController extends HttpServlet{
 					}
 				}
 				else 
-					className = "StudentMain";
+					throw new Exception();
 			}
 			System.out.println("FrontController class name : "+className);
 			Class<?> ctrlClass = null;
@@ -61,7 +53,7 @@ public class FrontController extends HttpServlet{
 			String forward = (String)m.invoke(ctrlClass.newInstance(), request, response);
 			System.out.println("#before forward to : "+forward);
 			request.getRequestDispatcher(forward).forward(request, response);
-			System.out.println("After All !!!");
+			System.out.println("After forwarding in frontController !!!");
 		} catch (Exception ex) {
 			response.setContentType("text/html");
 			response.getOutputStream().println("Url Pattern is not valid , Please try later !" + ex.getMessage());
@@ -69,7 +61,7 @@ public class FrontController extends HttpServlet{
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hooshang");
+		System.out.println("DoPost");
 		doGet(request, response);
 	}
 }

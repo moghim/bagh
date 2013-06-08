@@ -9,7 +9,6 @@ import ir.ac.ut.ieproj.domain.Department;
 import ir.ac.ut.ieproj.domain.Offering;
 import ir.ac.ut.ieproj.domain.Professor;
 import ir.ac.ut.ieproj.domain.Term;
-import ir.ac.ut.ieproj.exception.requestException;
 import ir.ac.ut.ieproj.exception.termNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,19 +17,32 @@ import javax.servlet.http.HttpServletResponse;
 public class SubmitGrade {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-
+		System.out.println("SubmitGrade controller starts .");
 		Professor p = null;
 		Offering o = null;
-		String sid = null;
+		@SuppressWarnings("unused")
 		Term t = null;
 
 		try {
 			request.setAttribute("err", "0");
-			sid = request.getParameter("sid");
 			t = DBConnector.getCurrentTerm();
-			p = Department.getProfessor(Integer.parseInt(sid));
-			request.setAttribute("sid", p.getId());
-			request.setAttribute("name", (p.getFirstName()+" "+p.getLastName()));
+			p = Department.getProfessor(Integer.parseInt(request.getUserPrincipal().getName()));
+			String offering = request.getParameter("offering");
+			System.out.println("offering in SubmitGrade.java : # "+offering+" #");
+			String[] temps = offering.split(",");
+			String offerID = temps[0].substring(1);
+			o = Department.getOffering(Integer.parseInt(offerID));
+			request.setAttribute("offering", offering);
+			String student = request.getParameter("student");
+			if (student != null){
+				System.out.println("choice for submit grading .");
+				String[] temps1 = student.split(",");
+				String studentID = temps1[0].substring(1);
+				String grade = request.getParameter("grade");
+				Department.submitGrade(Integer.parseInt(studentID), p.getId(), Integer.parseInt(offerID), Float.parseFloat(grade));
+			}
+			
+			/*
 			String choice = request.getParameter("choice");
 			if(choice!=null && choice.equals("home")) {
 				request.setAttribute("teachingOffers", t.teachingOfferings(p));
@@ -50,6 +62,7 @@ public class SubmitGrade {
 				System.out.println("data : not student is recognized in submit grade !!!");
 				throw new requestException("No chioce has been recognized .");
 			}
+			*/
 		} catch (NumberFormatException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -63,29 +76,24 @@ public class SubmitGrade {
 			request.setAttribute("errMessage", e.getMessage());
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		} catch (SubmitGradeException e) {
-			System.out.println(e.getMessage());
-			request.setAttribute("err", 1);
-			request.setAttribute("errMessage", e.getMessage());
-			e.printStackTrace();
 		} catch (termNotFoundException e) {
 			System.out.println(e.getMessage());
 			request.setAttribute("err", 1);
 			request.setAttribute("errMessage", e.getMessage());
 			e.printStackTrace();
-		} catch (requestException e) {
-			System.out.println(e.getMessage());
+		} catch (SubmitGradeException e) {
 			request.setAttribute("err", 1);
 			request.setAttribute("errMessage", e.getMessage());
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} catch (StudentNotFoundException e) {
-			System.out.println(e.getMessage());
 			request.setAttribute("err", 1);
 			request.setAttribute("errMessage", e.getMessage());
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		request.setAttribute("students", Department.studentsInOffering(o));
-		request.setAttribute("offering", o.getId());
-		return "submit-grade.jsp";
+		//request.setAttribute("offering", o.getId());
+		return "/WEB-INF/prof/SubmitGrade.jsp";
 	}
 }

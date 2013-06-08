@@ -5,6 +5,7 @@
             type="javax.sql.DataSource"
             factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
             driverClassName="com.mysql.jdbc.Driver"
+            digest="MD5"
             url="jdbc:mysql://127.0.0.1:3306/boostandb"
             username="root"
             password="123"
@@ -15,6 +16,7 @@
           />
   <!-- Does not seem to work?! -->
   <Realm className="org.apache.catalina.realm.DataSourceRealm"
+  		digest="MD5"
          dataSourceName="jdbc/boostandb"
          userTable="person" 
          userNameCol="id" 

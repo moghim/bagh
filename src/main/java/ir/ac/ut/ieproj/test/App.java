@@ -1,5 +1,8 @@
 package ir.ac.ut.ieproj.test;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import ir.ac.ut.ieproj.domain.*;
@@ -97,15 +100,16 @@ public class App {
 		int month = 1;
 
 		// making needed data
-		Professor p1 = new Professor(1, "123456", "Ramtin", "Khosravi", "prof");
-		Professor p2 = new Professor(2, "123456", "Ahmad", "Khonsari", "prof");
-		Professor p3 = new Professor(3, "123456", "Hesham", "Faili", "prof");
-		Professor p4 = new Professor(4, "123456", "Fatemeh", "Ghasemi", "prof");
-		Professor p5 = new Professor(5, "123456", "Mahmood", "Kharat", "prof");
-		Professor p6 = new Professor(6, "123456", "Mahmoudreza", "Hashemi", "prof");
-		Professor p7 = new Professor(7, "123456", "Fattaneh", "Taghiyareh", "prof");
-		Professor p8 = new Professor(8, "123456", "Azadeh", "Shakery", "prof");
-		Professor p9 = new Professor(9, "123456", "Siamak", "Mohammadi", "prof");
+		String pass2= hashPassword("1234");
+		Professor p1 = new Professor(1, pass2, "Ramtin", "Khosravi", "prof");
+		Professor p2 = new Professor(2, pass2, "Ahmad", "Khonsari", "prof");
+		Professor p3 = new Professor(3, pass2, "Hesham", "Faili", "prof");
+		Professor p4 = new Professor(4, pass2, "Fatemeh", "Ghasemi", "prof");
+		Professor p5 = new Professor(5, pass2, "Mahmood", "Kharat", "prof");
+		Professor p6 = new Professor(6, pass2, "Mahmoudreza", "Hashemi", "prof");
+		Professor p7 = new Professor(7, pass2, "Fattaneh", "Taghiyareh", "prof");
+		Professor p8 = new Professor(8, pass2, "Azadeh", "Shakery", "prof");
+		Professor p9 = new Professor(9, pass2, "Siamak", "Mohammadi", "prof");
 
 		Course c1 = new Course("Fundamentals of Programming", 4,
 				Level.UNDERGRAD);
@@ -213,9 +217,9 @@ public class App {
 		pp2.addElective(c12);
 		pp2.addElective(c13);
 		pp2.setElectivePolicy(pa1);
-
-		Student s1 = new Student(810190420, "123456", "Gholam", "Patoobaf", "stu");
-		Student s2 = new Student(810190421, "123456", "Ghamar", "Aghrabparast", "stu");
+		String pass= hashPassword("123456");
+		Student s1 = new Student(810190420, pass, "Gholam", "Patoobaf", "stu");
+		Student s2 = new Student(810190421, pass, "Ghamar", "Aghrabparast", "stu");
 
 		s1.setProgram(pp1);
 		s2.setProgram(pp2);
@@ -310,4 +314,18 @@ public class App {
 
 		System.out.println("Initializing ended succesfully .");
 	}
+	
+	public static String hashPassword(String password) {
+		String hashword = null;
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			md5.update(password.getBytes());
+			BigInteger hash = new BigInteger(1, md5.digest());
+			hashword = hash.toString(16);
+		} catch (NoSuchAlgorithmException nsae) {
+			// ignore
+		}
+		return hashword;
+	}
+	
 }

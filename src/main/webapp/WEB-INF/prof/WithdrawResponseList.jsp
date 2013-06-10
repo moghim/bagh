@@ -66,7 +66,7 @@ body {
 	<br>
 	<br>
 	<br>
-	<h3 align="center">Welcome ${name} !</h3>
+	<h3 align="center">Welcome <%=request.getSession().getAttribute("name")%> !</h3>
 	<br>
 	<h4 align="center">Teaching Offerings :</h4>
 	<table align="center">
@@ -81,17 +81,15 @@ body {
 			<th style="width: 100px">Capacity</th>
 			<th style="width: 150px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${teachingOffers}">
+		<c:forEach var="row" items="${teachingOffers}">
 			<tr>
-				<c:forEach var="off" items="${offer}">
-					<td>${off}</td>
+				<c:forEach var="cell" items="${row}">
+					<td>${cell}</td>
 				</c:forEach>
 				<td>
-					<form style="text-align: center" action="WithdrawResponseList.action"
-						method="POST">
-						<input type="hidden" name="sid" value="${sid}"> <input
-							class="btn-custom" type="submit" value="Responsing" /> <input
-							type="hidden" name="offer" value="${offer}">
+					<form style="text-align: center" action="/bagh/prof/WithdrawResponse.jsp" method="POST">
+						<input class="btn-custom" type="submit" value="Responsing" />
+						<input type="hidden" name="offering" value="${row}">
 					</form>
 				</td>
 			</tr>
@@ -101,14 +99,11 @@ body {
 	<br>
 	<br>
 	<br>
-	<form style="text-align: center" action="WithdrawResponseList.action"
-		method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			class="btn-custom" type="submit" value="home" /><input type="hidden"
-			name="choice" value="home">
+	<form style="text-align: center" action="/bagh/prof/ProfessorMain.jsp" method="POST">
+		<input class="btn-custom" type="submit" value="home" />
 	</form>
 
-	<c:if test="${hasError == '1'}">
+	<c:if test="${err == '1'}">
 		<h4 align="center">${errMessage}</h4>
 	</c:if>
 </body>

@@ -36,14 +36,7 @@
     	<param-name>password</param-name>
     	<param-value>123</param-value>
 	</context-param>
-		<error-page>
-		<error-code>403</error-code>
-		<location>/access-err.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/notfound.jsp</location>
-	</error-page>
+
 
 	<!-- Security Constraints -->
 
@@ -82,7 +75,7 @@
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/WEB-INF/Login.jsp</form-login-page>
-			<form-error-page>/WEB-INF/login.jsp</form-error-page>
+			<form-error-page>/stud/</form-error-page>
 		</form-login-config>
 	</login-config>
 	

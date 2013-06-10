@@ -17,6 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Login {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		return "Login.jsp";
+		return "/WEB-INF/Login.jsp";
 	}
 }

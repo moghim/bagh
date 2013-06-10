@@ -111,11 +111,10 @@ public class App {
 		Professor p8 = new Professor(8, pass2, "Azadeh", "Shakery", "prof");
 		Professor p9 = new Professor(9, pass2, "Siamak", "Mohammadi", "prof");
 
-		Course c1 = new Course("Fundamentals of Programming", 4,
-				Level.UNDERGRAD);
+		Course c1 = new Course("Fundamentals of Programming", 4, Level.UNDERGRAD);
 		//Course c2 = new Course("Advanced Programming", 3, Level.UNDERGRAD);
 		Course c2 = new Course("Advanced Programming", 15, Level.UNDERGRAD);
-		Course c3 = new Course("Discrete Mathematics", 3, Level.UNDERGRAD);
+		Course c3 = new Course("Discrete Mathematics", 15, Level.UNDERGRAD);
 		Course c4 = new Course("Data Structures", 3, Level.UNDERGRAD);
 		Course c5 = new Course("Database Systems", 3, Level.UNDERGRAD);
 		Course c6 = new Course("Internet Engineering", 3, Level.UNDERGRAD);

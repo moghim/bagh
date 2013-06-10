@@ -40,7 +40,7 @@ public class FrontController extends HttpServlet{
 					}
 				}
 				else 
-					throw new Exception();
+					className = "Login";
 			}
 			System.out.println("FrontController class name : "+className);
 			Class<?> ctrlClass = null;

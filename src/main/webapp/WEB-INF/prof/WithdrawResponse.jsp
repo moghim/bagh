@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
-<title>Submit Grade</title>
+<title>Withdraw Response</title>
 <style>
 .btn-custom {
 	width: 150px;
@@ -66,7 +66,7 @@ body {
 	<br>
 	<br>
 	<br>
-	<h3 align="center">Welcome ${name} !</h3>
+	<h3 align="center">Welcome <%=request.getSession().getAttribute("name")%> !</h3>
 	<br>
 	<h4 align="center">Students In Offerings :</h4>
 	<table align="center">
@@ -77,19 +77,17 @@ body {
 			<th style="width: 200px">Status</th>
 			<th style="width: 300px">Action</th>
 		</tr>
-		<c:forEach var="offer" items="${students}">
+		<c:forEach var="row" items="${students}">
 			<tr>
-				<c:forEach var="off" items="${offer}">
-					<td>${off}</td>
+				<c:forEach var="cell" items="${row}">
+					<td>${cell}</td>
 				</c:forEach>
 				<td>
-					<form style="text-align: center" action="WithdrawResponse.action"
-						method="POST">
-						<input type="hidden" name="sid" value="${sid}"> <input
-							name="accept" class="btn-custom" type="submit" value="accept" /><input
-							name="reject" class="btn-custom" type="submit" value="reject" />
-						<input type="hidden" name="student" value="${offer}"> <input
-							type="hidden" name="offering" value="${offering}">
+					<form style="text-align: center" action="/bagh/prof/WithdrawResponse.jsp" method="POST">
+						<input name="accept" class="btn-custom" type="submit" value="accept" />
+						<input name="reject" class="btn-custom" type="submit" value="reject" />
+						<input type="hidden" name="student" value="${row}">
+						<input type="hidden" name="offering" value="${offering}">
 					</form>
 				</td>
 			</tr>
@@ -99,12 +97,10 @@ body {
 	<br>
 	<br>
 	<br>
-	<form style="text-align: center" action="SubmitGrade.action"
-		method="POST">
-		<input type="hidden" name="sid" value="${sid}"> <input
-			class="btn-custom" type="submit" value="home" /><input type="hidden"
-			name="choice" value="home">
+	<form style="text-align: center" action="/bagh/prof/ProfessorMain.jsp" method="POST">
+		<input class="btn-custom" type="submit" value="home" />
 	</form>
+	
 	<c:if test="${err == '1'}">
 		<h4 align="center">${errMessage}</h4>
 	</c:if>

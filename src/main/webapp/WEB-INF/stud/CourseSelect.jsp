@@ -130,5 +130,6 @@ body {
 	<form style="text-align: center" action="/bagh/stud/StudentMain.jsp" method="POST">
 		<input class="btn-custom" type="submit" value="home" />
 	</form>
+	
 </body>
 </html>

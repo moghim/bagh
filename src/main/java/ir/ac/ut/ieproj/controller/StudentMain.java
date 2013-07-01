@@ -13,6 +13,8 @@ public class StudentMain {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
+		//Session session = HibernateUtil.getSessionFactory().openSession();//ooo
+		
 		System.out.println("StudentMain controller : ");
 		request.setAttribute("hasError", 0);
 		if(request.getUserPrincipal()==null) {

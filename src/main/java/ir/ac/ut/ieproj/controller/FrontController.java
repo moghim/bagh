@@ -23,10 +23,15 @@ public class FrontController extends HttpServlet{
 			String url = request.getRequestURI();
 			System.out.println("url:"+url+"#");
 			int jspIndex = url.indexOf(".jsp");
+			int logout= url.indexOf("logOut");
 			String className = null;
 			if(jspIndex != -1) {
 				System.out.println("jsp ast");
 				className = url.substring(11, jspIndex);
+			}
+			else if (logout!=-1){
+				request.getSession().invalidate();
+				className = "LoginAfterLogOut";
 			}
 			else {
 				if (request.getUserPrincipal()!=null){

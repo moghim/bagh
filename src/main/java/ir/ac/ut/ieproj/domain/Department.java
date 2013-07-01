@@ -7,6 +7,7 @@ import java.util.Vector;
 import ir.ac.ut.iecommon.exceptions.*;
 import ir.ac.ut.iecommon.time.Clock;
 
+import ir.ac.ut.ieproj.database.Context;
 import ir.ac.ut.ieproj.database.DBConnector;
 import ir.ac.ut.ieproj.exception.PersonNotFoundException;
 import ir.ac.ut.ieproj.exception.termNotFoundException;
@@ -15,8 +16,8 @@ public class Department {
 
 	public static void checkDegreeReq(int studentID) throws CheckDegreeReqException,
 	StudentNotFoundException {
-
 		Student s = DBConnector.getStudent(studentID);
+		Context.closeSession();//www.qqq
 		if(!s.isPassedReq())
 			throw new CheckDegreeReqException("Student with id "+studentID+" doesn't pass enough courses .");
 	}
@@ -61,7 +62,8 @@ public class Department {
 		o.decRemainCapacity();
 		s.addRecord(o);
 		DBConnector.saveStudent(s);
-		DBConnector.saveOffering(o);	
+		DBConnector.saveOffering(o);
+		Context.closeSession();//www.qqq
 	}
 	public static void drop(int studentID, int offeringID) throws DropException,
 	StudentNotFoundException, OfferingNotFoundException, termNotFoundException {
@@ -86,6 +88,7 @@ public class Department {
 		//DBConnector.deleteStudyRecord(s.getStudyRecordOfOffering(o));
 		DBConnector.saveStudent(s);
 		DBConnector.saveOffering(o);
+		Context.closeSession();//www.qqq
 	}
 	public static void acceptWithdraw(int studentID, int offeringID, int professorID)
 			throws AcceptWithdrawException, StudentNotFoundException,
@@ -107,6 +110,7 @@ public class Department {
 			throw new AcceptWithdrawException("Offering with id "+offeringID+"is not in good status="+s.offeringStatus(o)+" .");
 		s.changeRecordToWithrawn(o);
 		DBConnector.saveStudent(s);
+		Context.closeSession();//www.qqq
 	}
 	public static void rejectWithdraw(int studentID, int offeringID, int professorID)
 			throws RejectWithdrawException, StudentNotFoundException,
@@ -127,7 +131,8 @@ public class Department {
 			throw new RejectWithdrawException("Offering with id "+offeringID+"is not in good status="+s.offeringStatus(o)+" .");
 
 		s.changeRecordToInProgress(o);
-		DBConnector.saveStudent(s);		
+		DBConnector.saveStudent(s);
+		Context.closeSession();//www.qqq
 	}
 	public static void submitGrade(int studentID, int professorID, int offeringID, float grade)
 			throws SubmitGradeException, StudentNotFoundException,
@@ -154,6 +159,7 @@ public class Department {
 		s.setOfferingGrade(grade, o);
 		System.out.println("successful submit grade .");
 		DBConnector.saveStudent(s);
+		Context.closeSession();//www.qqq
 	}
 	public static void withdraw(int studentID, int offeringID) throws WithdrawException,
 	StudentNotFoundException, OfferingNotFoundException, termNotFoundException {
@@ -179,6 +185,7 @@ public class Department {
 
 		s.changeRecordToWaitingForWithraws(o);
 		DBConnector.saveStudent(s);
+		Context.closeSession();//www.qqq
 	}
 
 	public static Vector<Vector<String>> studentsInOffering(Offering offering) {
@@ -192,6 +199,7 @@ public class Department {
 			temp.add(s.getStatus(offering).toString());
 			result.add(temp);
 		}
+		Context.closeSession();//www.qqq
 		return result;
 	}
 	public static Vector<Vector<String>> studentsInOfferingWaitingForWithdraw(Offering offering) {
@@ -205,21 +213,32 @@ public class Department {
 			temp.add(s.getStatus(offering).toString());
 			result.add(temp);
 		}
+		Context.closeSession();//www.qqq
 		return result;
 	}
 	public static Term getCurrentTerm() throws termNotFoundException {
-		return DBConnector.getCurrentTerm();
+		Term t = DBConnector.getCurrentTerm();
+		Context.closeSession();//www.qqq
+		return t;
 	}
 	public static Person getPerson(int personID) throws PersonNotFoundException {
-		return DBConnector.getPerson(personID);
+		Person p = DBConnector.getPerson(personID);
+		Context.closeSession();//www.qqq
+		return p;
 	}
 	public static Professor getProfessor(int professorID) throws ProfNotFoundException {
-		return DBConnector.getProfessor(professorID);
+		Professor p = DBConnector.getProfessor(professorID);
+		Context.closeSession();//www.qqq
+		return p;
 	}
 	public static Student getStudent(int studentID) throws StudentNotFoundException {
-		return DBConnector.getStudent(studentID);
+		Student s = DBConnector.getStudent(studentID);
+		Context.closeSession();//www.qqq
+		return s;
 	}
 	public static Offering getOffering(int offeringID) throws OfferingNotFoundException {
-		return DBConnector.getOffering(offeringID);
+		Offering o = DBConnector.getOffering(offeringID);
+		Context.closeSession();//www.qqq
+		return o;
 	}
 }

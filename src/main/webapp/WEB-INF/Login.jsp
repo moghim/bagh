@@ -53,7 +53,7 @@ body {
 	<br>
 	<form style="text-align:center" action='<%= response.encodeURL("j_security_check") %>' method="POST">
 		user name : <input type="text" name="j_username"><br>
-		password  : <input type="text" name="j_password"><br>
+		password  : <input type="password" name="j_password"><br>
 		<input class="btn-custom" type="submit" value="Sign in">
 	</form>
 	<c:if test="${hasError == '1'}">

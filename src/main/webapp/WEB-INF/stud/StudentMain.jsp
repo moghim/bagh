@@ -102,7 +102,11 @@ body {
 		<input type="hidden" name="choice" value="Withdraw">
 		<input class="btn-custom" type="submit" value="Withdraw">
 	</form>
-
+	<br>
+	<form style="text-align: center" action="/bagh/logOut" method="POST">
+		<input class="btn-custom" type="submit" value="logOut">
+	</form>
+	
 	<c:if test="${err == '1'}">
 		<h4 align="center">${errMessage}</h4>
 	</c:if>

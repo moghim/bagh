@@ -31,7 +31,7 @@ public class FrontController extends HttpServlet{
 			}
 			else if (logout!=-1){
 				request.getSession().invalidate();
-				className = "LoginAfterLogOut";
+				response.sendRedirect("/bagh/");
 			}
 			else {
 				if (request.getUserPrincipal()!=null){
